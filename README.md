@@ -115,16 +115,7 @@ Valores válidos para `category`: `Regulação` · `Framework` · `Mercado`
 
 ---
 
-## Como publicar no GitHub Pages
 
-1. Faça upload de todos os arquivos para o repositório `iso27001-iam-governance`
-2. Vá em **Settings → Pages**
-3. Em *Source*, selecione **Branch: main** / pasta **/ (root)**
-4. Clique em **Save**
-5. Aguarde ~1 minuto — o site estará disponível em `https://gilbertocrv.github.io/iso27001-iam-governance`
-
-**Para ativar o GitHub Actions (Horizon Scanning automático):**
-Settings → Actions → General → Allow all actions → Save
 
 ---
 
