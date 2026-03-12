@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Policy Builder | IAM Maturity</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:#003366;--navy-mid:#004080;--navy-light:#0056b3;
+    --accent:#c8922a;--accent-light:#e8a83a;
+    --bg:#f4f6f8;--white:#fff;--gray:#666;
+    --border:#d1d9e4;--text:#1a2340;
+    --green:#1a7a4a;--green-light:#e8f5ee;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg);color:var(--text);}
+
+  .breadcrumb{background:var(--navy);padding:12px 30px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:rgba(255,255,255,0.45);letter-spacing:1px;}
+  .breadcrumb a{color:var(--accent-light);text-decoration:none;}
+  .breadcrumb span{margin:0 8px;}
+
+  header{background:var(--navy);padding:0;position:relative;overflow:hidden;}
+  header::before{content:'';position:absolute;top:-60px;right:-60px;width:320px;height:320px;border:40px solid rgba(200,146,42,0.12);border-radius:50%;}
+  .header-inner{max-width:900px;margin:auto;padding:50px 30px 44px;position:relative;z-index:1;}
+  .ctrl-badge{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;background:rgba(200,146,42,0.2);color:var(--accent-light);border:1px solid rgba(200,146,42,0.4);padding:4px 12px;border-radius:3px;letter-spacing:2px;margin-bottom:16px;}
+  header h1{font-size:30px;font-weight:700;color:#fff;line-height:1.25;margin-bottom:12px;}
+  header h1 span{color:var(--accent-light);}
+  header p{font-size:14px;color:rgba(255,255,255,0.6);max-width:520px;line-height:1.7;}
+
+  main{max-width:900px;margin:0 auto;padding:52px 30px 80px;}
+
+  .section-label{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:10px;}
+  .section-title{font-size:20px;font-weight:700;color:var(--navy);margin-bottom:6px;}
+  .section-sub{font-size:14px;color:var(--gray);margin-bottom:32px;line-height:1.6;max-width:540px;}
+
+  /* LAYOUT DUAS COLUNAS */
+  .builder-layout{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start;}
+  @media(max-width:680px){.builder-layout{grid-template-columns:1fr;}}
+
+  /* MÓDULOS */
+  .modules-panel{display:flex;flex-direction:column;gap:10px;}
+  .module-card{
+    background:var(--white);border:1px solid var(--border);border-radius:6px;
+    padding:14px 16px;cursor:pointer;transition:border-color 0.2s,background 0.2s;
+    display:flex;align-items:flex-start;gap:12px;
+  }
+  .module-card:hover{border-color:var(--navy-light);}
+  .module-card.selected{border-color:var(--navy);background:#f0f5fb;}
+  .module-card.selected .mod-check{background:var(--navy);border-color:var(--navy);color:#fff;}
+  .mod-check{
+    width:20px;min-width:20px;height:20px;border:2px solid var(--border);
+    border-radius:3px;display:flex;align-items:center;justify-content:center;
+    font-size:12px;font-weight:700;transition:all 0.15s;flex-shrink:0;margin-top:1px;
+  }
+  .mod-body{}
+  .mod-ctrl{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:1px;margin-bottom:2px;}
+  .mod-title{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:2px;}
+  .mod-desc{font-size:12px;color:var(--gray);line-height:1.4;}
+
+  /* PREVIEW */
+  .preview-panel{position:sticky;top:20px;}
+  .preview-box{
+    background:var(--white);border:1px solid var(--border);border-radius:6px;
+    padding:20px 22px;min-height:200px;
+  }
+  .preview-header{
+    display:flex;justify-content:space-between;align-items:center;
+    margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border);
+  }
+  .preview-title{font-size:13px;font-weight:700;color:var(--navy);}
+  .preview-count{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accent);}
+  .preview-empty{font-size:13px;color:var(--gray);font-style:italic;line-height:1.6;}
+  .preview-section{margin-bottom:14px;}
+  .ps-num{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--accent);margin-bottom:2px;}
+  .ps-title{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:4px;}
+  .ps-items{list-style:none;}
+  .ps-items li{font-size:12px;color:var(--gray);padding:2px 0;display:flex;gap:6px;}
+  .ps-items li::before{content:'·';color:var(--accent);font-weight:700;flex-shrink:0;}
+
+  /* BOTÕES */
+  .btn-row{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;}
+  .btn{
+    font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1px;
+    padding:9px 18px;border-radius:4px;border:none;cursor:pointer;
+    transition:background 0.15s,transform 0.1s;
+  }
+  .btn:active{transform:scale(0.98);}
+  .btn-primary{background:var(--navy);color:#fff;}
+  .btn-primary:hover{background:var(--navy-mid);}
+  .btn-secondary{background:var(--white);color:var(--navy);border:1px solid var(--border);}
+  .btn-secondary:hover{border-color:var(--navy);}
+
+  /* OUTPUT */
+  .output-section{margin-top:40px;display:none;}
+  .output-section.visible{display:block;}
+  .output-label{
+    font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;
+    text-transform:uppercase;color:var(--accent);margin-bottom:10px;
+  }
+  .output-box{
+    background:var(--navy);color:rgba(255,255,255,0.85);
+    font-family:'IBM Plex Mono',monospace;font-size:12px;line-height:1.8;
+    padding:24px;border-radius:6px;white-space:pre-wrap;word-break:break-word;
+    max-height:500px;overflow-y:auto;
+  }
+  .copy-btn{
+    display:inline-flex;align-items:center;gap:6px;margin-top:12px;
+    font-family:'IBM Plex Mono',monospace;font-size:11px;
+    background:var(--white);color:var(--navy);border:1px solid var(--border);
+    padding:8px 16px;border-radius:4px;cursor:pointer;
+  }
+  .copy-btn:hover{border-color:var(--navy);}
+  .copy-btn.copied{background:var(--green-light);color:var(--green);border-color:var(--green);}
+
+  footer{background:var(--navy);padding:24px 30px;text-align:center;margin-top:60px;}
+  footer p{font-family:'IBM Plex Mono',monospace;font-size:11px;color:rgba(255,255,255,0.35);letter-spacing:1px;}
+  footer a{color:var(--accent-light);text-decoration:none;}
+</style>
+</head>
+<body>
+
+<div class="breadcrumb">
+  <a href="../index.html">Início</a>
+  <span>/</span>
+  Ferramentas
+  <span>/</span>
+  Policy Builder
+</div>
+
+<header>
+  <div class="header-inner">
+    <div class="ctrl-badge">FERRAMENTA · GEN</div>
+    <h1>Policy Builder <span>Interativo</span></h1>
+    <p>Selecione os módulos de controle que deseja incluir e gere um rascunho estruturado da sua Access Control Policy.</p>
+  </div>
+</header>
+
+<main>
+
+  <div class="section-label">Configuração</div>
+  <div class="section-title">Selecione os Módulos</div>
+  <p class="section-sub">Cada módulo corresponde a uma seção da política. Selecione os que se aplicam ao seu contexto.</p>
+
+  <div class="builder-layout">
+
+    <div class="modules-panel" id="modules">
+
+      <div class="module-card selected" data-id="base" onclick="toggleModule(this)">
+        <div class="mod-check">✓</div>
+        <div class="mod-body">
+          <div class="mod-ctrl">OBRIGATÓRIO</div>
+          <div class="mod-title">Objetivo e Escopo</div>
+          <div class="mod-desc">Propósito da política, sistemas cobertos e usuários afetados.</div>
+        </div>
+      </div>
+
+      <div class="module-card selected" data-id="principles" onclick="toggleModule(this)">
+        <div class="mod-check">✓</div>
+        <div class="mod-body">
+          <div class="mod-ctrl">5.15</div>
+          <div class="mod-title">Princípios de Controle</div>
+          <div class="mod-desc">Least privilege, need-to-know, segregação de funções e rastreabilidade.</div>
+        </div>
+      </div>
+
+      <div class="module-card selected" data-id="responsibilities" onclick="toggleModule(this)">
+        <div class="mod-check">✓</div>
+        <div class="mod-body">
+          <div class="mod-ctrl">5.15 · 5.18</div>
+          <div class="mod-title">Responsabilidades</div>
+          <div class="mod-desc">Information Owner, gestor, usuário final, TI e auditoria interna.</div>
+        </div>
+      </div>
+
+      <div class="module-card selected" data-id="provisioning" onclick="toggleModule(this)">
+        <div class="mod-check">✓</div>
+        <div class="mod-body">
+          <div class="mod-ctrl">5.18</div>
+          <div class="mod-title">Governança de Concessão</div>
+          <div class="mod-desc">Fluxo formal: solicitação → aprovação → implementação → registro.</div>
+        </div>
+      </div>
+
+      <div class="module-card" data-id="review" onclick="toggleModule(this)">
+        <div class="mod-check"></div>
+        <div class="mod-body">
+          <div class="mod-ctrl">5.18</div>
+          <div class="mod-title">Revisão Periódica de Acessos</div>
+          <div class="mod-desc">Frequências mínimas de recertificação por tipo de acesso.</div>
+        </div>
+      </div>
+
+      <div class="module-card" data-id="sod" onclick="toggleModule(this)">
+        <div class="mod-check"></div>
+        <div class="mod-body">
+          <div class="mod-ctrl">5.18 · 8.2</div>
+          <div class="mod-title">Segregação de Funções (SoD)</div>
+          <div class="mod-desc">Matriz de conflitos de interesse e controles compensatórios.</div>
+        </div>
+      </div>
+
+      <div class="module-card" data-id="pam" onclick="toggleModule(this)">
+        <div class="mod-check"></div>
+        <div class="mod-body">
+          <div class="mod-ctrl">8.2</div>
+          <div class="mod-title">Acesso Privilegiado (PAM)</div>
+          <div class="mod-desc">Contas administrativas, JIT, monitoramento de sessão e rotação de credenciais.</div>
+        </div>
+      </div>
+
+      <div class="module-card" data-id="lgpd" onclick="toggleModule(this)">
+        <div class="mod-check"></div>
+        <div class="mod-body">
+          <div class="mod-ctrl">LGPD · ISO 27701</div>
+          <div class="mod-title">Proteção de Dados Pessoais</div>
+          <div class="mod-desc">Requisitos adicionais para acesso a dados pessoais conforme a LGPD.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="preview-panel">
+      <div class="preview-box" id="preview">
+        <div class="preview-header">
+          <div class="preview-title">Access Control Policy</div>
+          <div class="preview-count" id="mod-count">4 módulos</div>
+        </div>
+        <div id="preview-content"></div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="generatePolicy()">Gerar Rascunho</button>
+        <button class="btn btn-secondary" onclick="resetModules()">Limpar</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- OUTPUT -->
+  <div class="output-section" id="output-section">
+    <div class="output-label">Rascunho Gerado — Markdown</div>
+    <div class="output-box" id="output-box"></div>
+    <button class="copy-btn" id="copy-btn" onclick="copyOutput()">Copiar conteúdo</button>
+  </div>
+
+</main>
+
+<footer>
+  <p>Projeto de estudo independente · Baseado em normas públicas ·
+    <a href="https://github.com/gilbertocrv" target="_blank">github.com/gilbertocrv</a>
+  </p>
+</footer>
+
+<script>
+const MODULES = {
+  base: {
+    title: "1. Objetivo e Escopo",
+    items: [
+      "Estabelecer princípios e diretrizes para controle de acesso a sistemas, aplicações e dados.",
+      "Escopo: todos os colaboradores, prestadores de serviço, parceiros e sistemas que acessem recursos de informação.",
+      "Aplica-se a ambientes on-premises, cloud e híbridos."
+    ]
+  },
+  principles: {
+    title: "2. Princípios de Controle de Acesso",
+    items: [
+      "Menor Privilégio: todo acesso concedido com o nível mínimo necessário.",
+      "Need-to-Know: acesso a informações sensíveis restrito à necessidade da função.",
+      "Segregação de Funções (SoD): funções conflitantes não devem ser acumuladas.",
+      "Rastreabilidade: toda concessão, alteração e revogação deve ser documentada."
+    ]
+  },
+  responsibilities: {
+    title: "3. Responsabilidades",
+    items: [
+      "Information Owner: aprovar concessões e revisões dos dados sob sua custódia.",
+      "Gestor de Acesso: executar o ciclo de provisionamento e revisão.",
+      "Usuário Final: utilizar os acessos somente para fins profissionais autorizados.",
+      "Auditoria Interna: verificar conformidade dos controles com esta política."
+    ]
+  },
+  provisioning: {
+    title: "4. Governança de Concessão de Acessos",
+    items: [
+      "Solicitação formal com justificativa de negócio.",
+      "Aprovação pelo Information Owner ou gestor responsável.",
+      "Implementação técnica pelo time de IAM.",
+      "Registro da concessão com evidência de aprovação."
+    ]
+  },
+  review: {
+    title: "5. Revisão de Acessos",
+    items: [
+      "Acessos comuns: revisão semestral.",
+      "Acessos privilegiados: revisão trimestral.",
+      "Acessos a dados pessoais (LGPD): revisão trimestral.",
+      "Contas de serviço: revisão semestral."
+    ]
+  },
+  sod: {
+    title: "6. Segregação de Funções",
+    items: [
+      "A matriz de SoD define os conflitos mapeados por sistema e perfil de acesso.",
+      "Conflitos identificados devem possuir controles compensatórios documentados.",
+      "Revisão da matriz com frequência mínima anual ou após mudanças organizacionais."
+    ]
+  },
+  pam: {
+    title: "7. Acesso Privilegiado",
+    items: [
+      "Contas administrativas requerem aprovação adicional e uso de PAM.",
+      "Just-in-Time (JIT): acessos privilegiados concedidos por período determinado.",
+      "Sessões administrativas devem ser monitoradas e registradas.",
+      "Credenciais privilegiadas devem ser rotacionadas periodicamente."
+    ]
+  },
+  lgpd: {
+    title: "8. Proteção de Dados Pessoais (LGPD)",
+    items: [
+      "Acessos a dados pessoais requerem justificativa de base legal (art. 7º, LGPD).",
+      "Revisão de acessos a dados pessoais com frequência mínima trimestral.",
+      "Registros de acesso a dados pessoais devem ser mantidos para fins de prestação de contas.",
+      "Referência: ISO/IEC 27701, controles de privacidade aplicáveis."
+    ]
+  }
+};
+
+function toggleModule(card) {
+  if (card.dataset.id === 'base') return;
+  card.classList.toggle('selected');
+  const check = card.querySelector('.mod-check');
+  check.textContent = card.classList.contains('selected') ? '✓' : '';
+  updatePreview();
+}
+
+function getSelected() {
+  return [...document.querySelectorAll('.module-card.selected')].map(c => c.dataset.id);
+}
+
+function updatePreview() {
+  const selected = getSelected();
+  document.getElementById('mod-count').textContent = selected.length + ' módulos';
+  const content = document.getElementById('preview-content');
+  if (selected.length === 0) {
+    content.innerHTML = '<div class="preview-empty">Nenhum módulo selecionado.</div>';
+    return;
+  }
+  content.innerHTML = selected.map(id => {
+    const m = MODULES[id];
+    return `<div class="preview-section">
+      <div class="ps-num">${m.title.split('.')[0]}.</div>
+      <div class="ps-title">${m.title.split('. ').slice(1).join('. ')}</div>
+      <ul class="ps-items">${m.items.slice(0,2).map(i=>`<li>${i}</li>`).join('')}${m.items.length>2?`<li style="color:var(--accent);font-style:italic">+${m.items.length-2} item(s)...</li>`:''}</ul>
+    </div>`;
+  }).join('');
+}
+
+function generatePolicy() {
+  const selected = getSelected();
+  const today = new Date().toLocaleDateString('pt-BR');
+  let md = `# Access Control Policy\n\n`;
+  md += `**Versão:** 1.0 — Rascunho educacional\n`;
+  md += `**Data:** ${today}\n`;
+  md += `**Referências:** ISO/IEC 27001:2022 · 5.15 · 5.18\n\n---\n\n`;
+
+  selected.forEach((id, i) => {
+    const m = MODULES[id];
+    md += `## ${m.title}\n\n`;
+    m.items.forEach(item => { md += `- ${item}\n`; });
+    md += `\n`;
+  });
+
+  md += `---\n\n## Controle de Versões\n\n`;
+  md += `| Versão | Data | Autor | Descrição |\n`;
+  md += `|---|---|---|---|\n`;
+  md += `| 1.0 | ${today} | [Nome] | Versão inicial |\n\n`;
+  md += `*Documento gerado pelo Policy Builder Interativo — conteúdo educacional.*\n`;
+
+  document.getElementById('output-box').textContent = md;
+  const sec = document.getElementById('output-section');
+  sec.classList.add('visible');
+  sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function resetModules() {
+  document.querySelectorAll('.module-card').forEach(c => {
+    if (c.dataset.id === 'base') return;
+    c.classList.remove('selected');
+    c.querySelector('.mod-check').textContent = '';
+  });
+  document.getElementById('output-section').classList.remove('visible');
+  updatePreview();
+}
+
+function copyOutput() {
+  const text = document.getElementById('output-box').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('copy-btn');
+    btn.textContent = '✓ Copiado!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copiar conteúdo'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+updatePreview();
+</script>
+</body>
+</html>
