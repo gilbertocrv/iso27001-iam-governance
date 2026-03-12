@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Horizon Scanning | IAM Maturity</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#003366;--navy-mid:#004080;--navy-light:#0056b3;
+    --accent:#c8922a;--accent-light:#e8a83a;
+    --bg:#f4f6f8;--white:#fff;--gray:#666;
+    --border:#d1d9e4;--text:#1a2340;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg);color:var(--text);}
+
+  .breadcrumb{background:var(--navy);padding:12px 30px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:rgba(255,255,255,0.45);letter-spacing:1px;}
+  .breadcrumb a{color:var(--accent-light);text-decoration:none;}
+  .breadcrumb span{margin:0 8px;}
+
+  header{background:var(--navy);padding:0;position:relative;overflow:hidden;}
+  header::before{content:'';position:absolute;top:-60px;right:-60px;width:320px;height:320px;border:40px solid rgba(200,146,42,0.12);border-radius:50%;}
+  header::after{content:'';position:absolute;bottom:-40px;left:40%;width:180px;height:180px;border:25px solid rgba(255,255,255,0.04);border-radius:50%;}
+  .header-inner{max-width:960px;margin:auto;padding:50px 30px 44px;position:relative;z-index:1;}
+  .ctrl-badge{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;background:rgba(200,146,42,0.2);color:var(--accent-light);border:1px solid rgba(200,146,42,0.4);padding:4px 12px;border-radius:3px;letter-spacing:2px;margin-bottom:16px;}
+  header h1{font-size:30px;font-weight:700;color:#fff;line-height:1.25;margin-bottom:12px;}
+  header h1 span{color:var(--accent-light);}
+  header p{font-size:14px;color:rgba(255,255,255,0.6);max-width:560px;line-height:1.7;margin-bottom:24px;}
+  .header-meta{display:flex;gap:12px;flex-wrap:wrap;align-items:center;}
+  .meta-pill{font-family:'IBM Plex Mono',monospace;font-size:10px;padding:4px 10px;border:1px solid rgba(255,255,255,0.18);border-radius:3px;color:rgba(255,255,255,0.5);letter-spacing:1px;}
+  .updated-tag{font-family:'IBM Plex Mono',monospace;font-size:10px;color:rgba(255,255,255,0.3);margin-left:auto;}
+
+  main{max-width:960px;margin:0 auto;padding:40px 30px 80px;}
+
+  /* FILTERS */
+  .filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px;align-items:center;}
+  .filter-label{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--gray);letter-spacing:1px;margin-right:4px;}
+  .filter-btn{font-family:'IBM Plex Mono',monospace;font-size:11px;padding:5px 12px;border:1px solid var(--border);border-radius:3px;background:var(--white);color:var(--gray);cursor:pointer;transition:all 0.15s;letter-spacing:0.5px;}
+  .filter-btn:hover{border-color:var(--navy);color:var(--navy);}
+  .filter-btn.active{background:var(--navy);color:#fff;border-color:var(--navy);}
+  .filter-sep{width:1px;height:20px;background:var(--border);margin:0 4px;}
+
+  /* SUMMARY CARDS */
+  .summary{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:32px;}
+  .sum-card{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:14px 16px;}
+  .sum-card.novo{border-left:3px solid #e8522a;}
+  .sum-card.em-analise{border-left:3px solid var(--accent);}
+  .sum-card.monitorando{border-left:3px solid #3a7bd5;}
+  .sum-card.incorporado{border-left:3px solid #1a7a4a;}
+  .sum-num{font-family:'IBM Plex Mono',monospace;font-size:26px;font-weight:600;color:var(--navy);line-height:1;}
+  .sum-label{font-size:12px;color:var(--gray);margin-top:4px;}
+
+  /* TABLE */
+  .table-wrap{background:var(--white);border:1px solid var(--border);border-radius:6px;overflow:hidden;}
+  .table-header{display:grid;grid-template-columns:90px 110px 90px 1fr 130px 110px;gap:0;background:var(--navy);padding:10px 16px;font-family:'IBM Plex Mono',monospace;font-size:10px;color:rgba(255,255,255,0.5);letter-spacing:1.5px;}
+  .row{display:grid;grid-template-columns:90px 110px 90px 1fr 130px 110px;gap:0;padding:14px 16px;border-bottom:1px solid var(--border);align-items:start;transition:background 0.1s;}
+  .row:last-child{border-bottom:none;}
+  .row:hover{background:#f8fafc;}
+  .row.hidden{display:none;}
+
+  .cell-date{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--gray);}
+  .cell-source{font-size:12px;font-weight:600;color:var(--navy);}
+  .cell-cat{font-family:'IBM Plex Mono',monospace;font-size:10px;}
+  .cat-reg{color:#b03a20;}
+  .cat-fw{color:#1a5fa8;}
+  .cat-mkt{color:#1a7a4a;}
+  .cell-title a{font-size:13px;color:var(--navy);text-decoration:none;line-height:1.5;}
+  .cell-title a:hover{text-decoration:underline;}
+  .cell-impact{display:flex;flex-wrap:wrap;gap:4px;}
+  .imp-tag{font-family:'IBM Plex Mono',monospace;font-size:9px;padding:2px 7px;border-radius:2px;letter-spacing:0.5px;}
+  .imp-iam{background:#e8f0fb;color:#1a4a8a;}
+  .imp-grc{background:#fdf3e3;color:#7a4a10;}
+  .imp-acesso{background:#f0f8f3;color:#1a5a35;}
+  .imp-priv{background:#f5eefb;color:#5a1a8a;}
+
+  .cell-status{}
+  .status-pill{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:10px;padding:3px 10px;border-radius:3px;letter-spacing:0.5px;}
+  .s-novo{background:#fdecea;color:#c0392b;border:1px solid #f5c6c2;}
+  .s-em-analise{background:#fef6e8;color:#a0620a;border:1px solid #f5dfa8;}
+  .s-monitorando{background:#e8f0fb;color:#1a4a8a;border:1px solid #b8d0f0;}
+  .s-incorporado{background:#e8f5ee;color:#1a5a35;border:1px solid #a8d8b8;}
+
+  .empty{padding:40px;text-align:center;color:var(--gray);font-size:13px;}
+
+  /* MANUAL ENTRY NOTE */
+  .note{background:#f8fafc;border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;padding:14px 18px;margin-top:32px;font-size:13px;color:var(--gray);line-height:1.7;}
+  .note strong{color:var(--navy);}
+  .note code{font-family:'IBM Plex Mono',monospace;font-size:11px;background:#eef2f6;padding:1px 5px;border-radius:2px;}
+
+  footer{background:var(--navy);padding:24px 30px;text-align:center;margin-top:60px;}
+  footer p{font-family:'IBM Plex Mono',monospace;font-size:11px;color:rgba(255,255,255,0.35);letter-spacing:1px;}
+  footer a{color:var(--accent-light);text-decoration:none;}
+
+  @media(max-width:700px){
+    .summary{grid-template-columns:repeat(2,1fr);}
+    .table-header{display:none;}
+    .row{grid-template-columns:1fr;gap:4px;padding:14px 16px;}
+    .cell-date::before{content:"Data: ";color:var(--gray);}
+    .cell-source::before{content:"Fonte: ";}
+  }
+</style>
+</head>
+<body>
+
+<div class="breadcrumb">
+  <a href="../index.html">Início</a>
+  <span>/</span>
+  Ferramentas
+  <span>/</span>
+  Horizon Scanning
+</div>
+
+<header>
+  <div class="header-inner">
+    <div class="ctrl-badge">FERRAMENTA · MONITORAMENTO</div>
+    <h1>Horizon <span>Scanning</span></h1>
+    <p>Monitoramento de mudanças regulatórias, frameworks e tendências de mercado com impacto em IAM e GRC.</p>
+    <div class="header-meta">
+      <span class="meta-pill">Regulação</span>
+      <span class="meta-pill">Frameworks</span>
+      <span class="meta-pill">Mercado</span>
+      <span class="meta-pill" id="updated-pill">—</span>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- SUMMARY -->
+  <div class="summary">
+    <div class="sum-card novo">
+      <div class="sum-num" id="cnt-novo">0</div>
+      <div class="sum-label">Novos</div>
+    </div>
+    <div class="sum-card em-analise">
+      <div class="sum-num" id="cnt-analise">0</div>
+      <div class="sum-label">Em análise</div>
+    </div>
+    <div class="sum-card monitorando">
+      <div class="sum-num" id="cnt-monitor">0</div>
+      <div class="sum-label">Monitorando</div>
+    </div>
+    <div class="sum-card incorporado">
+      <div class="sum-num" id="cnt-incorp">0</div>
+      <div class="sum-label">Incorporados</div>
+    </div>
+  </div>
+
+  <!-- FILTERS -->
+  <div class="filters">
+    <span class="filter-label">CATEGORIA</span>
+    <button class="filter-btn active" data-filter="cat" data-val="all">Todas</button>
+    <button class="filter-btn" data-filter="cat" data-val="Regulação">Regulação</button>
+    <button class="filter-btn" data-filter="cat" data-val="Framework">Frameworks</button>
+    <button class="filter-btn" data-filter="cat" data-val="Mercado">Mercado</button>
+    <div class="filter-sep"></div>
+    <span class="filter-label">STATUS</span>
+    <button class="filter-btn active" data-filter="status" data-val="all">Todos</button>
+    <button class="filter-btn" data-filter="status" data-val="novo">Novo</button>
+    <button class="filter-btn" data-filter="status" data-val="em-analise">Em análise</button>
+    <button class="filter-btn" data-filter="status" data-val="monitorando">Monitorando</button>
+    <button class="filter-btn" data-filter="status" data-val="incorporado">Incorporado</button>
+  </div>
+
+  <!-- TABLE -->
+  <div class="table-wrap">
+    <div class="table-header">
+      <span>Data</span>
+      <span>Fonte</span>
+      <span>Categoria</span>
+      <span>Publicação</span>
+      <span>Impacto</span>
+      <span>Status</span>
+    </div>
+    <div id="table-body">
+      <div class="empty">Carregando entradas...</div>
+    </div>
+  </div>
+
+  <div class="note">
+    <strong>Como adicionar entradas:</strong> edite o arquivo <code>data/scanning.json</code> no repositório.
+    Fontes com RSS (NIST, OWASP, Microsoft, AWS, Google Cloud) são atualizadas automaticamente pelo GitHub Actions.
+    Fontes sem feed (ANPD, TCU, TCM, ISO, CIS) requerem entrada manual.
+  </div>
+
+</main>
+
+<footer>
+  <p>Projeto de estudo independente · Baseado em normas públicas ·
+    <a href="https://github.com/gilbertocrv" target="_blank">github.com/gilbertocrv</a>
+  </p>
+</footer>
+
+<script>
+const IMP_CLASS = {IAM:'imp-iam',GRC:'imp-grc',Acesso:'imp-acesso',Privacidade:'imp-priv'};
+const CAT_CLASS = {Regulação:'cat-reg',Framework:'cat-fw',Mercado:'cat-mkt'};
+const STATUS_CLASS = {'novo':'s-novo','em-analise':'s-em-analise','monitorando':'s-monitorando','incorporado':'s-incorporado'};
+const STATUS_LABEL = {'novo':'Novo','em-analise':'Em análise','monitorando':'Monitorando','incorporado':'Incorporado'};
+
+let allEntries = [];
+let filterCat = 'all';
+let filterStatus = 'all';
+
+function formatDate(d){
+  const [y,m,day] = d.split('-');
+  const months = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+  return `${day} ${months[parseInt(m)-1]} ${y}`;
+}
+
+function renderRow(e){
+  const impacts = e.impact.map(i=>`<span class="imp-tag ${IMP_CLASS[i]||''}">${i}</span>`).join('');
+  const catCls = CAT_CLASS[e.category]||'';
+  const stCls = STATUS_CLASS[e.status]||'';
+  const stLbl = STATUS_LABEL[e.status]||e.status;
+  return `<div class="row" data-cat="${e.category}" data-status="${e.status}">
+    <div class="cell-date">${formatDate(e.date)}</div>
+    <div class="cell-source">${e.source}</div>
+    <div class="cell-cat ${catCls}">${e.category.toUpperCase()}</div>
+    <div class="cell-title"><a href="${e.url}" target="_blank" rel="noopener">${e.title}</a>
+      ${e.action?`<div style="font-size:11px;color:var(--gray);margin-top:4px;font-family:'IBM Plex Mono',monospace;">→ ${e.action}</div>`:''}
+    </div>
+    <div class="cell-impact">${impacts}</div>
+    <div class="cell-status"><span class="status-pill ${stCls}">${stLbl}</span></div>
+  </div>`;
+}
+
+function updateCounts(entries){
+  document.getElementById('cnt-novo').textContent    = entries.filter(e=>e.status==='novo').length;
+  document.getElementById('cnt-analise').textContent = entries.filter(e=>e.status==='em-analise').length;
+  document.getElementById('cnt-monitor').textContent = entries.filter(e=>e.status==='monitorando').length;
+  document.getElementById('cnt-incorp').textContent  = entries.filter(e=>e.status==='incorporado').length;
+}
+
+function applyFilters(){
+  const rows = document.querySelectorAll('#table-body .row');
+  let visible = 0;
+  rows.forEach(r=>{
+    const matchCat    = filterCat==='all'    || r.dataset.cat===filterCat;
+    const matchStatus = filterStatus==='all' || r.dataset.status===filterStatus;
+    if(matchCat && matchStatus){ r.classList.remove('hidden'); visible++; }
+    else r.classList.add('hidden');
+  });
+  const empty = document.querySelector('#table-body .empty');
+  if(empty) empty.style.display = visible===0?'block':'none';
+}
+
+document.querySelectorAll('.filter-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const group = btn.dataset.filter;
+    document.querySelectorAll(`.filter-btn[data-filter="${group}"]`).forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    if(group==='cat') filterCat = btn.dataset.val;
+    else filterStatus = btn.dataset.val;
+    applyFilters();
+  });
+});
+
+fetch('../data/scanning.json')
+  .then(r=>{ if(!r.ok) throw new Error(r.status); return r.json(); })
+  .then(data=>{
+    allEntries = data.entries.sort((a,b)=>b.date.localeCompare(a.date));
+    document.getElementById('updated-pill').textContent = 'Atualizado: '+data.updated;
+    updateCounts(allEntries);
+    const body = document.getElementById('table-body');
+    if(allEntries.length===0){
+      body.innerHTML = '<div class="empty">Nenhuma entrada encontrada.</div>';
+      return;
+    }
+    body.innerHTML = allEntries.map(renderRow).join('') +
+      '<div class="empty" style="display:none">Nenhum resultado para os filtros selecionados.</div>';
+  })
+  .catch(()=>{
+    document.getElementById('table-body').innerHTML =
+      '<div class="empty">Não foi possível carregar os dados. Verifique se o arquivo <code>data/scanning.json</code> existe no repositório.</div>';
+  });
+</script>
+</body>
+</html>
