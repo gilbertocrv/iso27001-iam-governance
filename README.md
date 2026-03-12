@@ -2,7 +2,7 @@
 
 Projeto de estudo independente sobre Gestão de Identidades e Acessos (IAM) baseado nos controles públicos da ISO/IEC 27001:2022.
 
-**GitHub Pages:** [`https://<seu-usuario>.github.io/iso27001-iam-governance`](https://gilbertocrv.github.io/iso27001-iam-governance/index.html)
+**GitHub Pages:** [Documentação do projeto:](https://gilbertocrv.github.io/iso27001-iam-governance/index.html)
 
 ---
 
