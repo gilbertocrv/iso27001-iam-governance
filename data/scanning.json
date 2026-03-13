@@ -1,6 +1,114 @@
 {
-  "updated": "2026-03-12",
+  "updated": "2026-03-13",
   "entries": [
+    {
+      "id": "bacen-001",
+      "date": "2026-03-13",
+      "source": "Bacen",
+      "category": "Regulação",
+      "title": "Resolução BCB 85/2021 — Política de Segurança Cibernética e gestão de riscos em fintechs",
+      "url": "https://www.bcb.gov.br/estabilidadefinanceira/resolucao_bcb_0085",
+      "impact": ["GRC", "Privacidade"],
+      "action": "Estudar requisitos de TPRM para fintechs reguladas — base para risk assessments de fornecedores",
+      "status": "em-analise",
+      "notes": "Entrada manual"
+    },
+    {
+      "id": "bacen-002",
+      "date": "2026-03-13",
+      "source": "Bacen",
+      "category": "Regulação",
+      "title": "Resolução CMN 4.893/2021 — Requisitos de segurança para prestadores de serviço de TI em IFs",
+      "url": "https://www.bcb.gov.br",
+      "impact": ["GRC", "IAM"],
+      "action": "Mapear requisitos mínimos de segurança para terceiros — cláusulas contratuais e due diligence",
+      "status": "em-analise",
+      "notes": "Entrada manual"
+    },
+    {
+      "id": "iso-27036-001",
+      "date": "2026-03-13",
+      "source": "ISO",
+      "category": "Framework",
+      "title": "ISO/IEC 27036 — Information security for supplier relationships (TPRM)",
+      "url": "https://www.iso.org/standard/82905.html",
+      "impact": ["GRC", "Privacidade"],
+      "action": "Estudar série 27036 como base normativa para gestão de riscos de terceiros",
+      "status": "monitorando",
+      "notes": "Entrada manual"
+    },
+    {
+      "id": "nist-tprm-001",
+      "date": "2026-03-13",
+      "source": "NIST",
+      "category": "Framework",
+      "title": "NIST SP 800-161r1 — Cybersecurity Supply Chain Risk Management (C-SCRM)",
+      "url": "https://csrc.nist.gov/publications/detail/sp/800-161/rev-1/final",
+      "impact": ["GRC", "IAM"],
+      "action": "Avaliar práticas de C-SCRM aplicáveis a fornecedores de cloud e SaaS",
+      "status": "monitorando",
+      "notes": "Entrada manual"
+    },
+    {
+      "id": "msft-001",
+      "date": "2026-03-05",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "Entra ID — novas capacidades de Conditional Access para identidades externas",
+      "url": "https://microsoft.com/security/blog",
+      "impact": ["IAM", "Acesso"],
+      "action": "Monitorar impacto em procedimentos de provisionamento (5.18)",
+      "status": "monitorando",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "owasp-001",
+      "date": "2026-03-01",
+      "source": "OWASP",
+      "category": "Framework",
+      "title": "OWASP Top 10 — Broken Access Control mantém posição #1",
+      "url": "https://owasp.org",
+      "impact": ["Acesso", "IAM"],
+      "action": "Reforçar seção de enforcement técnico na política",
+      "status": "incorporado",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "nist-001",
+      "date": "2026-02-28",
+      "source": "NIST",
+      "category": "Framework",
+      "title": "NIST SP 800-207A: Multi-Cloud Zero Trust Architecture",
+      "url": "https://csrc.nist.gov",
+      "impact": ["IAM", "Acesso"],
+      "action": "Avaliar alinhamento com controles 5.15 e 5.18",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "gcp-001",
+      "date": "2026-02-25",
+      "source": "Google Cloud Security",
+      "category": "Mercado",
+      "title": "BeyondCorp Enterprise — atualização de controles de acesso contextual",
+      "url": "https://cloud.google.com/blog/products/identity-security",
+      "impact": ["IAM", "Acesso"],
+      "action": "Referência para seção de autenticação adaptativa (8.5)",
+      "status": "monitorando",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "aws-001",
+      "date": "2026-02-18",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "IAM Access Analyzer — novas verificações de política não utilizadas",
+      "url": "https://aws.amazon.com/blogs/security",
+      "impact": ["IAM", "GRC"],
+      "action": "Avaliar uso como evidência em revisões de acesso",
+      "status": "monitorando",
+      "notes": "Via RSS"
+    },
     {
       "id": "anpd-001",
       "date": "2026-02-10",
@@ -8,10 +116,7 @@
       "category": "Regulação",
       "title": "Guia Orientativo: Segurança da Informação no Tratamento de Dados Pessoais",
       "url": "https://www.gov.br/anpd",
-      "impact": [
-        "Privacidade",
-        "Acesso"
-      ],
+      "impact": ["Privacidade", "Acesso"],
       "action": "Revisar Access Control Policy — seção LGPD",
       "status": "em-analise",
       "notes": "Entrada manual"
@@ -23,28 +128,10 @@
       "category": "Regulação",
       "title": "Acórdão sobre gestão de acessos privilegiados em órgãos públicos",
       "url": "https://portal.tcu.gov.br",
-      "impact": [
-        "IAM",
-        "GRC"
-      ],
+      "impact": ["IAM", "GRC"],
       "action": "Avaliar controles PAM — controle 8.2",
       "status": "monitorando",
       "notes": "Entrada manual"
-    },
-    {
-      "id": "nist-001",
-      "date": "2026-02-28",
-      "source": "NIST",
-      "category": "Framework",
-      "title": "NIST SP 800-207A: Multi-Cloud Zero Trust Architecture",
-      "url": "https://csrc.nist.gov",
-      "impact": [
-        "IAM",
-        "Acesso"
-      ],
-      "action": "Avaliar alinhamento com controles 5.15 e 5.18",
-      "status": "novo",
-      "notes": "Via RSS"
     },
     {
       "id": "cis-001",
@@ -53,73 +140,10 @@
       "category": "Framework",
       "title": "CIS Controls v8.1 — atualização de controles de acesso",
       "url": "https://www.cisecurity.org",
-      "impact": [
-        "GRC",
-        "IAM"
-      ],
+      "impact": ["GRC", "IAM"],
       "action": "Mapear delta com ISO 27001:2022 controles 5.x",
       "status": "em-analise",
       "notes": "Entrada manual"
-    },
-    {
-      "id": "owasp-001",
-      "date": "2026-03-01",
-      "source": "OWASP",
-      "category": "Framework",
-      "title": "OWASP Top 10 — Broken Access Control mantém posição #1",
-      "url": "https://owasp.org",
-      "impact": [
-        "Acesso",
-        "IAM"
-      ],
-      "action": "Reforçar seção de enforcement técnico na política",
-      "status": "incorporado",
-      "notes": "Via RSS"
-    },
-    {
-      "id": "msft-001",
-      "date": "2026-03-05",
-      "source": "Microsoft Security",
-      "category": "Mercado",
-      "title": "Entra ID — novas capacidades de Conditional Access para identidades externas",
-      "url": "https://microsoft.com/security/blog",
-      "impact": [
-        "IAM",
-        "Acesso"
-      ],
-      "action": "Monitorar impacto em procedimentos de provisionamento (5.18)",
-      "status": "monitorando",
-      "notes": "Via RSS"
-    },
-    {
-      "id": "aws-001",
-      "date": "2026-02-18",
-      "source": "AWS Security",
-      "category": "Mercado",
-      "title": "IAM Access Analyzer — novas verificações de política não utilizadas",
-      "url": "https://aws.amazon.com/blogs/security",
-      "impact": [
-        "IAM",
-        "GRC"
-      ],
-      "action": "Avaliar uso como evidência em revisões de acesso",
-      "status": "monitorando",
-      "notes": "Via RSS"
-    },
-    {
-      "id": "gcp-001",
-      "date": "2026-02-25",
-      "source": "Google Cloud Security",
-      "category": "Mercado",
-      "title": "BeyondCorp Enterprise — atualização de controles de acesso contextual",
-      "url": "https://cloud.google.com/blog/products/identity-security",
-      "impact": [
-        "IAM",
-        "Acesso"
-      ],
-      "action": "Referência para seção de autenticação adaptativa (8.5)",
-      "status": "monitorando",
-      "notes": "Via RSS"
     }
   ]
 }
