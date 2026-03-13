@@ -347,6 +347,76 @@
     border: 1px solid var(--accent-light);
     border-radius: 3px;
   }
+  .badge-pub {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    padding: 2px 7px;
+    background: #e8f5ee;
+    color: #1a7a4a;
+    border: 1px solid #a8d5b8;
+    border-radius: 3px;
+  }
+
+  /* TOOLS GRID */
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-left: 28px;
+  }
+  .tool-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 22px 20px;
+    text-decoration: none;
+    display: flex; flex-direction: column;
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+  }
+  .tool-card:hover {
+    border-color: var(--accent);
+    box-shadow: 0 4px 16px rgba(200,146,42,0.12);
+    transform: translateY(-2px);
+  }
+  .tool-card-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 14px;
+  }
+  .tool-badge {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; font-weight: 600;
+    background: var(--navy);
+    color: var(--accent-light);
+    padding: 4px 10px; border-radius: 4px;
+    letter-spacing: 1px;
+  }
+  .tool-card-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px; letter-spacing: 1px;
+    color: var(--gray);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    padding: 2px 7px; border-radius: 3px;
+  }
+  .tool-icon {
+    font-size: 28px; margin-bottom: 10px;
+  }
+  .tool-title {
+    font-size: 14px; font-weight: 700;
+    color: var(--navy); margin-bottom: 8px;
+  }
+  .tool-desc {
+    font-size: 12px; color: var(--gray);
+    line-height: 1.6; flex: 1; margin-bottom: 16px;
+  }
+  .tool-link {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; color: var(--accent);
+    font-weight: 600;
+  }
+  @media (max-width: 700px) {
+    .tools-grid { grid-template-columns: 1fr; margin-left: 0; }
+  }
 
   /* LEGENDA */
   .legend {
@@ -499,13 +569,13 @@
           <div class="tl-dot-num">5.16</div>
           <div class="tl-dot-icon">🪪</div>
         </div>
-        <a class="tl-card disabled" href="#">
+        <a class="tl-card" href="controles/5.16.html">
           <div class="tl-card-top">
             <div class="tl-card-title">Identity Management</div>
-            <span class="badge-soon">Em breve</span>
+            <span class="badge-pub">Publicado</span>
           </div>
           <div class="tl-card-desc">Gestão do ciclo de vida de identidades — provisionamento, manutenção e desprovisionamento.</div>
-          <div class="tl-card-link">Em desenvolvimento</div>
+          <div class="tl-card-link">Acessar Deep Dive</div>
         </a>
       </div>
 
@@ -593,51 +663,42 @@
     <!-- ARTEFATOS E AUTOMAÇÃO -->
     <div class="tl-group">
       <div class="tl-group-label">Artefatos e Automação</div>
+      <div class="tools-grid">
 
-      <div class="tl-item">
-        <div class="tl-dot" style="background:var(--accent);">
-          <div class="tl-dot-num">GEN</div>
-          <div class="tl-dot-icon">📄</div>
-        </div>
-        <a class="tl-card" href="ferramentas/policy-builder.html">
-          <div class="tl-card-top">
-            <div class="tl-card-title">Policy Builder Interativo</div>
-            <div class="tl-card-tag">Automação</div>
+        <a class="tool-card" href="ferramentas/policy-builder.html">
+          <div class="tool-card-header">
+            <div class="tool-badge">GEN</div>
+            <div class="tool-card-tag">Automação</div>
           </div>
-          <div class="tl-card-desc">Gere o rascunho da sua política de acesso selecionando os módulos de controle desejados.</div>
-          <div class="tl-card-link">Configurar Documento</div>
+          <div class="tool-icon">📄</div>
+          <div class="tool-title">Policy Builder Interativo</div>
+          <div class="tool-desc">Gere o rascunho da sua política de acesso selecionando os módulos de controle desejados.</div>
+          <div class="tool-link">Configurar Documento →</div>
         </a>
+
+        <a class="tool-card" href="ferramentas/sod-simulator.html">
+          <div class="tool-card-header">
+            <div class="tool-badge">SoD</div>
+            <div class="tool-card-tag">Risco</div>
+          </div>
+          <div class="tool-icon">⚖️</div>
+          <div class="tool-title">Simulador de Conflitos SoD</div>
+          <div class="tool-desc">Valide se a combinação de perfis de acesso gera riscos de segregação de funções.</div>
+          <div class="tool-link">Simular Matriz →</div>
+        </a>
+
+        <a class="tool-card" href="ferramentas/horizon-scanning.html">
+          <div class="tool-card-header">
+            <div class="tool-badge">HSC</div>
+            <div class="tool-card-tag">Inteligência</div>
+          </div>
+          <div class="tool-icon">🔭</div>
+          <div class="tool-title">Horizon Scanning</div>
+          <div class="tool-desc">Monitoramento de mudanças regulatórias, frameworks e tendências de mercado com impacto em IAM e GRC.</div>
+          <div class="tool-link">Abrir Dashboard →</div>
+        </a>
+
       </div>
-
-      <div class="tl-item">
-        <div class="tl-dot" style="background:var(--accent);">
-          <div class="tl-dot-num">SoD</div>
-          <div class="tl-dot-icon">⚖️</div>
-        </div>
-        <a class="tl-card" href="ferramentas/sod-simulator.html">
-          <div class="tl-card-top">
-            <div class="tl-card-title">Simulador de Conflitos SoD</div>
-            <div class="tl-card-tag">Risco</div>
-          </div>
-          <div class="tl-card-desc">Valide se a combinação de perfis de acesso gera riscos de segregação de funções.</div>
-          <div class="tl-card-link">Simular Matriz</div>
-        </a>
-
-      <div class="tl-item">
-        <div class="tl-dot" style="background:var(--accent);">
-          <div class="tl-dot-num">HSC</div>
-          <div class="tl-dot-icon">🔭</div>
-        </div>
-        <a class="tl-card" href="ferramentas/horizon-scanning.html">
-          <div class="tl-card-top">
-            <div class="tl-card-title">Horizon Scanning</div>
-            <div class="tl-card-tag">Inteligência</div>
-          </div>
-          <div class="tl-card-desc">Monitoramento de mudanças regulatórias, frameworks e tendências de mercado com impacto em IAM e GRC.</div>
-          <div class="tl-card-link">Abrir Dashboard</div>
-        </a>
-      </div>
-
     </div>
 
   </div>
