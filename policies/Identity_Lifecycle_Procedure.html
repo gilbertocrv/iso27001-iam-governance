@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Identity Lifecycle Procedure | ISO 27001:2022</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:#003366;--navy-mid:#004080;--navy-light:#0056b3;
+    --accent:#c8922a;--accent-light:#e8a83a;
+    --bg:#f4f6f8;--white:#ffffff;--gray:#666;
+    --border:#d1d9e4;--text:#1a2340;
+    --green:#1a7a4a;--green-light:#e8f5ee;
+    --red:#a32020;--red-light:#fdf0f0;
+    --amber-light:#fff8ed;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;}
+
+  /* BREADCRUMB */
+  .breadcrumb{background:var(--navy);padding:12px 30px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:rgba(255,255,255,0.45);letter-spacing:1px;}
+  .breadcrumb a{color:var(--accent-light);text-decoration:none;}
+  .breadcrumb span{margin:0 8px;}
+
+  /* HEADER */
+  header{background:var(--navy);padding:0;position:relative;overflow:hidden;}
+  header::before{content:'';position:absolute;top:-60px;right:-60px;width:320px;height:320px;border:40px solid rgba(200,146,42,0.12);border-radius:50%;}
+  .header-inner{max-width:900px;margin:auto;padding:50px 30px 44px;position:relative;z-index:1;}
+  .ctrl-badge{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;background:rgba(200,146,42,0.2);color:var(--accent-light);border:1px solid rgba(200,146,42,0.4);padding:4px 12px;border-radius:3px;letter-spacing:2px;margin-bottom:16px;}
+  header h1{font-size:28px;font-weight:700;color:#fff;line-height:1.25;margin-bottom:10px;}
+  header h1 span{color:var(--accent-light);}
+  header p{font-size:14px;color:rgba(255,255,255,0.6);max-width:560px;line-height:1.7;margin-bottom:24px;}
+  .header-meta{display:flex;gap:16px;flex-wrap:wrap;}
+  .meta-pill{font-family:'IBM Plex Mono',monospace;font-size:10px;padding:4px 10px;border:1px solid rgba(255,255,255,0.18);border-radius:3px;color:rgba(255,255,255,0.5);letter-spacing:1px;}
+
+  /* DOC META */
+  .doc-meta{background:var(--white);border-bottom:1px solid var(--border);}
+  .doc-meta-inner{max-width:900px;margin:auto;padding:16px 30px;display:flex;gap:32px;flex-wrap:wrap;}
+  .doc-meta-item{font-size:12px;color:var(--gray);}
+  .doc-meta-item strong{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--navy);display:block;margin-bottom:2px;}
+
+  /* MAIN */
+  main{max-width:900px;margin:0 auto;padding:52px 30px 80px;}
+  .section-label{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:10px;}
+  .section-title{font-size:20px;font-weight:700;color:var(--navy);margin-bottom:6px;}
+  .section-sub{font-size:14px;color:var(--gray);margin-bottom:36px;line-height:1.6;max-width:580px;}
+
+  /* OBJETIVO */
+  .objective-block{background:var(--white);border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:6px;padding:24px 28px;margin-bottom:48px;}
+  .objective-block p{font-size:14px;line-height:1.8;color:var(--text);}
+  .objective-block strong{color:var(--navy);}
+
+  /* JML CARDS */
+  .jml-grid{display:grid;gap:14px;margin-bottom:56px;}
+  .jml-card{background:var(--white);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+  .jml-card-header{padding:18px 24px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);}
+  .jml-card.joiner .jml-card-header{border-left:5px solid var(--navy);}
+  .jml-card.mover  .jml-card-header{border-left:5px solid var(--accent);}
+  .jml-card.leaver .jml-card-header{border-left:5px solid var(--red);}
+  .jml-title{display:flex;align-items:center;gap:12px;}
+  .jml-num{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;background:var(--navy);color:var(--accent-light);padding:3px 9px;border-radius:3px;}
+  .jml-card.mover  .jml-num{background:var(--accent);color:#fff;}
+  .jml-card.leaver .jml-num{background:var(--red);color:#fff;}
+  .jml-name{font-size:16px;font-weight:700;color:var(--navy);}
+  .jml-trigger{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--gray);letter-spacing:1px;}
+  .jml-body{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;}
+  .jml-col{padding:20px 22px;border-right:1px solid var(--border);}
+  .jml-col:last-child{border-right:none;}
+  .jml-col-label{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:10px;}
+  .jml-col ul{list-style:none;}
+  .jml-col ul li{font-size:13px;color:var(--text);padding:5px 0;border-bottom:1px solid #f0f2f5;display:flex;gap:8px;align-items:flex-start;line-height:1.4;}
+  .jml-col ul li:last-child{border-bottom:none;}
+  .jml-col ul li::before{content:'·';color:var(--accent);font-weight:700;flex-shrink:0;}
+  .jml-sla{font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;padding:10px 22px;background:var(--bg);border-top:1px solid var(--border);color:var(--gray);}
+  .jml-sla span{color:var(--navy);}
+
+  /* RACI */
+  .raci-wrapper{background:var(--white);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:56px;}
+  .raci-wrapper table{width:100%;border-collapse:collapse;font-size:13px;}
+  .raci-wrapper th{background:var(--navy);color:rgba(255,255,255,0.7);font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;padding:12px 16px;text-align:left;border-right:1px solid rgba(255,255,255,0.1);}
+  .raci-wrapper th:last-child{border-right:none;}
+  .raci-wrapper td{padding:12px 16px;border-bottom:1px solid #f0f2f5;border-right:1px solid #f0f2f5;color:var(--gray);}
+  .raci-wrapper td:first-child{color:var(--text);font-weight:600;}
+  .raci-wrapper td:last-child{border-right:none;}
+  .raci-wrapper tr:last-child td{border-bottom:none;}
+  .raci-wrapper tr:hover td{background:#fafbfd;}
+  .raci-tag{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;padding:3px 8px;border-radius:3px;display:inline-block;}
+  .r{color:#1e40af;background:#dbeafe;}
+  .a{color:#166534;background:#dcfce7;}
+  .c{color:var(--accent);background:var(--amber-light);}
+  .i{color:var(--gray);background:#f0f2f5;}
+
+  /* EVIDÊNCIAS */
+  .evidence-list{display:flex;flex-direction:column;gap:8px;margin-bottom:56px;}
+  .evidence-item{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:14px 18px;display:flex;align-items:center;gap:14px;}
+  .ev-icon{width:36px;min-width:36px;height:36px;background:var(--green-light);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:15px;}
+  .ev-name{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:2px;}
+  .ev-desc{font-size:12px;color:var(--gray);}
+  .ev-type{margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--green);background:var(--green-light);padding:3px 8px;border-radius:3px;white-space:nowrap;}
+
+  /* REFERÊNCIAS */
+  .ref-block{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:22px 24px;margin-bottom:56px;}
+  .ref-block h3{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:14px;}
+  .ref-item{display:flex;gap:12px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #f0f2f5;font-size:13px;}
+  .ref-item:last-child{border-bottom:none;}
+  .ref-code{font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--navy);min-width:80px;}
+  .ref-desc{color:var(--gray);}
+
+  /* NAV */
+  .nav-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:60px;padding-top:28px;border-top:1px solid var(--border);}
+  .nav-btn{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--navy-light);text-decoration:none;display:flex;align-items:center;gap:6px;padding:8px 14px;border:1px solid var(--border);border-radius:4px;background:var(--white);transition:border-color 0.2s,background 0.2s;}
+  .nav-btn:hover{border-color:var(--navy-light);background:#f0f5fb;}
+  .nav-btn.disabled{opacity:0.4;pointer-events:none;}
+
+  footer{background:var(--navy);padding:24px 30px;text-align:center;}
+  footer p{font-family:'IBM Plex Mono',monospace;font-size:11px;color:rgba(255,255,255,0.35);letter-spacing:1px;}
+  footer a{color:var(--accent-light);text-decoration:none;}
+
+  @media(max-width:680px){
+    .jml-body{grid-template-columns:1fr;}
+    .jml-col{border-right:none;border-bottom:1px solid var(--border);}
+    .jml-col:last-child{border-bottom:none;}
+    .doc-meta-inner{gap:16px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="breadcrumb">
+  <a href="../index.html">Início</a>
+  <span>/</span>Artefatos<span>/</span>
+  Identity Lifecycle Procedure
+</div>
+
+<header>
+  <div class="header-inner">
+    <div class="ctrl-badge">ARTEFATO · PROCEDIMENTO</div>
+    <h1>Identity Lifecycle <span>Management Procedure</span></h1>
+    <p>Define os fluxos operacionais de Joiner, Mover e Leaver — evidenciando como cada fase do ciclo de vida de identidades é executada, aprovada e auditada.</p>
+    <div class="header-meta">
+      <span class="meta-pill">5.16 · Identity Management</span>
+      <span class="meta-pill">5.18 · Access Rights</span>
+      <span class="meta-pill">Template Operacional</span>
+    </div>
+  </div>
+</header>
+
+<div class="doc-meta">
+  <div class="doc-meta-inner">
+    <div class="doc-meta-item"><strong>VERSÃO</strong>1.0 — 2026</div>
+    <div class="doc-meta-item"><strong>CONTROLE</strong>ISO/IEC 27001:2022 · 5.16</div>
+    <div class="doc-meta-item"><strong>REVISÃO</strong>Anual ou após incidente de acesso</div>
+    <div class="doc-meta-item"><strong>TIPO</strong>Projeto de Estudo Independente</div>
+  </div>
+</div>
+
+<main>
+
+  <!-- OBJETIVO -->
+  <div class="section-label">Objetivo</div>
+  <div class="section-title">Escopo do Procedimento</div>
+  <p class="section-sub">O que este documento define e para quem se aplica.</p>
+  <div class="objective-block">
+    <p>Este procedimento define os fluxos operacionais para gestão do ciclo de vida de identidades digitais, cobrindo os três eventos críticos: <strong>Joiner</strong> (nova contratação), <strong>Mover</strong> (mudança de cargo ou área) e <strong>Leaver</strong> (desligamento). Aplica-se a todos os colaboradores, prestadores de serviço e contas de sistema que acessam ambientes corporativos.</p>
+    <p style="margin-top:12px;">O objetivo central é garantir que toda identidade exista com <strong>propósito justificado, responsável definido e acesso proporcional à função</strong> — e que seja encerrada imediatamente quando o vínculo cessar.</p>
+  </div>
+
+  <!-- JML -->
+  <div class="section-label">Fluxos JML</div>
+  <div class="section-title">Joiner · Mover · Leaver</div>
+  <p class="section-sub">Cada evento tem gatilho, procedimento, critério de aprovação e evidência auditável obrigatória.</p>
+
+  <div class="jml-grid">
+
+    <!-- JOINER -->
+    <div class="jml-card joiner">
+      <div class="jml-card-header">
+        <div class="jml-title">
+          <span class="jml-num">01 · JOINER</span>
+          <span class="jml-name">Onboarding</span>
+        </div>
+        <span class="jml-trigger">Gatilho: Nova contratação / início de vínculo</span>
+      </div>
+      <div class="jml-body">
+        <div class="jml-col">
+          <div class="jml-col-label">Procedimento</div>
+          <ul>
+            <li>RH notifica SI com antecedência mínima de 48h</li>
+            <li>Identidade única criada no IDP/AD com base no perfil da função</li>
+            <li>Acesso inicial limitado ao mínimo necessário (least privilege)</li>
+            <li>Aprovação formal do gestor imediato registrada</li>
+          </ul>
+        </div>
+        <div class="jml-col">
+          <div class="jml-col-label">Critérios de Aprovação</div>
+          <ul>
+            <li>Ticket de solicitação com justificativa de negócio</li>
+            <li>Aprovação do gestor com registro em sistema</li>
+            <li>Perfil de acesso baseado em role definido previamente</li>
+            <li>Confirmação de treinamento de segurança (quando aplicável)</li>
+          </ul>
+        </div>
+        <div class="jml-col">
+          <div class="jml-col-label">Evidência Auditável</div>
+          <ul>
+            <li>Ticket de aprovação com timestamp</li>
+            <li>Log de criação da conta no IDP</li>
+            <li>Lista de acessos concedidos assinada pelo gestor</li>
+            <li>Confirmação de recebimento de credenciais pelo usuário</li>
+          </ul>
+        </div>
+      </div>
+      <div class="jml-sla">SLA: Identidade ativa em até <span>D+1</span> do primeiro dia de trabalho</div>
+    </div>
+
+    <!-- MOVER -->
+    <div class="jml-card mover">
+      <div class="jml-card-header">
+        <div class="jml-title">
+          <span class="jml-num">02 · MOVER</span>
+          <span class="jml-name">Transferência / Mudança de Cargo</span>
+        </div>
+        <span class="jml-trigger">Gatilho: Alteração de cargo, área ou responsabilidade</span>
+      </div>
+      <div class="jml-body">
+        <div class="jml-col">
+          <div class="jml-col-label">Procedimento</div>
+          <ul>
+            <li>RH notifica SI com antecedência mínima de 48h antes da mudança</li>
+            <li>Revisão completa de privilégios — aplicar Princípio do Delta</li>
+            <li>Revogar acessos da função anterior <em>antes</em> de conceder novos</li>
+            <li>Novo perfil de acesso aprovado pelo gestor receptor</li>
+          </ul>
+        </div>
+        <div class="jml-col">
+          <div class="jml-col-label">Critérios de Aprovação</div>
+          <ul>
+            <li>Aprovação do gestor de origem (revogação) e receptor (concessão)</li>
+            <li>Sem exceções de acúmulo sem aprovação documentada</li>
+            <li>Conflitos SoD verificados no novo perfil</li>
+            <li>Acessos privilegiados reavaliados separadamente</li>
+          </ul>
+        </div>
+        <div class="jml-col">
+          <div class="jml-col-label">Evidência Auditável</div>
+          <ul>
+            <li>Relatório de permissões revogadas com timestamp</li>
+            <li>Relatório de permissões concedidas vinculadas à OS/chamado</li>
+            <li>Aprovações dos dois gestores registradas</li>
+            <li>Verificação de SoD documentada</li>
+          </ul>
+        </div>
+      </div>
+      <div class="jml-sla">SLA: Ajuste de acessos em até <span>D+2</span> da data efetiva da mudança</div>
+    </div>
+
+    <!-- LEAVER -->
+    <div class="jml-card leaver">
+      <div class="jml-card-header">
+        <div class="jml-title">
+          <span class="jml-num">03 · LEAVER</span>
+          <span class="jml-name">Offboarding</span>
+        </div>
+        <span class="jml-trigger">Gatilho: Desligamento voluntário ou involuntário</span>
+      </div>
+      <div class="jml-body">
+        <div class="jml-col">
+          <div class="jml-col-label">Procedimento</div>
+          <ul>
+            <li>Desligamento involuntário: bloqueio imediato em D+0</li>
+            <li>Desligamento voluntário: bloqueio no último dia de trabalho</li>
+            <li>Revogar todos os acessos: VPN, SSO, SaaS, cloud, e-mail</li>
+            <li>Contas não excluídas — desativadas e retidas pelo período de retenção</li>
+          </ul>
+        </div>
+        <div class="jml-col">
+          <div class="jml-col-label">Critérios de Aprovação</div>
+          <ul>
+            <li>Confirmação de recebimento de equipamentos pelo RH</li>
+            <li>Verificação de transferência de dados e responsabilidades</li>
+            <li>Revogação verificada em todos os sistemas críticos</li>
+            <li>Aprovação de exceções de retenção de acesso (quando necessário)</li>
+          </ul>
+        </div>
+        <div class="jml-col">
+          <div class="jml-col-label">Evidência Auditável</div>
+          <ul>
+            <li>Log de desativação em todos os sistemas com timestamp</li>
+            <li>Checklist de offboarding assinado pelo gestor e RH</li>
+            <li>Confirmação de bloqueio de acesso privilegiado</li>
+            <li>Registro de data de retenção e exclusão definitiva</li>
+          </ul>
+        </div>
+      </div>
+      <div class="jml-sla">SLA crítico: Bloqueio em <span>D+0</span> para desligamentos involuntários · <span>D+1</span> para voluntários</div>
+    </div>
+
+  </div>
+
+  <!-- RACI -->
+  <div class="section-label">Responsabilidades</div>
+  <div class="section-title">Matriz RACI</div>
+  <p class="section-sub">Quem é Responsável, Aprovador, Consultado e Informado em cada atividade do ciclo de vida.</p>
+
+  <div class="raci-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Atividade</th>
+          <th>RH</th>
+          <th>Gestor Imediato</th>
+          <th>Segurança / IAM</th>
+          <th>TI / Infra</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Notificar evento (entrada/saída/mudança)</td>
+          <td><span class="raci-tag r">R</span></td>
+          <td><span class="raci-tag c">C</span></td>
+          <td><span class="raci-tag i">I</span></td>
+          <td><span class="raci-tag i">I</span></td>
+        </tr>
+        <tr>
+          <td>Definir perfil de acesso / role</td>
+          <td><span class="raci-tag i">I</span></td>
+          <td><span class="raci-tag r">R</span></td>
+          <td><span class="raci-tag c">C</span></td>
+          <td><span class="raci-tag i">I</span></td>
+        </tr>
+        <tr>
+          <td>Aprovar concessão de acessos</td>
+          <td><span class="raci-tag i">I</span></td>
+          <td><span class="raci-tag a">A</span></td>
+          <td><span class="raci-tag c">C</span></td>
+          <td><span class="raci-tag i">I</span></td>
+        </tr>
+        <tr>
+          <td>Executar provisionamento de identidade</td>
+          <td><span class="raci-tag i">I</span></td>
+          <td><span class="raci-tag i">I</span></td>
+          <td><span class="raci-tag r">R</span></td>
+          <td><span class="raci-tag c">C</span></td>
+        </tr>
+        <tr>
+          <td>Verificar conflitos SoD</td>
+          <td>—</td>
+          <td><span class="raci-tag i">I</span></td>
+          <td><span class="raci-tag r">R</span></td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td>Executar revogação (offboarding/mover)</td>
+          <td><span class="raci-tag c">C</span></td>
+          <td><span class="raci-tag i">I</span></td>
+          <td><span class="raci-tag r">R</span></td>
+          <td><span class="raci-tag c">C</span></td>
+        </tr>
+        <tr>
+          <td>Confirmar checklist de offboarding</td>
+          <td><span class="raci-tag a">A</span></td>
+          <td><span class="raci-tag r">R</span></td>
+          <td><span class="raci-tag c">C</span></td>
+          <td><span class="raci-tag i">I</span></td>
+        </tr>
+        <tr>
+          <td>Conduzir access review periódico</td>
+          <td><span class="raci-tag i">I</span></td>
+          <td><span class="raci-tag r">R</span></td>
+          <td><span class="raci-tag a">A</span></td>
+          <td><span class="raci-tag i">I</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- EVIDÊNCIAS -->
+  <div class="section-label">Evidências para Auditoria</div>
+  <div class="section-title">Artefatos Obrigatórios</div>
+  <p class="section-sub">O que precisa existir para demonstrar conformidade com o controle 5.16 em uma auditoria ISO 27001.</p>
+
+  <div class="evidence-list">
+    <div class="evidence-item">
+      <div class="ev-icon">📋</div>
+      <div>
+        <div class="ev-name">Tickets de aprovação com timestamp</div>
+        <div class="ev-desc">Para cada evento JML — quem solicitou, quem aprovou, data e hora de execução</div>
+      </div>
+      <div class="ev-type">OBRIGATÓRIO</div>
+    </div>
+    <div class="evidence-item">
+      <div class="ev-icon">📊</div>
+      <div>
+        <div class="ev-name">Log de provisionamento e revogação</div>
+        <div class="ev-desc">Registro do sistema com status da conta (enabled/disabled) e data da alteração em cada sistema crítico</div>
+      </div>
+      <div class="ev-type">OBRIGATÓRIO</div>
+    </div>
+    <div class="evidence-item">
+      <div class="ev-icon">🗂️</div>
+      <div>
+        <div class="ev-name">Checklist de offboarding assinado</div>
+        <div class="ev-desc">Confirmação de revogação em todos os sistemas — gestor e RH devem assinar ou aprovar digitalmente</div>
+      </div>
+      <div class="ev-type">OBRIGATÓRIO</div>
+    </div>
+    <div class="evidence-item">
+      <div class="ev-icon">🔍</div>
+      <div>
+        <div class="ev-name">Access Review Register</div>
+        <div class="ev-desc">Registro das revisões periódicas — quem revisou, o que foi mantido, o que foi revogado, exceções documentadas</div>
+      </div>
+      <div class="ev-type">PERIÓDICO</div>
+    </div>
+    <div class="evidence-item">
+      <div class="ev-icon">📈</div>
+      <div>
+        <div class="ev-name">Inventário de contas de serviço</div>
+        <div class="ev-desc">Lista atualizada de service accounts com responsável, sistema e data da última revisão</div>
+      </div>
+      <div class="ev-type">PERIÓDICO</div>
+    </div>
+  </div>
+
+  <!-- REFERÊNCIAS -->
+  <div class="section-label">Referências Normativas</div>
+  <div class="section-title">Base da Norma</div>
+  <p class="section-sub">Controles que fundamentam este procedimento.</p>
+
+  <div class="ref-block">
+    <h3>ISO/IEC 27001:2022</h3>
+    <div class="ref-item"><span class="ref-code">5.16</span><span class="ref-desc">Identity Management — base primária deste procedimento</span></div>
+    <div class="ref-item"><span class="ref-code">5.15</span><span class="ref-desc">Access Control — política que define os princípios de least privilege e need-to-know</span></div>
+    <div class="ref-item"><span class="ref-code">5.18</span><span class="ref-desc">Access Rights — concessão, revisão e revogação de permissões</span></div>
+    <div class="ref-item"><span class="ref-code">8.2</span><span class="ref-desc">Privileged Access Rights — identidades privilegiadas seguem este procedimento com requisitos adicionais</span></div>
+    <div class="ref-item"><span class="ref-code">LGPD · Art. 46</span><span class="ref-desc">Medidas de segurança para proteção de dados pessoais — revogação de acesso como requisito</span></div>
+  </div>
+
+  <div class="nav-bottom">
+    <a class="nav-btn" href="../controles/5.16.html">← Deep Dive: 5.16 Identity Management</a>
+    <a class="nav-btn" href="../index.html">Início →</a>
+  </div>
+
+</main>
+
+<footer>
+  <p>Projeto de estudo independente · Baseado na ISO/IEC 27001:2022 ·
+    <a href="https://github.com/gilbertocrv" target="_blank">github.com/gilbertocrv</a>
+  </p>
+</footer>
+</body>
+</html>
