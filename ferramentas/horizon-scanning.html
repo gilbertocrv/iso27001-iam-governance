@@ -256,7 +256,7 @@ document.querySelectorAll('.filter-btn').forEach(btn=>{
   });
 });
 
-fetch('../data/scanning.json')
+fetch('https://gilbertocrv.github.io/iso27001-iam-governance/data/scanning.json')
   .then(r=>{ if(!r.ok) throw new Error(r.status); return r.json(); })
   .then(data=>{
     allEntries = data.entries.sort((a,b)=>b.date.localeCompare(a.date));
