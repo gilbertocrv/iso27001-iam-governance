@@ -1,5 +1,5 @@
 {
-  "updated": "2026-03-13",
+  "updated": "2026-03-14",
   "entries": [
     {
       "id": "bacen-001",
@@ -8,7 +8,10 @@
       "category": "Regulação",
       "title": "Resolução BCB 85/2021 — Política de Segurança Cibernética e gestão de riscos em fintechs",
       "url": "https://www.bcb.gov.br/estabilidadefinanceira/resolucao_bcb_0085",
-      "impact": ["GRC", "Privacidade"],
+      "impact": [
+        "GRC",
+        "Privacidade"
+      ],
       "action": "Estudar requisitos de TPRM para fintechs reguladas — base para risk assessments de fornecedores",
       "status": "em-analise",
       "notes": "Entrada manual"
@@ -20,7 +23,10 @@
       "category": "Regulação",
       "title": "Resolução CMN 4.893/2021 — Requisitos de segurança para prestadores de serviço de TI em IFs",
       "url": "https://www.bcb.gov.br",
-      "impact": ["GRC", "IAM"],
+      "impact": [
+        "GRC",
+        "IAM"
+      ],
       "action": "Mapear requisitos mínimos de segurança para terceiros — cláusulas contratuais e due diligence",
       "status": "em-analise",
       "notes": "Entrada manual"
@@ -32,7 +38,10 @@
       "category": "Framework",
       "title": "ISO/IEC 27036 — Information security for supplier relationships (TPRM)",
       "url": "https://www.iso.org/standard/82905.html",
-      "impact": ["GRC", "Privacidade"],
+      "impact": [
+        "GRC",
+        "Privacidade"
+      ],
       "action": "Estudar série 27036 como base normativa para gestão de riscos de terceiros",
       "status": "monitorando",
       "notes": "Entrada manual"
@@ -44,10 +53,118 @@
       "category": "Framework",
       "title": "NIST SP 800-161r1 — Cybersecurity Supply Chain Risk Management (C-SCRM)",
       "url": "https://csrc.nist.gov/publications/detail/sp/800-161/rev-1/final",
-      "impact": ["GRC", "IAM"],
+      "impact": [
+        "GRC",
+        "IAM"
+      ],
       "action": "Avaliar práticas de C-SCRM aplicáveis a fornecedores de cloud e SaaS",
       "status": "monitorando",
       "notes": "Entrada manual"
+    },
+    {
+      "id": "cc95b9fddf48",
+      "date": "2026-03-13",
+      "source": "Google Cloud Security",
+      "category": "Mercado",
+      "title": "Simplify your Cloud Run security with Identity Aware Proxy (IAP)",
+      "url": "https://cloud.google.com/blog/products/serverless/iap-integration-with-cloud-run/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Referência para controles de autenticação",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "8618af5feda7",
+      "date": "2026-03-12",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "Storm-2561 uses SEO poisoning to distribute fake VPN clients for credential theft",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/03/12/storm-2561-uses-seo-poisoning-to-distribute-fake-vpn-clients-for-credential-theft/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Monitorar impacto em procedimentos de provisionamento",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "c324ffcefa5a",
+      "date": "2026-03-12",
+      "source": "Google Cloud Security",
+      "category": "Mercado",
+      "title": "Why context is the missing link in AI data security",
+      "url": "https://cloud.google.com/blog/products/identity-security/why-context-is-the-missing-link-in-ai-data-security/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Referência para controles de autenticação",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "61f7acc09b66",
+      "date": "2026-03-11",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "Contagious Interview: Malware delivered through fake developer job interviews",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/03/11/contagious-interview-malware-delivered-through-fake-developer-job-interviews/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Monitorar impacto em procedimentos de provisionamento",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "ff048338d199",
+      "date": "2026-03-11",
+      "source": "Google Cloud Security",
+      "category": "Mercado",
+      "title": "Welcoming Wiz to Google Cloud: Redefining security for the AI era",
+      "url": "https://cloud.google.com/blog/products/identity-security/google-completes-acquisition-of-wiz/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Referência para controles de autenticação",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "e27dd99d8532",
+      "date": "2026-03-10",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "Security is a team sport: AWS at RSAC 2026 Conference",
+      "url": "https://aws.amazon.com/blogs/security/security-is-a-team-sport-aws-at-rsac-2026-conference/",
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
+      "action": "Avaliar relevância para controles de acesso",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "ba4ad4a808e3",
+      "date": "2026-03-10",
+      "source": "Google Cloud Security",
+      "category": "Mercado",
+      "title": "Cloud CISO Perspectives: New Threat Horizons report highlights current cloud threats",
+      "url": "https://cloud.google.com/blog/products/identity-security/cloud-ciso-perspectives-new-threat-horizons-report-highlights-current-cloud-threats/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Referência para controles de autenticação",
+      "status": "novo",
+      "notes": "Via RSS"
     },
     {
       "id": "msft-001",
@@ -56,9 +173,72 @@
       "category": "Mercado",
       "title": "Entra ID — novas capacidades de Conditional Access para identidades externas",
       "url": "https://microsoft.com/security/blog",
-      "impact": ["IAM", "Acesso"],
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
       "action": "Monitorar impacto em procedimentos de provisionamento (5.18)",
       "status": "monitorando",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "4ad7aeda3018",
+      "date": "2026-03-05",
+      "source": "Google Cloud Security",
+      "category": "Mercado",
+      "title": "Make security simpler: Introducing the Google Cloud recommended security checklist",
+      "url": "https://cloud.google.com/blog/products/identity-security/introducing-the-google-cloud-recommended-security-checklist/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Referência para controles de autenticação",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "3ea9870ccd0d",
+      "date": "2026-03-04",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "Enhanced access denied error messages with policy ARNs",
+      "url": "https://aws.amazon.com/blogs/security/enhanced-access-denied-error-messages-with-policy-arns/",
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
+      "action": "Avaliar relevância para controles de acesso",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "30762f9d847e",
+      "date": "2026-03-03",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "Signed malware impersonating workplace apps deploys RMM backdoors",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/03/03/signed-malware-impersonating-workplace-apps-deploys-rmm-backdoors/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Monitorar impacto em procedimentos de provisionamento",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "357c5e2ac981",
+      "date": "2026-03-02",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "Understanding IAM for Managed AWS MCP Servers",
+      "url": "https://aws.amazon.com/blogs/security/understanding-iam-for-managed-aws-mcp-servers/",
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
+      "action": "Avaliar relevância para controles de acesso",
+      "status": "novo",
       "notes": "Via RSS"
     },
     {
@@ -68,7 +248,10 @@
       "category": "Framework",
       "title": "OWASP Top 10 — Broken Access Control mantém posição #1",
       "url": "https://owasp.org",
-      "impact": ["Acesso", "IAM"],
+      "impact": [
+        "Acesso",
+        "IAM"
+      ],
       "action": "Reforçar seção de enforcement técnico na política",
       "status": "incorporado",
       "notes": "Via RSS"
@@ -80,8 +263,26 @@
       "category": "Framework",
       "title": "NIST SP 800-207A: Multi-Cloud Zero Trust Architecture",
       "url": "https://csrc.nist.gov",
-      "impact": ["IAM", "Acesso"],
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
       "action": "Avaliar alinhamento com controles 5.15 e 5.18",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "eea8e1ea454c",
+      "date": "2026-02-27",
+      "source": "Google Cloud Security",
+      "category": "Mercado",
+      "title": "Cloud CISO Perspectives: How Google approaches critical security topics, from fundamentals to AI",
+      "url": "https://cloud.google.com/blog/products/identity-security/cloud-ciso-perspectives-how-google-approaches-critical-security-topics-fundamentals-to-ai/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Referência para controles de autenticação",
       "status": "novo",
       "notes": "Via RSS"
     },
@@ -92,9 +293,27 @@
       "category": "Mercado",
       "title": "BeyondCorp Enterprise — atualização de controles de acesso contextual",
       "url": "https://cloud.google.com/blog/products/identity-security",
-      "impact": ["IAM", "Acesso"],
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
       "action": "Referência para seção de autenticação adaptativa (8.5)",
       "status": "monitorando",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "07365f2bf14a",
+      "date": "2026-02-19",
+      "source": "Google Cloud Security",
+      "category": "Mercado",
+      "title": "Sovereignty and European competitiveness: A partnership-led approach to AI growth",
+      "url": "https://cloud.google.com/blog/products/identity-security/sovereignty-and-european-competitiveness-a-partnership-led-approach-to-ai-growth/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Referência para controles de autenticação",
+      "status": "novo",
       "notes": "Via RSS"
     },
     {
@@ -104,9 +323,27 @@
       "category": "Mercado",
       "title": "IAM Access Analyzer — novas verificações de política não utilizadas",
       "url": "https://aws.amazon.com/blogs/security",
-      "impact": ["IAM", "GRC"],
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
       "action": "Avaliar uso como evidência em revisões de acesso",
       "status": "monitorando",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "7788bd5511e7",
+      "date": "2026-02-18",
+      "source": "Google Cloud Security",
+      "category": "Mercado",
+      "title": "Cloud CISO Perspectives: New AI threats report: Distillation, experimentation, and integration",
+      "url": "https://cloud.google.com/blog/products/identity-security/cloud-ciso-perspectives-new-ai-threats-report-distillation-experimentation-integration/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Referência para controles de autenticação",
+      "status": "novo",
       "notes": "Via RSS"
     },
     {
@@ -116,10 +353,28 @@
       "category": "Regulação",
       "title": "Guia Orientativo: Segurança da Informação no Tratamento de Dados Pessoais",
       "url": "https://www.gov.br/anpd",
-      "impact": ["Privacidade", "Acesso"],
+      "impact": [
+        "Privacidade",
+        "Acesso"
+      ],
       "action": "Revisar Access Control Policy — seção LGPD",
       "status": "em-analise",
       "notes": "Entrada manual"
+    },
+    {
+      "id": "b76920a5209a",
+      "date": "2026-02-06",
+      "source": "Google Cloud Security",
+      "category": "Mercado",
+      "title": "Delivering a secure, open, and sovereign digital world",
+      "url": "https://cloud.google.com/blog/products/identity-security/delivering-a-secure-open-sovereign-digital-world/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Referência para controles de autenticação",
+      "status": "novo",
+      "notes": "Via RSS"
     },
     {
       "id": "tcu-001",
@@ -128,7 +383,10 @@
       "category": "Regulação",
       "title": "Acórdão sobre gestão de acessos privilegiados em órgãos públicos",
       "url": "https://portal.tcu.gov.br",
-      "impact": ["IAM", "GRC"],
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
       "action": "Avaliar controles PAM — controle 8.2",
       "status": "monitorando",
       "notes": "Entrada manual"
@@ -140,7 +398,10 @@
       "category": "Framework",
       "title": "CIS Controls v8.1 — atualização de controles de acesso",
       "url": "https://www.cisecurity.org",
-      "impact": ["GRC", "IAM"],
+      "impact": [
+        "GRC",
+        "IAM"
+      ],
       "action": "Mapear delta com ISO 27001:2022 controles 5.x",
       "status": "em-analise",
       "notes": "Entrada manual"
