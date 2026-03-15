@@ -7,722 +7,265 @@
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --navy: #003366;
-    --navy-mid: #004080;
-    --navy-light: #0056b3;
-    --accent: #c8922a;
-    --accent-light: #e8a83a;
-    --bg: #f4f6f8;
-    --white: #ffffff;
-    --gray: #666;
-    --border: #d1d9e4;
-    --text: #1a2340;
+    --navy:#003366;--navy-mid:#004080;--navy-light:#0056b3;
+    --accent:#c8922a;--accent-light:#e8a83a;
+    --bg:#f0f2f5;--white:#ffffff;--gray:#666;
+    --border:#d1d9e4;--text:#1a2340;
+    --green:#1a7a4a;--green-light:#e8f5ee;
   }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'IBM Plex Sans',sans-serif; background:var(--bg); color:var(--text); }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  .topbar { background:var(--navy); padding:10px 30px; font-family:'IBM Plex Mono',monospace; font-size:10px; color:rgba(255,255,255,0.35); letter-spacing:1px; display:flex; justify-content:space-between; }
+  .topbar a { color:var(--accent-light); text-decoration:none; }
 
-  body {
-    font-family: 'IBM Plex Sans', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-  }
+  .hero { background:var(--navy); position:relative; overflow:hidden; }
+  .hero::before { content:''; position:absolute; top:-80px; right:-80px; width:400px; height:400px; border:50px solid rgba(200,146,42,0.1); border-radius:50%; }
+  .hero::after { content:'IAM'; position:absolute; bottom:-30px; right:20px; font-family:'IBM Plex Mono',monospace; font-size:140px; font-weight:700; color:rgba(255,255,255,0.025); line-height:1; user-select:none; }
+  .hero-inner { max-width:960px; margin:auto; padding:64px 30px 56px; position:relative; z-index:1; }
+  .hero-label { font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--accent-light); letter-spacing:3px; margin-bottom:14px; }
+  .hero h1 { font-size:34px; font-weight:700; color:#fff; line-height:1.2; margin-bottom:16px; }
+  .hero p { font-size:15px; color:rgba(255,255,255,0.6); line-height:1.75; max-width:540px; margin-bottom:28px; }
+  .hero-tags { display:flex; gap:10px; flex-wrap:wrap; }
+  .hero-tag { font-family:'IBM Plex Mono',monospace; font-size:10px; padding:4px 10px; border:1px solid rgba(255,255,255,0.18); border-radius:3px; color:rgba(255,255,255,0.45); letter-spacing:1px; }
 
-  /* HEADER */
-  header {
-    background: var(--navy);
-    padding: 0;
-    position: relative;
-    overflow: hidden;
-  }
+  .arch-section { max-width:960px; margin:0 auto; padding:52px 30px 0; }
+  .section-label { font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:3px; text-transform:uppercase; color:var(--accent); margin-bottom:8px; }
+  .section-title { font-size:20px; font-weight:700; color:var(--navy); margin-bottom:6px; }
+  .section-sub { font-size:13px; color:var(--gray); margin-bottom:28px; line-height:1.6; }
 
-  header::before {
-    content: '';
-    position: absolute;
-    top: -60px; right: -60px;
-    width: 320px; height: 320px;
-    border: 40px solid rgba(200,146,42,0.12);
-    border-radius: 50%;
-  }
+  .arch-flow { display:flex; gap:0; background:var(--white); border:1px solid var(--border); border-radius:6px; overflow:hidden; margin-bottom:52px; }
+  .arch-step { flex:1; padding:18px 10px; border-right:1px solid var(--border); position:relative; text-align:center; }
+  .arch-step:last-child { border-right:none; }
+  .arch-step::after { content:'→'; position:absolute; right:-8px; top:50%; transform:translateY(-50%); font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--accent); background:var(--white); padding:2px 0; z-index:1; }
+  .arch-step:last-child::after { display:none; }
+  .arch-num { font-family:'IBM Plex Mono',monospace; font-size:9px; color:var(--accent); letter-spacing:2px; margin-bottom:8px; }
+  .arch-name { font-size:12px; font-weight:700; color:var(--navy); margin-bottom:4px; }
+  .arch-ctrl { font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--gray); }
 
-  header::after {
-    content: '';
-    position: absolute;
-    bottom: -40px; left: 40%;
-    width: 180px; height: 180px;
-    border: 25px solid rgba(255,255,255,0.04);
-    border-radius: 50%;
-  }
+  .deepdive-section { max-width:960px; margin:0 auto; padding:0 30px 52px; }
+  .group-label { font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:3px; color:var(--accent); margin-bottom:12px; margin-top:40px; padding-bottom:8px; border-bottom:1px solid var(--border); }
+  .card-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:14px; margin-bottom:4px; }
 
-  .header-inner {
-    max-width: 900px;
-    margin: auto;
-    padding: 60px 30px 50px;
-    position: relative;
-    z-index: 1;
-  }
+  .ctrl-card { background:var(--white); border:1px solid var(--border); border-radius:6px; padding:22px; display:flex; flex-direction:column; text-decoration:none; color:inherit; transition:box-shadow 0.2s,border-color 0.2s,transform 0.15s; }
+  .ctrl-card:hover:not(.disabled) { box-shadow:0 4px 16px rgba(0,51,102,0.1); border-color:var(--navy-light); transform:translateY(-2px); }
+  .ctrl-card.disabled { opacity:0.55; pointer-events:none; }
+  .card-top { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px; }
+  .card-ctrl { font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:600; color:var(--navy); }
+  .card-icon { font-size:20px; }
+  .card-status { font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:1px; padding:3px 7px; border-radius:3px; margin-bottom:10px; display:inline-block; }
+  .status-live   { background:var(--green-light); color:var(--green); border:1px solid #b8dfc8; }
+  .status-policy { background:#eef2f8; color:var(--navy); border:1px solid var(--border); }
+  .status-soon   { background:#f5f5f5; color:#aaa; border:1px solid #e0e0e0; }
+  .card-name { font-size:15px; font-weight:700; color:var(--navy); margin-bottom:6px; }
+  .card-desc { font-size:12px; color:var(--gray); line-height:1.6; flex:1; margin-bottom:16px; }
+  .card-link { font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--navy-light); margin-top:auto; }
+  .card-link::after { content:' →'; }
+  .ctrl-card.disabled .card-link { color:var(--gray); }
 
-  .header-tag {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--accent-light);
-    margin-bottom: 18px;
-    display: block;
-  }
+  .tools-section { max-width:960px; margin:0 auto; padding:0 30px 52px; }
+  .tool-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:14px; }
+  .tool-card { background:var(--white); border:1px solid var(--border); border-radius:6px; padding:22px; display:flex; flex-direction:column; text-decoration:none; color:inherit; transition:box-shadow 0.2s,border-color 0.2s,transform 0.15s; border-top:4px solid var(--navy); }
+  .tool-card:hover { box-shadow:0 4px 16px rgba(0,51,102,0.1); border-top-color:var(--accent); transform:translateY(-2px); }
+  .tool-badge { font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--accent); letter-spacing:2px; margin-bottom:12px; }
+  .tool-icon { font-size:24px; margin-bottom:10px; }
+  .tool-name { font-size:15px; font-weight:700; color:var(--navy); margin-bottom:8px; }
+  .tool-desc { font-size:12px; color:var(--gray); line-height:1.6; flex:1; margin-bottom:16px; }
+  .tool-link { font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--navy-light); margin-top:auto; }
+  .tool-link::after { content:' →'; }
 
-  header h1 {
-    font-size: 36px;
-    font-weight: 700;
-    color: var(--white);
-    line-height: 1.2;
-    margin-bottom: 16px;
-  }
+  .scale-section { max-width:960px; margin:0 auto; padding:0 30px 80px; }
+  .scale-bar { background:var(--white); border:1px solid var(--border); border-radius:6px; overflow:hidden; }
+  .scale-item { display:flex; gap:16px; padding:13px 20px; border-bottom:1px solid var(--border); align-items:flex-start; }
+  .scale-item:last-child { border-bottom:none; }
+  .scale-num { font-family:'IBM Plex Mono',monospace; font-size:18px; font-weight:600; color:var(--accent); min-width:24px; line-height:1; }
+  .scale-text { font-size:13px; color:var(--gray); line-height:1.5; }
+  .scale-text strong { color:var(--navy); font-weight:600; }
 
-  header h1 span {
-    color: var(--accent-light);
-  }
+  footer { background:var(--navy); padding:28px 30px; text-align:center; }
+  footer p { font-family:'IBM Plex Mono',monospace; font-size:11px; color:rgba(255,255,255,0.35); letter-spacing:1px; }
+  footer a { color:var(--accent-light); text-decoration:none; }
 
-  header p {
-    font-size: 15px;
-    color: rgba(255,255,255,0.65);
-    max-width: 560px;
-    line-height: 1.7;
-    margin-bottom: 30px;
-  }
-
-  .header-meta {
-    display: flex;
-    gap: 24px;
-    flex-wrap: wrap;
-  }
-
-  .meta-pill {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
-    padding: 5px 12px;
-    border: 1px solid rgba(255,255,255,0.2);
-    border-radius: 3px;
-    color: rgba(255,255,255,0.55);
-    letter-spacing: 1px;
-  }
-
-  /* MAIN */
-  main {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 60px 30px;
-  }
-
-  .section-label {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 10px;
-  }
-
-  .section-title {
-    font-size: 22px;
-    font-weight: 700;
-    color: var(--navy);
-    margin-bottom: 8px;
-  }
-
-  .section-sub {
-    font-size: 14px;
-    color: var(--gray);
-    margin-bottom: 50px;
-    max-width: 520px;
-    line-height: 1.6;
-  }
-
-  /* CAMADAS */
-  .layers {
-    display: flex;
-    gap: 0;
-    margin-bottom: 60px;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    overflow: hidden;
-  }
-
-  .layer {
-    flex: 1;
-    padding: 18px 14px;
-    text-align: center;
-    border-right: 1px solid var(--border);
-    position: relative;
-    background: var(--white);
-    transition: background 0.2s;
-  }
-
-  .layer:last-child { border-right: none; }
-
-  .layer:hover { background: #f0f4f8; }
-
-  .layer-arrow {
-    position: absolute;
-    right: -13px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 0; height: 0;
-    border-top: 10px solid transparent;
-    border-bottom: 10px solid transparent;
-    border-left: 12px solid var(--border);
-    z-index: 2;
-  }
-
-  .layer:last-child .layer-arrow { display: none; }
-
-  .layer-num {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 10px;
-    color: var(--accent);
-    letter-spacing: 1px;
-    margin-bottom: 4px;
-  }
-
-  .layer-name {
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--navy);
-  }
-
-  .layer-ctrl {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 10px;
-    color: var(--gray);
-    margin-top: 4px;
-  }
-
-  /* TIMELINE */
-  .timeline {
-    position: relative;
-    padding-left: 0;
-  }
-
-  .timeline::before {
-    content: '';
-    position: absolute;
-    left: 28px;
-    top: 20px;
-    bottom: 20px;
-    width: 2px;
-    background: linear-gradient(to bottom, var(--navy), var(--accent));
-  }
-
-  .tl-group {
-    margin-bottom: 48px;
-  }
-
-  .tl-group-label {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-left: 64px;
-    margin-bottom: 12px;
-  }
-
-  .tl-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 20px;
-    margin-bottom: 14px;
-    position: relative;
-  }
-
-  .tl-dot {
-    width: 58px;
-    min-width: 58px;
-    height: 58px;
-    background: var(--navy);
-    border-radius: 4px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    z-index: 1;
-    transition: background 0.2s;
-  }
-
-  .tl-item:hover .tl-dot { background: var(--navy-light); }
-
-  .tl-dot-num {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--accent-light);
-    line-height: 1;
-  }
-
-  .tl-dot-icon {
-    font-size: 14px;
-    margin-top: 3px;
-  }
-
-  .tl-card {
-    flex: 1;
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 16px 20px;
-    text-decoration: none;
-    color: inherit;
-    display: block;
-    transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
-    cursor: pointer;
-  }
-
-  .tl-card:hover {
-    border-color: var(--navy-light);
-    box-shadow: 0 3px 12px rgba(0,51,102,0.1);
-    transform: translateX(3px);
-  }
-
-  .tl-card-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 6px;
-  }
-
-  .tl-card-title {
-    font-size: 15px;
-    font-weight: 700;
-    color: var(--navy);
-  }
-
-  .tl-card-tag {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 10px;
-    padding: 3px 8px;
-    background: #eef2f7;
-    color: var(--navy);
-    border-radius: 3px;
-    white-space: nowrap;
-  }
-
-  .tl-card-desc {
-    font-size: 13px;
-    color: var(--gray);
-    line-height: 1.5;
-    margin-bottom: 10px;
-  }
-
-  .tl-card-link {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
-    color: var(--navy-light);
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
-
-  .tl-card-link::after {
-    content: '→';
-  }
-
-  .tl-card.disabled {
-    opacity: 0.5;
-    cursor: default;
-    pointer-events: none;
-  }
-
-  .tl-card.disabled .tl-card-link {
-    color: var(--gray);
-  }
-
-  .badge-soon {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 9px;
-    padding: 2px 7px;
-    background: #fff3e0;
-    color: var(--accent);
-    border: 1px solid var(--accent-light);
-    border-radius: 3px;
-  }
-  .badge-pub {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 9px;
-    padding: 2px 7px;
-    background: #e8f5ee;
-    color: #1a7a4a;
-    border: 1px solid #a8d5b8;
-    border-radius: 3px;
-  }
-
-  /* TOOLS GRID */
-  .tools-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 14px;
-    margin-left: 28px;
-  }
-  .tool-card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 22px 20px;
-    text-decoration: none;
-    display: flex; flex-direction: column;
-    transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
-  }
-  .tool-card:hover {
-    border-color: var(--accent);
-    box-shadow: 0 4px 16px rgba(200,146,42,0.12);
-    transform: translateY(-2px);
-  }
-  .tool-card-header {
-    display: flex; justify-content: space-between; align-items: center;
-    margin-bottom: 14px;
-  }
-  .tool-badge {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px; font-weight: 600;
-    background: var(--navy);
-    color: var(--accent-light);
-    padding: 4px 10px; border-radius: 4px;
-    letter-spacing: 1px;
-  }
-  .tool-card-tag {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 9px; letter-spacing: 1px;
-    color: var(--gray);
-    background: var(--bg);
-    border: 1px solid var(--border);
-    padding: 2px 7px; border-radius: 3px;
-  }
-  .tool-icon {
-    font-size: 28px; margin-bottom: 10px;
-  }
-  .tool-title {
-    font-size: 14px; font-weight: 700;
-    color: var(--navy); margin-bottom: 8px;
-  }
-  .tool-desc {
-    font-size: 12px; color: var(--gray);
-    line-height: 1.6; flex: 1; margin-bottom: 16px;
-  }
-  .tool-link {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px; color: var(--accent);
-    font-weight: 600;
-  }
-  @media (max-width: 700px) {
-    .tools-grid { grid-template-columns: 1fr; margin-left: 0; }
-  }
-
-  /* LEGENDA */
-  .legend {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 24px;
-    margin-top: 60px;
-  }
-
-  .legend h3 {
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--navy);
-    margin-bottom: 16px;
-  }
-
-  .legend-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 10px;
-  }
-
-  .legend-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    font-size: 13px;
-  }
-
-  .legend-num {
-    font-family: 'IBM Plex Mono', monospace;
-    font-weight: 600;
-    color: var(--navy);
-    min-width: 20px;
-  }
-
-  .legend-label { color: var(--gray); }
-
-  .tl-dot.accent, .tl-dot[style*="var(--accent)"] {
-    border: 2px solid var(--accent-light);
-  }
-
-  .tl-dot[style*="var(--accent)"] .tl-dot-num {
-    color: var(--navy);
-  }
-
-  .tl-dot[style*="var(--accent)"] .tl-dot-icon {
-    filter: none;
-  }
-
-  /* FOOTER */
-  footer {
-    background: var(--navy);
-    padding: 28px 30px;
-    text-align: center;
-    margin-top: 60px;
-  }
-
-  footer p {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
-    color: rgba(255,255,255,0.35);
-    letter-spacing: 1px;
-  }
-
-  footer a {
-    color: var(--accent-light);
-    text-decoration: none;
+  @media(max-width:640px) {
+    .arch-flow { flex-direction:column; }
+    .arch-step { border-right:none; border-bottom:1px solid var(--border); }
+    .arch-step::after { content:'↓'; right:auto; left:50%; top:auto; bottom:-8px; transform:translateX(-50%); }
+    .arch-step:last-child { border-bottom:none; }
   }
 </style>
 </head>
 <body>
 
-<header>
-  <div class="header-inner">
-    <span class="header-tag">Projeto de Estudo · Gilberto Gonçalves</span>
-    <h1>Access Management<br><span>Maturity Model</span></h1>
+<div class="topbar">
+  <span>ISO/IEC 27001:2022 · IAM GOVERNANCE</span>
+  <a href="https://github.com/gilbertocrv/iso27001-iam-governance" target="_blank">github.com/gilbertocrv</a>
+</div>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-label">PROJETO DE ESTUDO INDEPENDENTE · GILBERTO GONÇALVES</div>
+    <h1>Access Management<br>Maturity Model</h1>
     <p>Avaliação prática de maturidade em Gestão de Acessos baseada nos controles públicos da ISO/IEC 27001:2022 e ISO 27701, com aplicação à LGPD.</p>
-    <div class="header-meta">
-      <span class="meta-pill">ISO/IEC 27001:2022</span>
-      <span class="meta-pill">ISO 27701</span>
-      <span class="meta-pill">LGPD</span>
-      <span class="meta-pill">IAM · PAM · IGA</span>
+    <div class="hero-tags">
+      <span class="hero-tag">ISO/IEC 27001:2022</span>
+      <span class="hero-tag">ISO 27701</span>
+      <span class="hero-tag">LGPD</span>
+      <span class="hero-tag">IAM · PAM · IGA</span>
     </div>
   </div>
-</header>
+</div>
 
-<main>
-
-  <!-- CAMADAS -->
+<div class="arch-section">
   <div class="section-label">Arquitetura de Controles</div>
   <div class="section-title">Fluxo de Confiança Progressiva</div>
-  <p class="section-sub">Cada camada depende da anterior. Governança sem enforcement técnico é política sem garantia.</p>
-
-  <div class="layers">
-    <div class="layer">
-      <div class="layer-num">CAMADA 1</div>
-      <div class="layer-name">Identidade</div>
-      <div class="layer-ctrl">5.16</div>
-      <div class="layer-arrow"></div>
-    </div>
-    <div class="layer">
-      <div class="layer-num">CAMADA 2</div>
-      <div class="layer-name">Autenticação</div>
-      <div class="layer-ctrl">5.17 · 8.5</div>
-      <div class="layer-arrow"></div>
-    </div>
-    <div class="layer">
-      <div class="layer-num">CAMADA 3</div>
-      <div class="layer-name">Autorização</div>
-      <div class="layer-ctrl">5.15 · 5.18</div>
-      <div class="layer-arrow"></div>
-    </div>
-    <div class="layer">
-      <div class="layer-num">CAMADA 4</div>
-      <div class="layer-name">Privilégio</div>
-      <div class="layer-ctrl">8.2 · 8.3</div>
-    </div>
+  <div class="section-sub">Cada camada depende da anterior. Governança sem enforcement técnico é política sem garantia.</div>
+  <div class="arch-flow">
+    <div class="arch-step"><div class="arch-num">CAMADA 1</div><div class="arch-name">Governança</div><div class="arch-ctrl">5.15</div></div>
+    <div class="arch-step"><div class="arch-num">CAMADA 2</div><div class="arch-name">Identidade</div><div class="arch-ctrl">5.16</div></div>
+    <div class="arch-step"><div class="arch-num">CAMADA 3</div><div class="arch-name">Credencial</div><div class="arch-ctrl">5.17</div></div>
+    <div class="arch-step"><div class="arch-num">CAMADA 4</div><div class="arch-name">Autorização</div><div class="arch-ctrl">5.18</div></div>
+    <div class="arch-step"><div class="arch-num">CAMADA 5</div><div class="arch-name">Privilégio</div><div class="arch-ctrl">8.2 · 8.3</div></div>
+    <div class="arch-step"><div class="arch-num">CAMADA 6</div><div class="arch-name">Autenticação</div><div class="arch-ctrl">8.5</div></div>
   </div>
+</div>
 
-  <!-- TIMELINE -->
+<div class="deepdive-section">
   <div class="section-label">Deep Dives</div>
   <div class="section-title">Controles por Camada</div>
-  <p class="section-sub">Cada controle possui um questionário de maturidade independente. Avalie, registre e evolua.</p>
+  <div class="section-sub">Cada controle possui análise de maturidade, riscos, evidências e artefatos relacionados.</div>
 
-  <div class="timeline">
-
-    <!-- GOVERNANÇA -->
-    <div class="tl-group">
-      <div class="tl-group-label">Governança de Acesso</div>
-
-      <div class="tl-item">
-        <div class="tl-dot">
-          <div class="tl-dot-num">5.15</div>
-          <div class="tl-dot-icon">📋</div>
-        </div>
-        <a class="tl-card" href="controles/5.15.html">
-          <div class="tl-card-top">
-            <div class="tl-card-title">Access Control Policy</div>
-            <div class="tl-card-tag">Política</div>
-          </div>
-          <div class="tl-card-desc">Define as regras formais de controle de acesso e as restrições que governam toda a arquitetura.</div>
-          <div class="tl-card-link">Acessar Deep Dive</div>
-        </a>
-      </div>
-
-      <div class="tl-item">
-        <div class="tl-dot" style="background:#1a3a5c;">
-          <div class="tl-dot-num">5.16</div>
-          <div class="tl-dot-icon">🪪</div>
-        </div>
-        <a class="tl-card" href="controles/5.16.html">
-          <div class="tl-card-top">
-            <div class="tl-card-title">Identity Management</div>
-            <span class="badge-pub">Publicado</span>
-          </div>
-          <div class="tl-card-desc">Gestão do ciclo de vida de identidades — provisionamento, manutenção e desprovisionamento.</div>
-          <div class="tl-card-link">Acessar Deep Dive</div>
-        </a>
-      </div>
-
-      <div class="tl-item">
-        <div class="tl-dot" style="background:#1a3a5c;">
-          <div class="tl-dot-num">5.17</div>
-          <div class="tl-dot-icon">🔑</div>
-        </div>
-        <a class="tl-card disabled" href="#">
-          <div class="tl-card-top">
-            <div class="tl-card-title">Authentication Information</div>
-            <span class="badge-soon">Em breve</span>
-          </div>
-          <div class="tl-card-desc">Proteção e gerenciamento de credenciais de autenticação ao longo do ciclo de vida.</div>
-          <div class="tl-card-link">Em desenvolvimento</div>
-        </a>
-      </div>
-
-      <div class="tl-item">
-        <div class="tl-dot" style="background:#1a3a5c;">
-          <div class="tl-dot-num">5.18</div>
-          <div class="tl-dot-icon">🔐</div>
-        </div>
-        <a class="tl-card disabled" href="#">
-          <div class="tl-card-top">
-            <div class="tl-card-title">Access Rights</div>
-            <span class="badge-soon">Em breve</span>
-          </div>
-          <div class="tl-card-desc">Governança sobre concessão, revisão e revogação de permissões com base em função e necessidade.</div>
-          <div class="tl-card-link">Em desenvolvimento</div>
-        </a>
-      </div>
-    </div>
-
-    <!-- TECNOLOGIA -->
-    <div class="tl-group">
-      <div class="tl-group-label">Controle Técnico</div>
-
-      <div class="tl-item">
-        <div class="tl-dot" style="background:#1a3a5c;">
-          <div class="tl-dot-num">8.2</div>
-          <div class="tl-dot-icon">⚙️</div>
-        </div>
-        <a class="tl-card disabled" href="#">
-          <div class="tl-card-top">
-            <div class="tl-card-title">Privileged Access Rights</div>
-            <span class="badge-soon">Em breve</span>
-          </div>
-          <div class="tl-card-desc">Controle técnico de contas privilegiadas — PAM, JIT e sessões com monitoramento.</div>
-          <div class="tl-card-link">Em desenvolvimento</div>
-        </a>
-      </div>
-
-      <div class="tl-item">
-        <div class="tl-dot" style="background:#1a3a5c;">
-          <div class="tl-dot-num">8.3</div>
-          <div class="tl-dot-icon">🛡️</div>
-        </div>
-        <a class="tl-card disabled" href="#">
-          <div class="tl-card-top">
-            <div class="tl-card-title">Information Access Restriction</div>
-            <span class="badge-soon">Em breve</span>
-          </div>
-          <div class="tl-card-desc">Restrição técnica de acesso a informações sensíveis — enforcement além da política.</div>
-          <div class="tl-card-link">Em desenvolvimento</div>
-        </a>
-      </div>
-
-      <div class="tl-item">
-        <div class="tl-dot" style="background:#1a3a5c;">
-          <div class="tl-dot-num">8.5</div>
-          <div class="tl-dot-icon">🔒</div>
-        </div>
-        <a class="tl-card disabled" href="#">
-          <div class="tl-card-top">
-            <div class="tl-card-title">Secure Authentication</div>
-            <span class="badge-soon">Em breve</span>
-          </div>
-          <div class="tl-card-desc">Mecanismos robustos de autenticação — MFA, autenticação adaptativa e proteção técnica.</div>
-          <div class="tl-card-link">Em desenvolvimento</div>
-        </a>
-      </div>
-    </div>
-
-    <!-- ARTEFATOS E AUTOMAÇÃO -->
-    <div class="tl-group">
-      <div class="tl-group-label">Artefatos e Automação</div>
-      <div class="tools-grid">
-
-        <a class="tool-card" href="ferramentas/policy-builder.html">
-          <div class="tool-card-header">
-            <div class="tool-badge">GEN</div>
-            <div class="tool-card-tag">Automação</div>
-          </div>
-          <div class="tool-icon">📄</div>
-          <div class="tool-title">Policy Builder Interativo</div>
-          <div class="tool-desc">Gere o rascunho da sua política de acesso selecionando os módulos de controle desejados.</div>
-          <div class="tool-link">Configurar Documento →</div>
-        </a>
-
-        <a class="tool-card" href="ferramentas/sod-simulator.html">
-          <div class="tool-card-header">
-            <div class="tool-badge">SoD</div>
-            <div class="tool-card-tag">Risco</div>
-          </div>
-          <div class="tool-icon">⚖️</div>
-          <div class="tool-title">Simulador de Conflitos SoD</div>
-          <div class="tool-desc">Valide se a combinação de perfis de acesso gera riscos de segregação de funções.</div>
-          <div class="tool-link">Simular Matriz →</div>
-        </a>
-
-        <a class="tool-card" href="ferramentas/horizon-scanning.html">
-          <div class="tool-card-header">
-            <div class="tool-badge">HSC</div>
-            <div class="tool-card-tag">Inteligência</div>
-          </div>
-          <div class="tool-icon">🔭</div>
-          <div class="tool-title">Horizon Scanning</div>
-          <div class="tool-desc">Monitoramento de mudanças regulatórias, frameworks e tendências de mercado com impacto em IAM e GRC.</div>
-          <div class="tool-link">Abrir Dashboard →</div>
-        </a>
-
-      </div>
-    </div>
-
+  <div class="group-label">GOVERNANÇA DE ACESSO</div>
+  <div class="card-grid">
+    <a class="ctrl-card" href="controles/5.15.html">
+      <div class="card-top"><span class="card-ctrl">5.15</span><span class="card-icon">📋</span></div>
+      <span class="card-status status-policy">POLÍTICA</span>
+      <div class="card-name">Access Control Policy</div>
+      <div class="card-desc">Define as regras formais de controle de acesso e as restrições que governam toda a arquitetura.</div>
+      <div class="card-link">Acessar Deep Dive</div>
+    </a>
+    <a class="ctrl-card" href="controles/5.16.html">
+      <div class="card-top"><span class="card-ctrl">5.16</span><span class="card-icon">🪪</span></div>
+      <span class="card-status status-live">PUBLICADO</span>
+      <div class="card-name">Identity Management</div>
+      <div class="card-desc">Gestão do ciclo de vida de identidades — provisionamento, manutenção e desprovisionamento.</div>
+      <div class="card-link">Acessar Deep Dive</div>
+    </a>
+    <a class="ctrl-card" href="controles/5.17.html">
+      <div class="card-top"><span class="card-ctrl">5.17</span><span class="card-icon">🔑</span></div>
+      <span class="card-status status-live">PUBLICADO</span>
+      <div class="card-name">Authentication Information</div>
+      <div class="card-desc">Proteção e gerenciamento de credenciais de autenticação ao longo do ciclo de vida.</div>
+      <div class="card-link">Acessar Deep Dive</div>
+    </a>
+    <a class="ctrl-card" href="controles/5.18.html">
+      <div class="card-top"><span class="card-ctrl">5.18</span><span class="card-icon">🔐</span></div>
+      <span class="card-status status-live">PUBLICADO</span>
+      <div class="card-name">Access Rights</div>
+      <div class="card-desc">Governança sobre concessão, revisão e revogação de permissões com base em função e necessidade.</div>
+      <div class="card-link">Acessar Deep Dive</div>
+    </a>
   </div>
 
-  <!-- LEGENDA DE MATURIDADE -->
-  <div class="legend">
-    <h3>Escala de Maturidade (0–5)</h3>
-    <div class="legend-grid">
-      <div class="legend-item"><span class="legend-num">0</span><span class="legend-label">Inexistente — controle não existe ou não é aplicado</span></div>
-      <div class="legend-item"><span class="legend-num">1</span><span class="legend-label">Ad-hoc — implementação informal ou isolada</span></div>
-      <div class="legend-item"><span class="legend-num">2</span><span class="legend-label">Documentado — procedimentos registrados, não padronizados</span></div>
-      <div class="legend-item"><span class="legend-num">3</span><span class="legend-label">Padronizado — processos aplicados de forma consistente</span></div>
-      <div class="legend-item"><span class="legend-num">4</span><span class="legend-label">Automatizado — controles suportados por ferramentas</span></div>
-      <div class="legend-item"><span class="legend-num">5</span><span class="legend-label">Baseado em Risco — alinhado à análise de risco e negócio</span></div>
-    </div>
+  <div class="group-label">CONTROLE TÉCNICO</div>
+  <div class="card-grid">
+    <a class="ctrl-card" href="controles/8.2.html">
+      <div class="card-top"><span class="card-ctrl">8.2</span><span class="card-icon">⚙️</span></div>
+      <span class="card-status status-live">PUBLICADO</span>
+      <div class="card-name">Privileged Access Rights</div>
+      <div class="card-desc">Controle técnico de contas privilegiadas — PAM, JIT e sessões com monitoramento.</div>
+      <div class="card-link">Acessar Deep Dive</div>
+    </a>
+    <a class="ctrl-card disabled">
+      <div class="card-top"><span class="card-ctrl">8.3</span><span class="card-icon">🛡️</span></div>
+      <span class="card-status status-soon">EM BREVE</span>
+      <div class="card-name">Information Access Restriction</div>
+      <div class="card-desc">Restrição técnica de acesso a informações sensíveis — enforcement além da política.</div>
+      <div class="card-link">Em desenvolvimento</div>
+    </a>
+    <a class="ctrl-card disabled">
+      <div class="card-top"><span class="card-ctrl">8.5</span><span class="card-icon">🔒</span></div>
+      <span class="card-status status-soon">EM BREVE</span>
+      <div class="card-name">Secure Authentication</div>
+      <div class="card-desc">Mecanismos robustos de autenticação — MFA, autenticação adaptativa e proteção técnica.</div>
+      <div class="card-link">Em desenvolvimento</div>
+    </a>
   </div>
+</div>
 
-</main>
+<div class="tools-section">
+  <div class="section-label">Artefatos e Automação</div>
+  <div class="section-title">Ferramentas Interativas</div>
+  <div class="section-sub">Artefatos operacionais prontos para uso e adaptação no seu programa de IAM.</div>
+  <div class="tool-grid">
+    <a class="tool-card" href="ferramentas/policy-builder.html">
+      <div class="tool-badge">GEN · AUTOMAÇÃO</div>
+      <div class="tool-icon">📄</div>
+      <div class="tool-name">Policy Builder Interativo</div>
+      <div class="tool-desc">Gere o rascunho da sua política de acesso selecionando os módulos de controle desejados.</div>
+      <div class="tool-link">Configurar Documento</div>
+    </a>
+    <a class="tool-card" href="ferramentas/sod-simulator.html">
+      <div class="tool-badge">SoD · RISCO</div>
+      <div class="tool-icon">⚖️</div>
+      <div class="tool-name">Simulador de Conflitos SoD</div>
+      <div class="tool-desc">Valide se a combinação de perfis de acesso gera riscos de segregação de funções.</div>
+      <div class="tool-link">Simular Matriz</div>
+    </a>
+    <a class="tool-card" href="ferramentas/authentication-standard.html">
+      <div class="tool-badge">5.17 · 8.5 · PADRÃO</div>
+      <div class="tool-icon">🔐</div>
+      <div class="tool-name">Authentication Standard</div>
+      <div class="tool-desc">Parâmetros de senha, MFA, gestão de segredos e checklist de auditoria para 5.17 e 8.5.</div>
+      <div class="tool-link">Ver Artefato</div>
+    </a>
+    <a class="tool-card" href="ferramentas/authentication-standard-builder.html">
+      <div class="tool-badge">5.17 · 8.5 · GERADOR</div>
+      <div class="tool-icon">🛠️</div>
+      <div class="tool-name">Authentication Standard Builder</div>
+      <div class="tool-desc">Configure escopo, MFA, reset e política — gera rascunho auditável com score de aderência e download em Markdown.</div>
+      <div class="tool-link">Abrir Builder</div>
+    </a>
+    <a class="tool-card" href="ferramentas/access-provisioning.html">
+      <div class="tool-badge">5.18 · PROCEDIMENTO</div>
+      <div class="tool-icon">📋</div>
+      <div class="tool-name">Access Provisioning Procedure</div>
+      <div class="tool-desc">Fluxo de aprovação, RACI, SLAs e checklist de auditoria para concessão e revogação de acessos.</div>
+      <div class="tool-link">Ver Artefato</div>
+    </a>
+    <a class="tool-card" href="ferramentas/privileged-access-standard.html">
+      <div class="tool-badge">8.2 · PADRÃO TÉCNICO</div>
+      <div class="tool-icon">⚙️</div>
+      <div class="tool-name">Privileged Access Standard</div>
+      <div class="tool-desc">Classificação por tier, controles obrigatórios, vault PAM e checklist de auditoria para 8.2.</div>
+      <div class="tool-link">Ver Artefato</div>
+    </a>
+    <a class="tool-card" href="ferramentas/horizon-scanning.html">
+      <div class="tool-badge">HSC · INTELIGÊNCIA</div>
+      <div class="tool-icon">🔭</div>
+      <div class="tool-name">Horizon Scanning</div>
+      <div class="tool-desc">Monitoramento de mudanças regulatórias, frameworks e tendências com impacto em IAM e GRC.</div>
+      <div class="tool-link">Abrir Dashboard</div>
+    </a>
+  </div>
+</div>
+
+<div class="scale-section">
+  <div class="section-label">Escala de Maturidade</div>
+  <div class="section-title">Referência de Níveis (0–5)</div>
+  <div class="scale-bar">
+    <div class="scale-item"><div class="scale-num">0</div><div class="scale-text"><strong>Inexistente</strong> — controle não existe ou não é aplicado</div></div>
+    <div class="scale-item"><div class="scale-num">1</div><div class="scale-text"><strong>Ad-hoc</strong> — implementação informal ou isolada, sem processo definido</div></div>
+    <div class="scale-item"><div class="scale-num">2</div><div class="scale-text"><strong>Documentado</strong> — procedimentos registrados, mas não padronizados ou uniformemente aplicados</div></div>
+    <div class="scale-item"><div class="scale-num">3</div><div class="scale-text"><strong>Padronizado</strong> — processos aplicados de forma consistente com evidências auditáveis</div></div>
+    <div class="scale-item"><div class="scale-num">4</div><div class="scale-text"><strong>Automatizado</strong> — controles suportados por ferramentas com rastreabilidade e métricas</div></div>
+    <div class="scale-item"><div class="scale-num">5</div><div class="scale-text"><strong>Baseado em Risco</strong> — controles alinhados à análise de risco contínua e estratégia de negócio</div></div>
+  </div>
+</div>
 
 <footer>
-  <p>Projeto de estudo independente · Baseado em normas públicas · 
+  <p>Projeto de estudo independente · Baseado em normas públicas ·
     <a href="https://github.com/gilbertocrv" target="_blank">github.com/gilbertocrv</a>
   </p>
 </footer>
-
 </body>
 </html>
