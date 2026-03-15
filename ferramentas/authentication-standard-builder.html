@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Authentication Standard Builder | ISO 27001:2022</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:#003366;--navy-mid:#004080;--navy-light:#0056b3;
+    --accent:#c8922a;--accent-light:#e8a83a;
+    --bg:#f4f6f8;--white:#ffffff;--gray:#666;
+    --border:#d1d9e4;--text:#1a2340;
+    --green:#1a7a4a;--green-light:#e8f5ee;--green-border:#b8dfc8;
+    --red:#a32020;--red-light:#fdf0f0;--red-border:#f5c0c0;
+    --amber:#a06400;--amber-light:#fff8ed;--amber-border:#f3d19b;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'IBM Plex Sans',sans-serif; background:var(--bg); color:var(--text); }
+
+  /* ── BREADCRUMB ── */
+  .breadcrumb { background:var(--navy); padding:12px 30px; font-family:'IBM Plex Mono',monospace; font-size:11px; color:rgba(255,255,255,.45); letter-spacing:1px; }
+  .breadcrumb a { color:var(--accent-light); text-decoration:none; }
+  .breadcrumb span { margin:0 8px; }
+
+  /* ── HEADER ── */
+  header { background:var(--navy); padding:0; position:relative; overflow:hidden; }
+  header::before { content:''; position:absolute; top:-60px; right:-60px; width:320px; height:320px; border:40px solid rgba(200,146,42,.12); border-radius:50%; }
+  header::after { content:'AUTH'; position:absolute; bottom:-20px; right:24px; font-family:'IBM Plex Mono',monospace; font-size:120px; font-weight:700; color:rgba(255,255,255,.03); line-height:1; user-select:none; }
+  .header-inner { max-width:1120px; margin:auto; padding:50px 30px 44px; position:relative; z-index:1; }
+  .ctrl-badge { display:inline-block; font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600; background:rgba(200,146,42,.2); color:var(--accent-light); border:1px solid rgba(200,146,42,.4); padding:4px 12px; border-radius:3px; letter-spacing:2px; margin-bottom:16px; }
+  header h1 { font-size:30px; font-weight:700; color:#fff; line-height:1.25; margin-bottom:12px; }
+  header h1 span { color:var(--accent-light); }
+  header p { font-size:14px; color:rgba(255,255,255,.6); max-width:680px; line-height:1.7; margin-bottom:24px; }
+  .header-meta { display:flex; gap:16px; flex-wrap:wrap; }
+  .meta-pill { font-family:'IBM Plex Mono',monospace; font-size:10px; padding:4px 10px; border:1px solid rgba(255,255,255,.18); border-radius:3px; color:rgba(255,255,255,.5); letter-spacing:1px; }
+
+  /* ── MAIN ── */
+  main { max-width:1120px; margin:0 auto; padding:48px 30px 80px; }
+  .section-label { font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:3px; text-transform:uppercase; color:var(--accent); margin-bottom:8px; }
+  .section-title { font-size:20px; font-weight:700; color:var(--navy); margin-bottom:6px; }
+  .section-sub { font-size:14px; color:var(--gray); margin-bottom:32px; line-height:1.6; max-width:700px; }
+
+  /* ── LAYOUT ── */
+  .layout { display:grid; grid-template-columns:1.1fr 0.9fr; gap:24px; align-items:start; }
+  @media(max-width:960px) { .layout { grid-template-columns:1fr; } }
+
+  /* ── STEPS NAV ── */
+  .steps-nav { display:flex; gap:0; margin-bottom:24px; background:var(--white); border:1px solid var(--border); border-radius:6px; overflow:hidden; }
+  .step-pill { flex:1; padding:10px 6px; text-align:center; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1px; color:var(--gray); border-right:1px solid var(--border); cursor:pointer; transition:all 0.15s; }
+  .step-pill:last-child { border-right:none; }
+  .step-pill.active { background:var(--navy); color:rgba(255,255,255,.9); }
+  .step-pill:hover:not(.active) { background:#f8fafc; }
+
+  /* ── INPUT PANEL ── */
+  .panel { background:var(--white); border:1px solid var(--border); border-radius:8px; overflow:hidden; }
+  .panel-header { background:var(--navy); padding:14px 20px; display:flex; align-items:center; gap:12px; }
+  .panel-header-num { font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--accent-light); letter-spacing:2px; }
+  .panel-header-title { font-size:14px; font-weight:700; color:#fff; }
+  .panel-body { padding:22px; }
+
+  .step-section { display:none; }
+  .step-section.active { display:block; }
+
+  .group { margin-bottom:22px; }
+  .group:last-child { margin-bottom:0; }
+  .group-title { font-size:13px; font-weight:700; color:var(--navy); margin-bottom:6px; }
+  .group-helper { font-size:12px; color:var(--gray); line-height:1.5; margin-bottom:12px; }
+
+  .option-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:10px; }
+  .opt-card { background:var(--white); border:1px solid var(--border); border-radius:6px; padding:12px 14px; cursor:pointer; transition:.15s; display:flex; gap:10px; align-items:flex-start; }
+  .opt-card:hover { border-color:var(--navy-light); }
+  .opt-card.selected { border-color:var(--navy); background:#f0f5fb; }
+  .check { width:18px; min-width:18px; height:18px; border:2px solid var(--border); border-radius:3px; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; margin-top:1px; flex-shrink:0; transition:.15s; }
+  .opt-card.selected .check { background:var(--navy); border-color:var(--navy); color:#fff; }
+  .opt-title { font-size:13px; font-weight:700; color:var(--navy); margin-bottom:2px; }
+  .opt-desc { font-size:11px; color:var(--gray); line-height:1.4; }
+
+  .inline-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:14px; }
+  label.small { display:block; font-size:12px; color:var(--gray); margin-bottom:6px; letter-spacing:.3px; }
+  input[type='number'], select, textarea {
+    width:100%; border:1px solid var(--border); border-radius:6px; padding:10px 12px;
+    font-family:'IBM Plex Sans',sans-serif; font-size:13px; color:var(--text); background:#fff;
+    transition:border-color .15s; outline:none;
+  }
+  input[type='number']:focus, select:focus, textarea:focus { border-color:var(--navy-light); }
+  textarea { min-height:80px; resize:vertical; }
+
+  /* ── STEP NAVIGATION BUTTONS ── */
+  .step-nav { display:flex; gap:10px; justify-content:space-between; margin-top:22px; padding-top:18px; border-top:1px solid var(--border); }
+  .btn { font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1px; padding:10px 20px; border-radius:4px; cursor:pointer; border:none; transition:.15s; }
+  .btn-primary { background:var(--navy); color:#fff; }
+  .btn-primary:hover { background:var(--navy-mid); }
+  .btn-secondary { background:var(--white); color:var(--navy); border:1px solid var(--border); }
+  .btn-secondary:hover { border-color:var(--navy); }
+  .btn-accent { background:var(--accent); color:#fff; }
+  .btn-accent:hover { background:#b07a20; }
+  .btn-ghost { background:transparent; color:var(--gray); border:1px solid var(--border); }
+  .btn-ghost:hover { color:var(--text); border-color:var(--navy-light); }
+  .btn:disabled { opacity:.4; cursor:not-allowed; }
+
+  /* ── RESULT PANEL ── */
+  .result-panel { background:var(--white); border:1px solid var(--border); border-radius:8px; overflow:hidden; position:sticky; top:20px; }
+  .result-header { background:var(--navy); padding:14px 20px; }
+  .result-header-title { font-size:14px; font-weight:700; color:#fff; margin-bottom:2px; }
+  .result-header-sub { font-size:11px; color:rgba(255,255,255,.5); font-family:'IBM Plex Mono',monospace; }
+  .result-body { padding:20px; }
+
+  /* METRICS */
+  .metrics-row { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:18px; }
+  .metric { background:var(--bg); border:1px solid var(--border); border-radius:6px; padding:14px 12px; text-align:center; }
+  .metric-num { font-family:'IBM Plex Mono',monospace; font-size:26px; font-weight:600; color:var(--navy); line-height:1; }
+  .metric-label { font-size:11px; color:var(--gray); margin-top:4px; }
+
+  /* SCORE BAR */
+  .score-bar-wrap { margin-bottom:18px; }
+  .score-bar-label { display:flex; justify-content:space-between; font-size:11px; color:var(--gray); margin-bottom:6px; font-family:'IBM Plex Mono',monospace; }
+  .score-bar-track { height:8px; background:#eef2f8; border-radius:4px; overflow:hidden; }
+  .score-bar-fill { height:100%; border-radius:4px; transition:width .5s ease, background .3s; }
+
+  /* FLAGS */
+  .flags-container { display:flex; flex-direction:column; gap:8px; margin-bottom:18px; }
+  .flag { border-radius:6px; padding:13px 16px; border:1px solid; font-size:13px; line-height:1.6; }
+  .flag.high { background:var(--red-light); border-color:var(--red-border); }
+  .flag.med  { background:var(--amber-light); border-color:var(--amber-border); }
+  .flag.ok   { background:var(--green-light); border-color:var(--green-border); }
+  .flag strong { color:var(--navy); display:block; margin-bottom:2px; font-size:12px; }
+
+  /* OUTPUT TABS */
+  .output-tabs { display:flex; border-bottom:1px solid var(--border); margin-bottom:0; }
+  .output-tab { font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1px; padding:8px 14px; cursor:pointer; color:var(--gray); border-bottom:2px solid transparent; margin-bottom:-1px; transition:.15s; }
+  .output-tab.active { color:var(--navy); border-bottom-color:var(--accent); }
+  .output-tab:hover:not(.active) { color:var(--navy); }
+
+  .output-pane { display:none; }
+  .output-pane.active { display:block; }
+
+  pre#output-md, pre#output-txt {
+    background:var(--navy); color:rgba(255,255,255,.88);
+    padding:18px; border-radius:0 0 6px 6px;
+    overflow:auto; white-space:pre-wrap;
+    font-family:'IBM Plex Mono',monospace; font-size:11.5px; line-height:1.75;
+    max-height:400px;
+    margin:0;
+  }
+
+  .output-actions { display:flex; gap:10px; flex-wrap:wrap; padding:14px 0 0; align-items:center; }
+  .copy-status { font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--green); display:none; }
+
+  /* PLACEHOLDER */
+  .placeholder { padding:40px 20px; text-align:center; color:var(--gray); }
+  .placeholder-icon { font-size:32px; margin-bottom:12px; opacity:.5; }
+  .placeholder p { font-size:13px; line-height:1.6; }
+
+  /* ── FOOTER ── */
+  footer { background:var(--navy); padding:24px 30px; text-align:center; }
+  footer p { font-family:'IBM Plex Mono',monospace; font-size:11px; color:rgba(255,255,255,.35); letter-spacing:1px; }
+  footer a { color:var(--accent-light); text-decoration:none; }
+</style>
+</head>
+<body>
+
+<div class="breadcrumb">
+  <a href="../index.html">Início</a><span>/</span>Ferramentas<span>/</span>Authentication Standard Builder
+</div>
+
+<header>
+  <div class="header-inner">
+    <div class="ctrl-badge">FERRAMENTA · 5.17 + 8.5</div>
+    <h1>Authentication <span>Standard Builder</span></h1>
+    <p>Construa um padrão técnico de autenticação alinhado aos controles 5.17 e 8.5 da ISO/IEC 27001:2022. A ferramenta avalia lacunas de conformidade e gera um rascunho auditável — pronto para usar como base documental ou adaptar ao seu contexto.</p>
+    <div class="header-meta">
+      <span class="meta-pill">5.17 · Authentication Information</span>
+      <span class="meta-pill">8.5 · Secure Authentication</span>
+      <span class="meta-pill">Credenciais · MFA · Vault · Reset</span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="section-label">Configuração</div>
+  <div class="section-title">Defina o baseline de autenticação</div>
+  <p class="section-sub">Preencha as seções em sequência. O painel à direita atualiza o score e os alertas em tempo real, e gera o rascunho do Authentication Standard ao clicar em <strong>Gerar padrão</strong>.</p>
+
+  <div class="layout">
+
+    <!-- ══ PAINEL ESQUERDO: INPUT ══ -->
+    <div>
+      <!-- steps nav -->
+      <div class="steps-nav">
+        <div class="step-pill active" onclick="goStep(1,this)">1 · ESCOPO</div>
+        <div class="step-pill" onclick="goStep(2,this)">2 · MFA</div>
+        <div class="step-pill" onclick="goStep(3,this)">3 · RESET</div>
+        <div class="step-pill" onclick="goStep(4,this)">4 · POLÍTICA</div>
+        <div class="step-pill" onclick="goStep(5,this)">5 · SEGREDOS</div>
+        <div class="step-pill" onclick="goStep(6,this)">6 · NOTAS</div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <span class="panel-header-num" id="stepLabel">PASSO 01 / 06</span>
+          <span class="panel-header-title" id="stepTitle">Escopo de contas</span>
+        </div>
+        <div class="panel-body">
+
+          <!-- STEP 1: ESCOPO -->
+          <div class="step-section active" id="step1">
+            <div class="group">
+              <div class="group-title">Tipos de conta cobertos pelo padrão</div>
+              <div class="group-helper">Selecione todos que se aplicam ao seu contexto. A seleção de "Conta de serviço" ativa requisitos adicionais de vault e proteção de segredos técnicos.</div>
+              <div class="option-grid" id="accountTypes">
+                <div class="opt-card selected" data-value="standard"><div class="check">✓</div><div><div class="opt-title">Usuário padrão</div><div class="opt-desc">Colaboradores com acesso comum a aplicações corporativas.</div></div></div>
+                <div class="opt-card selected" data-value="admin"><div class="check">✓</div><div><div class="opt-title">Conta privilegiada</div><div class="opt-desc">Administradores e acessos críticos — Tier 1 e 2.</div></div></div>
+                <div class="opt-card" data-value="service"><div class="check"></div><div><div class="opt-title">Conta de serviço / API</div><div class="opt-desc">Credenciais não-humanas, integrações e automações.</div></div></div>
+                <div class="opt-card" data-value="external"><div class="check"></div><div><div class="opt-title">Terceiros / parceiros</div><div class="opt-desc">Fornecedores e usuários externos com acesso ao ambiente.</div></div></div>
+              </div>
+            </div>
+            <div class="group">
+              <div class="group-title">Método primário de autenticação</div>
+              <div class="group-helper">Escolha um. Métodos sem senha (Passwordless / SSO) partem de um patamar mais alto no score de aderência.</div>
+              <div class="option-grid" id="authMethods">
+                <div class="opt-card selected single" data-value="password"><div class="check">✓</div><div><div class="opt-title">Senha</div><div class="opt-desc">Cenário clássico com política de complexidade documentada.</div></div></div>
+                <div class="opt-card single" data-value="federated"><div class="check"></div><div><div class="opt-title">SSO / Federação</div><div class="opt-desc">Identity Provider centralizado e autenticação delegada.</div></div></div>
+                <div class="opt-card single" data-value="cert"><div class="check"></div><div><div class="opt-title">Certificado / Chave</div><div class="opt-desc">Autenticação com certificado, chaves ou segredos gerenciados.</div></div></div>
+                <div class="opt-card single" data-value="passwordless"><div class="check"></div><div><div class="opt-title">Passwordless</div><div class="opt-desc">FIDO2, WebAuthn ou mecanismo equivalente.</div></div></div>
+              </div>
+            </div>
+            <div class="step-nav">
+              <span></span>
+              <button class="btn btn-primary" onclick="goStep(2)">Próximo →</button>
+            </div>
+          </div>
+
+          <!-- STEP 2: MFA -->
+          <div class="step-section" id="step2">
+            <div class="group">
+              <div class="group-title">MFA e proteção adicional</div>
+              <div class="group-helper">MFA em acesso remoto e em contas privilegiadas são os dois itens mais verificados em auditorias de 8.5. Selecione todos que se aplicam.</div>
+              <div class="option-grid" id="mfaControls">
+                <div class="opt-card selected" data-value="mfa-remote"><div class="check">✓</div><div><div class="opt-title">MFA em acesso remoto</div><div class="opt-desc">Obrigatório para VPN, SSO externo e apps expostos à internet.</div></div></div>
+                <div class="opt-card selected" data-value="mfa-admin"><div class="check">✓</div><div><div class="opt-title">MFA em contas privilegiadas</div><div class="opt-desc">Proteção mandatória para administração e suporte crítico.</div></div></div>
+                <div class="opt-card" data-value="mfa-all"><div class="check"></div><div><div class="opt-title">MFA para todos os usuários</div><div class="opt-desc">Cobertura total — todos os acessos corporativos requerem segundo fator.</div></div></div>
+                <div class="opt-card" data-value="adaptive"><div class="check"></div><div><div class="opt-title">Autenticação adaptativa</div><div class="opt-desc">Ajusta o fator conforme risco, IP, dispositivo ou contexto.</div></div></div>
+                <div class="opt-card" data-value="number-match"><div class="check"></div><div><div class="opt-title">Number matching ativo</div><div class="opt-desc">Proteção contra push fatigue — obrigatório para Authenticator Push.</div></div></div>
+                <div class="opt-card" data-value="session-revoke"><div class="check"></div><div><div class="opt-title">Revogação de sessão</div><div class="opt-desc">Invalidação imediata de tokens e sessões em incidentes.</div></div></div>
+              </div>
+            </div>
+            <div class="step-nav">
+              <button class="btn btn-ghost" onclick="goStep(1)">← Anterior</button>
+              <button class="btn btn-primary" onclick="goStep(3)">Próximo →</button>
+            </div>
+          </div>
+
+          <!-- STEP 3: RESET -->
+          <div class="step-section" id="step3">
+            <div class="group">
+              <div class="group-title">Reset e entrega de credenciais</div>
+              <div class="group-helper">O controle 5.17 foca especificamente na custódia exclusiva do segredo. Reset sem validação de identidade é uma das falhas mais comuns e críticas.</div>
+              <div class="option-grid" id="resetControls">
+                <div class="opt-card selected" data-value="first-login"><div class="check">✓</div><div><div class="opt-title">Troca no primeiro login</div><div class="opt-desc">Senha temporária alterada pelo usuário no primeiro acesso.</div></div></div>
+                <div class="opt-card selected" data-value="id-validation"><div class="check">✓</div><div><div class="opt-title">Validação de identidade</div><div class="opt-desc">Reset exige comprovação formal antes da redefinição.</div></div></div>
+                <div class="opt-card" data-value="secure-channel"><div class="check"></div><div><div class="opt-title">Canal seguro de entrega</div><div class="opt-desc">Credencial inicial ou reset entregues por canal controlado.</div></div></div>
+                <div class="opt-card" data-value="no-sharing"><div class="check"></div><div><div class="opt-title">Proibição de compartilhamento</div><div class="opt-desc">Política explícita de custódia exclusiva — formalizada e comunicada.</div></div></div>
+                <div class="opt-card" data-value="helpdesk-script"><div class="check"></div><div><div class="opt-title">Script formal do Service Desk</div><div class="opt-desc">Procedimento padrão para atendimento, registrável e auditável.</div></div></div>
+              </div>
+            </div>
+            <div class="step-nav">
+              <button class="btn btn-ghost" onclick="goStep(2)">← Anterior</button>
+              <button class="btn btn-primary" onclick="goStep(4)">Próximo →</button>
+            </div>
+          </div>
+
+          <!-- STEP 4: POLÍTICA MÍNIMA -->
+          <div class="step-section" id="step4">
+            <div class="group">
+              <div class="group-title">Parâmetros mínimos de credencial</div>
+              <div class="group-helper">Valores configurados devem ser aplicados tecnicamente na plataforma de identidade — não apenas documentados. O auditor vai verificar a configuração, não o papel.</div>
+              <div class="inline-grid">
+                <div>
+                  <label class="small" for="length">Comprimento mínimo da senha</label>
+                  <input type="number" id="length" min="8" max="64" value="12">
+                </div>
+                <div>
+                  <label class="small" for="lockout">Bloqueio após tentativas inválidas</label>
+                  <input type="number" id="lockout" min="3" max="20" value="5">
+                </div>
+                <div>
+                  <label class="small" for="reuse">Histórico de reuso (últimas N senhas)</label>
+                  <input type="number" id="reuse" min="0" max="50" value="10">
+                </div>
+                <div>
+                  <label class="small" for="rotation">Rotação programada</label>
+                  <select id="rotation">
+                    <option value="risk">Baseada em risco / comprometimento</option>
+                    <option value="90">90 dias</option>
+                    <option value="180">180 dias</option>
+                    <option value="none">Sem rotação programada</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="group" style="margin-top:18px">
+              <div class="group-title">Plataforma de identidade</div>
+              <div class="group-helper">Selecione o ambiente onde as políticas serão aplicadas tecnicamente.</div>
+              <div class="option-grid" id="platforms">
+                <div class="opt-card single" data-value="entra"><div class="check"></div><div><div class="opt-title">Microsoft Entra ID</div><div class="opt-desc">Azure AD / Entra — Conditional Access e Passwordless.</div></div></div>
+                <div class="opt-card single" data-value="okta"><div class="check"></div><div><div class="opt-title">Okta / CIAM</div><div class="opt-desc">IdP SaaS com políticas de autenticação flexíveis.</div></div></div>
+                <div class="opt-card single" data-value="ad"><div class="check"></div><div><div class="opt-title">Active Directory</div><div class="opt-desc">On-premise com GPO — integração com sistemas locais.</div></div></div>
+                <div class="opt-card single" data-value="other"><div class="check"></div><div><div class="opt-title">Outro / Híbrido</div><div class="opt-desc">Múltiplos IdPs ou solução proprietária.</div></div></div>
+              </div>
+            </div>
+            <div class="step-nav">
+              <button class="btn btn-ghost" onclick="goStep(3)">← Anterior</button>
+              <button class="btn btn-primary" onclick="goStep(5)">Próximo →</button>
+            </div>
+          </div>
+
+          <!-- STEP 5: SEGREDOS TÉCNICOS -->
+          <div class="step-section" id="step5">
+            <div class="group">
+              <div class="group-title">Proteção de segredos técnicos</div>
+              <div class="group-helper">Aplicável principalmente quando o escopo inclui contas de serviço, APIs ou pipelines. Credenciais técnicas sem vault são um achado crítico recorrente.</div>
+              <div class="option-grid" id="secretsControls">
+                <div class="opt-card" data-value="vault"><div class="check"></div><div><div class="opt-title">Vault / Secret Manager</div><div class="opt-desc">Uso obrigatório de cofre para segredos de aplicação e API.</div></div></div>
+                <div class="opt-card" data-value="managed-identity"><div class="check"></div><div><div class="opt-title">Managed Identity</div><div class="opt-desc">Reduz senhas estáticas em integrações e workloads.</div></div></div>
+                <div class="opt-card" data-value="no-hardcode"><div class="check"></div><div><div class="opt-title">Proibição de hard-code</div><div class="opt-desc">Segredos não podem estar em código, script ou planilha.</div></div></div>
+                <div class="opt-card" data-value="secret-scanning"><div class="check"></div><div><div class="opt-title">Secret scanning em pipeline</div><div class="opt-desc">Ferramenta de varredura ativa no CI/CD contra exposição acidental.</div></div></div>
+                <div class="opt-card" data-value="secret-rotation"><div class="check"></div><div><div class="opt-title">Rotação de segredos</div><div class="opt-desc">Troca periódica ou sob evento para chaves e tokens técnicos.</div></div></div>
+                <div class="opt-card" data-value="secret-inventory"><div class="check"></div><div><div class="opt-title">Inventário de segredos</div><div class="opt-desc">Registro com titular, sistema, data de criação e última rotação.</div></div></div>
+              </div>
+            </div>
+            <div class="step-nav">
+              <button class="btn btn-ghost" onclick="goStep(4)">← Anterior</button>
+              <button class="btn btn-primary" onclick="goStep(6)">Próximo →</button>
+            </div>
+          </div>
+
+          <!-- STEP 6: NOTAS -->
+          <div class="step-section" id="step6">
+            <div class="group">
+              <div class="group-title">Observações complementares</div>
+              <div class="group-helper">Adicione contexto específico da organização: sistemas legados com exceção documentada, fornecedores com requisito de MFA diferenciado, notas para o gestor de SI etc.</div>
+              <textarea id="notes" placeholder="Ex.: MFA obrigatório para ERP financeiro. Sistema X é legado sem suporte a MFA — controle compensatório documentado e aprovado em [data]. Contas de serviço no Azure usam Managed Identity com exceção dos conectores do sistema Y..."></textarea>
+            </div>
+            <div class="group" style="margin-top:18px">
+              <div class="group-title">Versão e aprovação</div>
+              <div class="inline-grid">
+                <div>
+                  <label class="small" for="orgName">Nome da organização</label>
+                  <input type="text" id="orgName" placeholder="Ex.: Acme Corp" style="border:1px solid var(--border);border-radius:6px;padding:10px 12px;font-size:13px;width:100%;outline:none;">
+                </div>
+                <div>
+                  <label class="small" for="docVersion">Versão do documento</label>
+                  <input type="text" id="docVersion" value="1.0" style="border:1px solid var(--border);border-radius:6px;padding:10px 12px;font-size:13px;width:100%;outline:none;">
+                </div>
+              </div>
+            </div>
+            <div class="step-nav">
+              <button class="btn btn-ghost" onclick="goStep(5)">← Anterior</button>
+              <button class="btn btn-accent" onclick="render()">✓ Gerar padrão</button>
+            </div>
+          </div>
+
+        </div><!-- /panel-body -->
+      </div><!-- /panel -->
+
+      <!-- QUICK GENERATE (fixed at bottom) -->
+      <div style="margin-top:14px;display:flex;gap:10px;">
+        <button class="btn btn-accent" style="flex:1" onclick="render()">Gerar padrão</button>
+        <button class="btn btn-secondary" onclick="resetAll()">Limpar</button>
+      </div>
+    </div>
+
+    <!-- ══ PAINEL DIREITO: RESULTADO ══ -->
+    <div>
+      <div class="result-panel">
+        <div class="result-header">
+          <div class="result-header-title">Leitura de risco e baseline</div>
+          <div class="result-header-sub">AVALIAÇÃO CONTÍNUA · 5.17 + 8.5</div>
+        </div>
+        <div class="result-body">
+
+          <div class="metrics-row">
+            <div class="metric">
+              <div class="metric-num" id="scoreMetric">—</div>
+              <div class="metric-label">score /100</div>
+            </div>
+            <div class="metric">
+              <div class="metric-num" id="maturityMetric">—</div>
+              <div class="metric-label">maturidade</div>
+            </div>
+            <div class="metric">
+              <div class="metric-num" id="flagsMetric">—</div>
+              <div class="metric-label">alertas</div>
+            </div>
+          </div>
+
+          <div class="score-bar-wrap">
+            <div class="score-bar-label">
+              <span>Aderência estimada</span>
+              <span id="scoreLabel">—</span>
+            </div>
+            <div class="score-bar-track">
+              <div class="score-bar-fill" id="scoreBar" style="width:0%;background:var(--gray)"></div>
+            </div>
+          </div>
+
+          <div class="flags-container" id="flagsContainer">
+            <div class="flag med">
+              <strong>Nenhum baseline gerado ainda.</strong>
+              Preencha os parâmetros à esquerda e clique em <em>Gerar padrão</em> para ver a avaliação de conformidade.
+            </div>
+          </div>
+
+          <!-- OUTPUT DOCUMENT -->
+          <div style="border:1px solid var(--border);border-radius:6px;overflow:hidden;">
+            <div class="output-tabs">
+              <div class="output-tab active" onclick="switchOutput('md',this)">MARKDOWN</div>
+              <div class="output-tab" onclick="switchOutput('txt',this)">TEXTO PLANO</div>
+            </div>
+            <div class="output-pane active" id="pane-md">
+              <pre id="output-md"># Authentication Standard
+
+Selecione os parâmetros e clique em "Gerar padrão"...</pre>
+            </div>
+            <div class="output-pane" id="pane-txt">
+              <pre id="output-txt">AUTHENTICATION STANDARD
+
+Selecione os parâmetros e clique em "Gerar padrão"...</pre>
+            </div>
+          </div>
+
+          <div class="output-actions">
+            <button class="btn btn-primary" id="copyBtn" onclick="copyOutput()">Copiar</button>
+            <button class="btn btn-secondary" onclick="downloadOutput()">Download .md</button>
+            <span class="copy-status" id="copyStatus">✓ Copiado</span>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- GUIA DE INTERPRETAÇÃO -->
+      <div style="background:var(--white);border:1px solid var(--border);border-radius:8px;padding:20px;margin-top:16px;">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:2px;margin-bottom:12px;">ESCALA · MATURIDADE ESTIMADA</div>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <div style="display:flex;gap:12px;font-size:12px;align-items:center;"><span style="font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--navy);min-width:28px;">N4</span><span style="color:var(--gray)">Score ≥ 80 — Padronizado, controles fortes e auditável</span></div>
+          <div style="display:flex;gap:12px;font-size:12px;align-items:center;"><span style="font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--navy);min-width:28px;">N3</span><span style="color:var(--gray)">Score 65–79 — Processo consistente com pontos de melhoria</span></div>
+          <div style="display:flex;gap:12px;font-size:12px;align-items:center;"><span style="font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--navy);min-width:28px;">N2</span><span style="color:var(--gray)">Score 45–64 — Baseline documentável, lacunas em reset ou MFA</span></div>
+          <div style="display:flex;gap:12px;font-size:12px;align-items:center;"><span style="font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--navy);min-width:28px;">N1</span><span style="color:var(--gray)">Score 25–44 — Processo parcial, exposição relevante</span></div>
+          <div style="display:flex;gap:12px;font-size:12px;align-items:center;"><span style="font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--navy);min-width:28px;">N0</span><span style="color:var(--gray)">Score &lt; 25 — Sem baseline estruturado</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /layout -->
+</main>
+
+<footer>
+  <p>Projeto de estudo independente · Baseado em normas públicas ·
+    <a href="https://github.com/gilbertocrv" target="_blank">github.com/gilbertocrv</a>
+  </p>
+</footer>
+
+<script>
+  /* ── STEP NAVIGATION ── */
+  const stepMeta = [
+    null,
+    { label:'PASSO 01 / 06', title:'Escopo de contas' },
+    { label:'PASSO 02 / 06', title:'MFA e autenticação' },
+    { label:'PASSO 03 / 06', title:'Reset e entrega' },
+    { label:'PASSO 04 / 06', title:'Política mínima' },
+    { label:'PASSO 05 / 06', title:'Segredos técnicos' },
+    { label:'PASSO 06 / 06', title:'Notas e versão' }
+  ];
+
+  let currentStep = 1;
+
+  function goStep(n, pillEl) {
+    currentStep = n;
+    document.querySelectorAll('.step-section').forEach((s, i) => s.classList.toggle('active', i + 1 === n));
+    document.querySelectorAll('.step-pill').forEach((p, i) => p.classList.toggle('active', i + 1 === n));
+    document.getElementById('stepLabel').textContent = stepMeta[n].label;
+    document.getElementById('stepTitle').textContent = stepMeta[n].title;
+    liveScore();
+  }
+
+  /* ── CARD TOGGLE ── */
+  const multiGroups = ['accountTypes','mfaControls','resetControls','secretsControls'];
+  const singleGroups = ['authMethods','platforms'];
+
+  function setupCards(groupId, single = false) {
+    const cards = document.querySelectorAll(`#${groupId} .opt-card`);
+    cards.forEach(card => {
+      card.addEventListener('click', () => {
+        if (single) {
+          cards.forEach(c => { c.classList.remove('selected'); c.querySelector('.check').textContent = ''; });
+          card.classList.add('selected');
+          card.querySelector('.check').textContent = '✓';
+        } else {
+          card.classList.toggle('selected');
+          card.querySelector('.check').textContent = card.classList.contains('selected') ? '✓' : '';
+        }
+        liveScore();
+      });
+    });
+  }
+
+  multiGroups.forEach(g => setupCards(g, false));
+  singleGroups.forEach(g => setupCards(g, true));
+
+  // Also listen to numeric inputs
+  ['length','lockout','reuse','rotation'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('change', liveScore);
+  });
+
+  /* ── GET SELECTED ── */
+  function getSelected(groupId) {
+    return Array.from(document.querySelectorAll(`#${groupId} .opt-card.selected`)).map(el => el.dataset.value);
+  }
+
+  /* ── CALCULATE ── */
+  function calculate() {
+    const accountTypes = getSelected('accountTypes');
+    const authMethod = getSelected('authMethods')[0] || 'password';
+    const mfa = getSelected('mfaControls');
+    const reset = getSelected('resetControls');
+    const secrets = getSelected('secretsControls');
+    const platform = getSelected('platforms')[0] || '';
+    const length = Number(document.getElementById('length').value || 0);
+    const lockout = Number(document.getElementById('lockout').value || 0);
+    const reuse = Number(document.getElementById('reuse').value || 0);
+    const rotation = document.getElementById('rotation').value;
+    const notes = document.getElementById('notes').value.trim();
+    const orgName = document.getElementById('orgName')?.value.trim() || '';
+    const docVersion = document.getElementById('docVersion')?.value.trim() || '1.0';
+
+    let score = 0;
+    const flags = [];
+
+    // Escopo
+    if (accountTypes.length >= 2) score += 8; else score += 4;
+    if (authMethod !== 'password') score += 10; else score += 6;
+
+    // MFA
+    if (mfa.includes('mfa-remote')) score += 12;
+    else flags.push({ level:'high', text:'MFA para acesso remoto não configurado. Em auditoria de 8.5, este é o primeiro item verificado.' });
+
+    if (mfa.includes('mfa-admin')) score += 14;
+    else flags.push({ level:'high', text:'Contas privilegiadas sem MFA explícito — exposição elevada e baixa aderência a autenticação segura (8.5).' });
+
+    if (mfa.includes('mfa-all')) score += 8;
+    if (mfa.includes('adaptive')) score += 6;
+    if (mfa.includes('number-match')) score += 5;
+    if (mfa.includes('session-revoke')) score += 5;
+
+    // Reset
+    if (reset.includes('first-login')) score += 8;
+    else flags.push({ level:'med', text:'Sem troca obrigatória no primeiro login — a senha temporária pode deixar de ter custódia exclusiva do usuário.' });
+
+    if (reset.includes('id-validation')) score += 10;
+    else flags.push({ level:'high', text:'Reset sem validação formal de identidade — falha mais citada pelo controle 5.17 em auditorias.' });
+
+    if (reset.includes('secure-channel')) score += 7;
+    else flags.push({ level:'med', text:'Entrega de credenciais sem canal controlado compromete o segredo na origem.' });
+
+    if (reset.includes('no-sharing')) score += 6;
+    if (reset.includes('helpdesk-script')) score += 4;
+
+    // Política mínima
+    if (length >= 12) score += 7; else flags.push({ level:'med', text:'Comprimento mínimo abaixo de 12 — baseline fraco para contas padrão (recomendação NIST SP 800-63B).' });
+    if (lockout >= 3 && lockout <= 10) score += 5; else flags.push({ level:'med', text:'Threshold de bloqueio fora do intervalo recomendado (3–10 tentativas).' });
+    if (reuse >= 8) score += 4;
+    if (rotation === 'risk') score += 6; else if (rotation === '90') score += 5; else if (rotation === '180') score += 3;
+
+    // Segredos técnicos
+    if (accountTypes.includes('service')) {
+      if (secrets.includes('vault')) score += 10;
+      else flags.push({ level:'high', text:'Contas técnicas sem Vault explícito — risco de credenciais expostas em repositório ou configuração.' });
+
+      if (secrets.includes('no-hardcode')) score += 8;
+      else flags.push({ level:'high', text:'Sem proibição de hard-code — segredos podem acabar em repositórios, scripts ou planilhas.' });
+
+      if (secrets.includes('managed-identity')) score += 5;
+      if (secrets.includes('secret-scanning')) score += 5;
+      if (secrets.includes('secret-rotation')) score += 5;
+      if (secrets.includes('secret-inventory')) score += 4;
+    } else {
+      // partial credit even without service accounts
+      ['vault','no-hardcode','managed-identity','secret-scanning','secret-rotation','secret-inventory'].forEach(k => {
+        if (secrets.includes(k)) score += 2;
+      });
+    }
+
+    // Combinação desfavorável
+    if (authMethod === 'password' && !mfa.includes('mfa-remote') && !mfa.includes('mfa-admin')) {
+      flags.push({ level:'high', text:'Senha como único fator sem MFA em nenhum cenário crítico — baseline de autenticação insuficiente para auditoria.' });
+    }
+
+    if (score > 100) score = 100;
+
+    let maturity = 'N0';
+    if (score >= 80) maturity = 'N4';
+    else if (score >= 65) maturity = 'N3';
+    else if (score >= 45) maturity = 'N2';
+    else if (score >= 25) maturity = 'N1';
+
+    return { accountTypes, authMethod, mfa, reset, secrets, platform, length, lockout, reuse, rotation, notes, orgName, docVersion, score, maturity, flags };
+  }
+
+  /* ── LIVE SCORE (right panel metrics only) ── */
+  function liveScore() {
+    const data = calculate();
+    document.getElementById('scoreMetric').textContent = data.score;
+    document.getElementById('maturityMetric').textContent = data.maturity;
+    document.getElementById('flagsMetric').textContent = data.flags.length;
+    document.getElementById('scoreLabel').textContent = data.score + '/100';
+
+    const bar = document.getElementById('scoreBar');
+    bar.style.width = data.score + '%';
+    if (data.score >= 80) bar.style.background = 'var(--green)';
+    else if (data.score >= 65) bar.style.background = '#2b8a3e';
+    else if (data.score >= 45) bar.style.background = 'var(--amber)';
+    else bar.style.background = 'var(--red)';
+  }
+
+  /* ── LABELS ── */
+  function accountTypeLabel(v) {
+    return ({ standard:'Usuário padrão', admin:'Conta privilegiada', service:'Conta de serviço / API', external:'Terceiros / parceiros' })[v] || v;
+  }
+  function authMethodLabel(v) {
+    return ({ password:'Senha', federated:'SSO / Federação', cert:'Certificado / Chave', passwordless:'Passwordless' })[v] || v;
+  }
+  function rotationLabel(v) {
+    return ({ risk:'Baseada em risco/comprometimento', '90':'90 dias', '180':'180 dias', none:'Sem rotação programada' })[v] || v;
+  }
+  function platformLabel(v) {
+    return ({ entra:'Microsoft Entra ID', okta:'Okta / CIAM', ad:'Active Directory', other:'Outro / Híbrido' })[v] || '—';
+  }
+
+  /* ── BUILD MARKDOWN ── */
+  function buildMarkdown(data) {
+    const today = new Date().toLocaleDateString('pt-BR');
+    const org = data.orgName || '[Organização]';
+
+    const mfaLines = [];
+    if (data.mfa.includes('mfa-remote'))   mfaLines.push('- MFA obrigatório para acessos remotos (VPN, SSO, apps expostos).');
+    if (data.mfa.includes('mfa-admin'))    mfaLines.push('- MFA obrigatório para contas privilegiadas.');
+    if (data.mfa.includes('mfa-all'))      mfaLines.push('- MFA obrigatório para todos os usuários corporativos.');
+    if (data.mfa.includes('adaptive'))     mfaLines.push('- Autenticação adaptativa conforme risco, IP e contexto de acesso.');
+    if (data.mfa.includes('number-match')) mfaLines.push('- Number matching ativo em todos os deployments de Authenticator Push.');
+    if (data.mfa.includes('session-revoke')) mfaLines.push('- Revogação imediata de tokens e sessões em incidentes ou desligamentos.');
+
+    const resetLines = [];
+    if (data.reset.includes('first-login'))    resetLines.push('- Credenciais temporárias devem ser alteradas no primeiro login.');
+    if (data.reset.includes('id-validation'))  resetLines.push('- Processos de reset exigem validação formal da identidade do solicitante.');
+    if (data.reset.includes('secure-channel')) resetLines.push('- Entrega de credenciais iniciais ou redefinidas apenas por canal seguro e verificável.');
+    if (data.reset.includes('no-sharing'))     resetLines.push('- Compartilhamento de credenciais é estritamente proibido — custódia exclusiva do titular.');
+    if (data.reset.includes('helpdesk-script')) resetLines.push('- Service Desk segue script formal e registrável para reset de credenciais.');
+
+    const secretLines = [];
+    if (data.secrets.includes('vault'))           secretLines.push('- Segredos técnicos armazenados em cofre (Vault / Secret Manager) — nunca em código ou configuração estática.');
+    if (data.secrets.includes('managed-identity')) secretLines.push('- Managed identities utilizadas sempre que disponíveis para eliminar senhas estáticas.');
+    if (data.secrets.includes('no-hardcode'))     secretLines.push('- É proibido armazenar segredos em hard-code, planilhas ou scripts locais.');
+    if (data.secrets.includes('secret-scanning')) secretLines.push('- Ferramenta de secret scanning ativa no pipeline de CI/CD.');
+    if (data.secrets.includes('secret-rotation')) secretLines.push('- Segredos técnicos seguem ciclo de rotação definido ou são rotacionados sob evento.');
+    if (data.secrets.includes('secret-inventory')) secretLines.push('- Inventário de segredos técnicos mantido com titular, sistema e data de última rotação.');
+
+    const evidence = [
+      '- Configuração vigente da política de senha e bloqueio na plataforma de identidade.',
+      '- Evidência de MFA aplicado aos cenários críticos definidos neste padrão.',
+      '- Logs de reset e redefinição de credenciais com timestamp e identificação do operador.',
+      '- Procedimento documentado de validação de identidade para resets no Service Desk.',
+      '- Registros de revogação de sessão ou tokens em incidentes, quando aplicável.'
+    ];
+    if (data.accountTypes.includes('service')) {
+      evidence.push('- Logs de acesso ao Vault e inventário de segredos técnicos com status de rotação.');
+    }
+
+    return `# Authentication Standard\n\n**Organização:** ${org}  \n**Versão:** ${data.docVersion || '1.0'} — Rascunho educacional  \n**Data:** ${today}  \n**Referências:** ISO/IEC 27001:2022 · 5.17 · 8.5\n\n---\n\n## 1. Objetivo\n\nDefinir o baseline de proteção, uso, redefinição e revogação de informações de autenticação, garantindo que apenas o titular da identidade tenha custódia do segredo e que o processo seja auditável.\n\n## 2. Escopo\n\nTipos de conta cobertos:\n${data.accountTypes.map(v => `- ${accountTypeLabel(v)}`).join('\n')}\n\nMétodo primário de autenticação:\n- ${authMethodLabel(data.authMethod)}\n\nPlataforma de identidade: ${platformLabel(data.platform)}\n\n## 3. Requisitos mínimos de credenciais\n\n- Comprimento mínimo de senha: **${data.length}** caracteres.\n- Bloqueio após **${data.lockout}** tentativas inválidas consecutivas.\n- Histórico mínimo de **${data.reuse}** senhas para impedir reuso imediato.\n- Rotação: **${rotationLabel(data.rotation)}**.\n\n## 4. MFA e autenticação segura\n\n${mfaLines.length ? mfaLines.join('\n') : '- Não definido.'}\n\n## 5. Reset, entrega e custódia\n\n${resetLines.length ? resetLines.join('\n') : '- Não definido.'}\n\n## 6. Proteção de segredos técnicos\n\n${secretLines.length ? secretLines.join('\n') : '- Não aplicável ao escopo definido ou não configurado.'}\n\n## 7. Evidências de auditoria esperadas\n\n${evidence.join('\n')}\n\n## 8. Avaliação de aderência\n\n- Score estimado de aderência: **${data.score}/100**\n- Maturidade estimada: **${data.maturity}**\n- Alertas de conformidade identificados: **${data.flags.length}**\n\n## 9. Observações complementares\n\n${data.notes || 'Sem observações adicionais.'}\n\n---\n\n*Documento gerado pelo Authentication Standard Builder — conteúdo educacional baseado em normas públicas.*`;
+  }
+
+  /* ── BUILD PLAIN TEXT ── */
+  function buildPlainText(data) {
+    const today = new Date().toLocaleDateString('pt-BR');
+    const org = data.orgName || '[Organização]';
+    const md = buildMarkdown(data);
+    // Strip markdown syntax for plain text
+    return md
+      .replace(/^#{1,3} /gm, '')
+      .replace(/\*\*/g, '')
+      .replace(/^---$/gm, '─'.repeat(50))
+      .replace(/^\- /gm, '  · ')
+      .trim();
+  }
+
+  /* ── FULL RENDER ── */
+  function render() {
+    const data = calculate();
+
+    // Metrics
+    document.getElementById('scoreMetric').textContent = data.score;
+    document.getElementById('maturityMetric').textContent = data.maturity;
+    document.getElementById('flagsMetric').textContent = data.flags.length;
+    document.getElementById('scoreLabel').textContent = data.score + '/100';
+
+    const bar = document.getElementById('scoreBar');
+    bar.style.width = data.score + '%';
+    if (data.score >= 80) bar.style.background = 'var(--green)';
+    else if (data.score >= 65) bar.style.background = '#2b8a3e';
+    else if (data.score >= 45) bar.style.background = 'var(--amber)';
+    else bar.style.background = 'var(--red)';
+
+    // Flags
+    const container = document.getElementById('flagsContainer');
+    const blocks = [];
+
+    // Summary card
+    if (data.score >= 80) {
+      blocks.push(`<div class="flag ok"><strong>Maturidade ${data.maturity} — Baseline consistente.</strong>Os controles selecionados cobrem os principais pontos de auditoria de 5.17/8.5 para o cenário configurado.</div>`);
+    } else if (data.score >= 65) {
+      blocks.push(`<div class="flag ok"><strong>Maturidade ${data.maturity} — Processo sólido.</strong>Já se aproxima de um padrão auditável. Pontos de melhoria identificados abaixo.</div>`);
+    } else if (data.score >= 45) {
+      blocks.push(`<div class="flag med"><strong>Maturidade ${data.maturity} — Baseline documentável.</strong>Lacunas típicas em reset, custódia ou cobertura de MFA identificadas.</div>`);
+    } else {
+      blocks.push(`<div class="flag high"><strong>Maturidade ${data.maturity} — Lacunas relevantes.</strong>O baseline atual apresenta exposição elevada para auditoria de 5.17 e 8.5.</div>`);
+    }
+
+    if (data.flags.length === 0 && data.score >= 80) {
+      blocks.push(`<div class="flag ok"><strong>Nenhum alerta crítico.</strong>Configuração dentro do esperado para um Authentication Standard auditável.</div>`);
+    } else {
+      data.flags.forEach(f => blocks.push(`<div class="flag ${f.level === 'high' ? 'high' : 'med'}"><strong>${f.level === 'high' ? '↑ Atenção alta' : '→ Ponto de melhoria'}</strong> ${f.text}</div>`));
+    }
+
+    container.innerHTML = blocks.join('');
+
+    // Output
+    document.getElementById('output-md').textContent = buildMarkdown(data);
+    document.getElementById('output-txt').textContent = buildPlainText(data);
+  }
+
+  /* ── OUTPUT TABS ── */
+  function switchOutput(id, tabEl) {
+    document.querySelectorAll('.output-pane').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.output-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('pane-' + id).classList.add('active');
+    tabEl.classList.add('active');
+  }
+
+  /* ── COPY ── */
+  function copyOutput() {
+    const activePane = document.querySelector('.output-pane.active pre');
+    navigator.clipboard.writeText(activePane.textContent).then(() => {
+      const status = document.getElementById('copyStatus');
+      status.style.display = 'inline';
+      setTimeout(() => status.style.display = 'none', 1800);
+    });
+  }
+
+  /* ── DOWNLOAD ── */
+  function downloadOutput() {
+    const data = calculate();
+    const text = buildMarkdown(data);
+    const org = (data.orgName || 'authentication-standard').toLowerCase().replace(/\s+/g, '-');
+    const blob = new Blob([text], { type:'text/markdown' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `${org}-authentication-standard-v${data.docVersion || '1.0'}.md`;
+    a.click();
+  }
+
+  /* ── RESET ── */
+  function resetAll() {
+    document.querySelectorAll('.opt-card').forEach(card => { card.classList.remove('selected'); card.querySelector('.check').textContent = ''; });
+    // Restore defaults
+    const defaults = {
+      accountTypes: ['standard', 'admin'],
+      mfaControls: ['mfa-remote', 'mfa-admin'],
+      resetControls: ['first-login', 'id-validation'],
+      authMethods: ['password']
+    };
+    Object.entries(defaults).forEach(([group, vals]) => {
+      document.querySelectorAll(`#${group} .opt-card`).forEach(card => {
+        if (vals.includes(card.dataset.value)) { card.classList.add('selected'); card.querySelector('.check').textContent = '✓'; }
+      });
+    });
+    document.getElementById('length').value = 12;
+    document.getElementById('lockout').value = 5;
+    document.getElementById('reuse').value = 10;
+    document.getElementById('rotation').value = 'risk';
+    document.getElementById('notes').value = '';
+    if (document.getElementById('orgName')) document.getElementById('orgName').value = '';
+    if (document.getElementById('docVersion')) document.getElementById('docVersion').value = '1.0';
+    document.getElementById('flagsContainer').innerHTML = '<div class="flag med"><strong>Nenhum baseline gerado ainda.</strong> Selecione os parâmetros e clique em <em>Gerar padrão</em>.</div>';
+    document.getElementById('scoreMetric').textContent = '—';
+    document.getElementById('maturityMetric').textContent = '—';
+    document.getElementById('flagsMetric').textContent = '—';
+    document.getElementById('scoreLabel').textContent = '—';
+    document.getElementById('scoreBar').style.width = '0%';
+    document.getElementById('output-md').textContent = '# Authentication Standard\n\nSelecione os parâmetros e clique em "Gerar padrão"...';
+    document.getElementById('output-txt').textContent = 'AUTHENTICATION STANDARD\n\nSelecione os parâmetros e clique em "Gerar padrão"...';
+    goStep(1);
+  }
+
+  // Init live score
+  liveScore();
+</script>
+</body>
+</html>

@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privileged Access Standard | ISO 27001:2022</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:#003366;--navy-mid:#004080;--navy-light:#0056b3;
+    --accent:#c8922a;--accent-light:#e8a83a;
+    --bg:#f4f6f8;--white:#ffffff;--gray:#666;
+    --border:#d1d9e4;--text:#1a2340;
+    --green:#1a7a4a;--green-light:#e8f5ee;
+    --red:#a32020;--red-light:#fdf0f0;
+    --amber:#a06400;--amber-light:#fff8ed;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'IBM Plex Sans',sans-serif; background:var(--bg); color:var(--text); }
+
+  .breadcrumb { background:var(--navy); padding:12px 30px; font-family:'IBM Plex Mono',monospace; font-size:11px; color:rgba(255,255,255,0.45); letter-spacing:1px; }
+  .breadcrumb a { color:var(--accent-light); text-decoration:none; }
+  .breadcrumb span { margin:0 8px; }
+
+  header { background:var(--navy); padding:0; position:relative; overflow:hidden; }
+  header::before { content:''; position:absolute; top:-60px; right:-60px; width:320px; height:320px; border:40px solid rgba(200,146,42,0.12); border-radius:50%; }
+  header::after { content:'PAM'; position:absolute; bottom:-20px; right:20px; font-family:'IBM Plex Mono',monospace; font-size:110px; font-weight:700; color:rgba(255,255,255,0.03); line-height:1; user-select:none; }
+  .header-inner { max-width:960px; margin:auto; padding:50px 30px 44px; position:relative; z-index:1; }
+  .ctrl-badge { display:inline-block; font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600; background:rgba(200,146,42,0.2); color:var(--accent-light); border:1px solid rgba(200,146,42,0.4); padding:4px 12px; border-radius:3px; letter-spacing:2px; margin-bottom:16px; }
+  header h1 { font-size:30px; font-weight:700; color:#fff; line-height:1.25; margin-bottom:12px; }
+  header h1 span { color:var(--accent-light); }
+  header p { font-size:14px; color:rgba(255,255,255,0.6); max-width:560px; line-height:1.7; margin-bottom:24px; }
+  .header-meta { display:flex; gap:16px; flex-wrap:wrap; }
+  .meta-pill { font-family:'IBM Plex Mono',monospace; font-size:10px; padding:4px 10px; border:1px solid rgba(255,255,255,0.18); border-radius:3px; color:rgba(255,255,255,0.5); letter-spacing:1px; }
+
+  main { max-width:960px; margin:0 auto; padding:52px 30px 80px; }
+  .section-label { font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:3px; text-transform:uppercase; color:var(--accent); margin-bottom:10px; }
+  .section-title { font-size:20px; font-weight:700; color:var(--navy); margin-bottom:6px; }
+  .section-sub { font-size:14px; color:var(--gray); margin-bottom:28px; line-height:1.6; max-width:580px; }
+
+  /* TABS */
+  .tab-bar { display:flex; gap:0; border-bottom:2px solid var(--border); margin-bottom:32px; }
+  .tab-btn { font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.5px; padding:10px 18px; border:none; background:transparent; color:var(--gray); cursor:pointer; border-bottom:2px solid transparent; margin-bottom:-2px; transition:all 0.2s; }
+  .tab-btn:hover { color:var(--navy); }
+  .tab-btn.active { color:var(--navy); border-bottom-color:var(--accent); font-weight:600; }
+  .tab-panel { display:none; }
+  .tab-panel.active { display:block; }
+
+  /* ACCOUNT CARDS */
+  .account-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:16px; margin-bottom:40px; }
+  .account-card { background:var(--white); border:1px solid var(--border); border-radius:6px; overflow:hidden; }
+  .account-header { padding:16px 20px; }
+  .account-card.critical .account-header { background:var(--red); }
+  .account-card.high .account-header { background:#7a4400; }
+  .account-card.elevated .account-header { background:var(--navy); }
+  .account-tier { font-family:'IBM Plex Mono',monospace; font-size:10px; color:rgba(255,255,255,0.65); letter-spacing:2px; margin-bottom:5px; }
+  .account-name { font-size:15px; font-weight:700; color:#fff; margin-bottom:4px; }
+  .account-sub { font-size:12px; color:rgba(255,255,255,0.6); }
+  .account-body { padding:16px 20px; }
+  .account-examples { font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--accent); margin-bottom:12px; letter-spacing:0.5px; }
+  .account-rules { list-style:none; }
+  .account-rules li { font-size:12px; color:var(--gray); padding:4px 0; border-bottom:1px solid #f0f2f5; display:flex; gap:8px; line-height:1.45; }
+  .account-rules li:last-child { border-bottom:none; }
+  .account-rules li::before { color:var(--accent); font-weight:700; flex-shrink:0; }
+  .account-card.critical .account-rules li::before { content:'⚠'; color:var(--red); }
+  .account-card.high .account-rules li::before { content:'◆'; color:var(--amber); }
+  .account-card.elevated .account-rules li::before { content:'·'; }
+
+  /* PAM TABLE */
+  .pam-table { width:100%; border-collapse:collapse; background:var(--white); border-radius:6px; overflow:hidden; border:1px solid var(--border); margin-bottom:40px; }
+  .pam-table thead tr { background:var(--navy); }
+  .pam-table th { text-align:left; padding:13px 16px; font-family:'IBM Plex Mono',monospace; font-size:11px; color:rgba(255,255,255,0.7); letter-spacing:1px; font-weight:400; }
+  .pam-table td { padding:13px 16px; border-bottom:1px solid var(--border); font-size:13px; vertical-align:middle; }
+  .pam-table tr:last-child td { border-bottom:none; }
+  .pam-table tr:hover td { background:#f8fafc; }
+  .pam-table td:first-child { font-weight:600; color:var(--navy); }
+  .tag { font-family:'IBM Plex Mono',monospace; font-size:10px; padding:3px 8px; border-radius:3px; display:inline-block; }
+  .tag-required { background:#fdf0f0; color:var(--red); border:1px solid #f0b8b8; }
+  .tag-recommended { background:var(--green-light); color:var(--green); border:1px solid #b8dfc8; }
+  .tag-conditional { background:var(--amber-light); color:var(--amber); border:1px solid #f0d080; }
+  .tag-na { background:#f0f2f5; color:#888; border:1px solid var(--border); }
+
+  /* VAULT GUIDE */
+  .vault-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:40px; }
+  .vault-card { background:var(--white); border:1px solid var(--border); border-radius:6px; padding:20px; }
+  .vault-card.bad  { border-left:4px solid var(--red); }
+  .vault-card.good { border-left:4px solid var(--green); }
+  .vault-badge { font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:2px; margin-bottom:8px; }
+  .vault-card.bad .vault-badge  { color:var(--red); }
+  .vault-card.good .vault-badge { color:var(--green); }
+  .vault-title { font-size:13px; font-weight:700; color:var(--navy); margin-bottom:10px; }
+  .vault-items { list-style:none; }
+  .vault-items li { font-size:12px; color:var(--gray); padding:4px 0; border-bottom:1px solid #f0f2f5; display:flex; gap:8px; line-height:1.45; }
+  .vault-items li:last-child { border-bottom:none; }
+  .vault-items li::before { flex-shrink:0; margin-top:1px; }
+  .vault-card.bad  .vault-items li::before { content:'✗'; color:var(--red); font-weight:700; }
+  .vault-card.good .vault-items li::before { content:'✓'; color:var(--green); font-weight:700; }
+
+  /* CHECKLIST */
+  .checklist-group { margin-bottom:24px; }
+  .checklist-group-title { font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:2px; color:var(--navy); background:#eef2f8; padding:8px 14px; border-radius:4px; margin-bottom:2px; display:flex; justify-content:space-between; align-items:center; }
+  .progress-pill { font-size:10px; font-family:'IBM Plex Mono',monospace; background:var(--white); padding:2px 8px; border-radius:10px; color:var(--gray); border:1px solid var(--border); }
+  .check-item { display:flex; align-items:flex-start; gap:12px; padding:11px 14px; background:var(--white); border:1px solid var(--border); border-top:none; cursor:pointer; transition:background 0.15s; user-select:none; }
+  .check-item:last-child { border-radius:0 0 4px 4px; }
+  .check-item:hover { background:#f8fafc; }
+  .check-item.checked { background:#f2fbf5; }
+  .check-box { width:18px; min-width:18px; height:18px; border:2px solid var(--border); border-radius:3px; margin-top:1px; display:flex; align-items:center; justify-content:center; transition:all 0.15s; flex-shrink:0; }
+  .check-item.checked .check-box { background:var(--green); border-color:var(--green); color:white; font-size:11px; }
+  .check-name { font-size:13px; color:var(--text); margin-bottom:2px; font-weight:500; }
+  .check-item.checked .check-name { color:var(--gray); text-decoration:line-through; }
+  .check-desc { font-size:11px; color:var(--gray); line-height:1.5; }
+  .check-ctrl { font-family:'IBM Plex Mono',monospace; font-size:9px; color:var(--navy-light); background:#eef2f8; padding:2px 6px; border-radius:2px; white-space:nowrap; margin-left:auto; flex-shrink:0; }
+  .audit-progress { background:var(--white); border:1px solid var(--border); border-radius:6px; padding:20px 24px; margin-bottom:28px; display:flex; align-items:center; gap:20px; }
+  .ap-label { font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--gray); white-space:nowrap; }
+  .ap-bar-track { flex:1; height:8px; background:#eef2f8; border-radius:4px; overflow:hidden; }
+  .ap-bar-fill { height:100%; background:linear-gradient(90deg,var(--green),#2dbd6e); border-radius:4px; transition:width 0.4s ease; width:0%; }
+  .ap-count { font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:600; color:var(--navy); white-space:nowrap; min-width:56px; text-align:right; }
+
+  /* EVIDENCE */
+  .evidence-list { display:flex; flex-direction:column; gap:8px; margin-bottom:36px; }
+  .evidence-item { background:var(--white); border:1px solid var(--border); border-radius:6px; padding:14px 18px; display:flex; align-items:center; gap:14px; }
+  .ev-icon { width:38px; min-width:38px; height:38px; background:var(--green-light); border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:16px; }
+  .ev-name { font-size:13px; font-weight:700; color:var(--navy); margin-bottom:2px; }
+  .ev-desc { font-size:12px; color:var(--gray); line-height:1.5; }
+  .ev-type { margin-left:auto; font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--green); background:var(--green-light); padding:3px 8px; border-radius:3px; white-space:nowrap; border:1px solid #b8dfc8; }
+
+  .artifact-list { display:flex; flex-direction:column; gap:10px; margin-bottom:36px; }
+  .artifact-item { background:var(--white); border:1px solid var(--border); border-radius:6px; padding:14px 18px; display:flex; align-items:center; gap:14px; transition:border-color 0.2s; }
+  .artifact-item:hover { border-color:var(--navy-light); }
+  .art-icon { width:40px; min-width:40px; height:40px; background:var(--navy); border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:16px; }
+  .art-name { font-size:13px; font-weight:700; color:var(--navy); margin-bottom:2px; }
+  .art-desc { font-size:12px; color:var(--gray); }
+  .art-link { margin-left:auto; font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--navy-light); text-decoration:none; white-space:nowrap; }
+  .art-link::after { content:' →'; }
+  .art-link.disabled { opacity:0.4; pointer-events:none; }
+
+  .ref-block { background:var(--white); border:1px solid var(--border); border-radius:6px; padding:22px 24px; margin-bottom:36px; }
+  .ref-block h3 { font-size:14px; font-weight:700; color:var(--navy); margin-bottom:14px; }
+  .ref-item { display:flex; gap:12px; align-items:flex-start; padding:8px 0; border-bottom:1px solid #f0f2f5; font-size:13px; }
+  .ref-item:last-child { border-bottom:none; }
+  .ref-code { font-family:'IBM Plex Mono',monospace; font-weight:600; color:var(--navy); min-width:80px; }
+  .ref-desc { color:var(--gray); line-height:1.5; }
+
+  .nav-bottom { display:flex; justify-content:space-between; align-items:center; margin-top:60px; padding-top:28px; border-top:1px solid var(--border); }
+  .nav-btn { font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--navy-light); text-decoration:none; padding:8px 14px; border:1px solid var(--border); border-radius:4px; background:var(--white); transition:border-color 0.2s,background 0.2s; }
+  .nav-btn:hover { border-color:var(--navy-light); background:#f0f5fb; }
+  .nav-btn.disabled { opacity:0.4; pointer-events:none; }
+
+  footer { background:var(--navy); padding:24px 30px; text-align:center; }
+  footer p { font-family:'IBM Plex Mono',monospace; font-size:11px; color:rgba(255,255,255,0.35); letter-spacing:1px; }
+  footer a { color:var(--accent-light); text-decoration:none; }
+
+  @media(max-width:640px) {
+    .vault-grid { grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="breadcrumb">
+  <a href="../index.html">Início</a><span>/</span>Ferramentas<span>/</span>Privileged Access Standard
+</div>
+
+<header>
+  <div class="header-inner">
+    <div class="ctrl-badge">PADRÃO TÉCNICO · ARTEFATO</div>
+    <h1>Privileged Access <span>Standard</span></h1>
+    <p>Normativo operacional para gestão de contas privilegiadas: classificação por tier, controles obrigatórios por nível, requisitos de vault e checklist de auditoria para o controle 8.2.</p>
+    <div class="header-meta">
+      <span class="meta-pill">8.2 · Privileged Access Rights</span>
+      <span class="meta-pill">5.18 · Access Rights</span>
+      <span class="meta-pill">Padrão Técnico</span>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('classificacao',this)">CLASSIFICAÇÃO</button>
+    <button class="tab-btn" onclick="switchTab('controles',this)">CONTROLES</button>
+    <button class="tab-btn" onclick="switchTab('vault',this)">VAULT / PAM</button>
+    <button class="tab-btn" onclick="switchTab('checklist',this)">CHECKLIST AUDITORIA</button>
+    <button class="tab-btn" onclick="switchTab('referencias',this)">REFERÊNCIAS</button>
+  </div>
+
+  <!-- ═══ TAB: CLASSIFICAÇÃO ═══ -->
+  <div id="tab-classificacao" class="tab-panel active">
+    <div class="section-label">Controle 8.2 — Privileged Access Rights</div>
+    <div class="section-title">Classificação de Contas Privilegiadas</div>
+    <p class="section-sub">Todo acesso com capacidade de causar dano irreversível deve ser classificado e tratado com controles proporcionais ao impacto potencial.</p>
+
+    <div class="account-grid">
+      <div class="account-card critical">
+        <div class="account-header">
+          <div class="account-tier">TIER 1 · CRÍTICO</div>
+          <div class="account-name">Impacto Total</div>
+          <div class="account-sub">Pode comprometer toda a infraestrutura</div>
+        </div>
+        <div class="account-body">
+          <div class="account-examples">Global Admin · Domain Admin · Root · Break Glass</div>
+          <ul class="account-rules">
+            <li>Conta dedicada — nunca usada para tarefas cotidianas</li>
+            <li>MFA obrigatório com FIDO2 ou certificado</li>
+            <li>Credencial no vault com rotação automática</li>
+            <li>Sessão gravada e log imutável</li>
+            <li>Revisão mensal com evidência</li>
+            <li>JIT obrigatório — sem acesso permanente ativo</li>
+          </ul>
+        </div>
+      </div>
+      <div class="account-card high">
+        <div class="account-header">
+          <div class="account-tier">TIER 2 · ALTO</div>
+          <div class="account-name">Alto Impacto</div>
+          <div class="account-sub">Pode comprometer sistemas ou dados críticos</div>
+        </div>
+        <div class="account-body">
+          <div class="account-examples">Cloud Owner · DBA · Firewall Admin · App Admin</div>
+          <ul class="account-rules">
+            <li>Conta dedicada separada da conta padrão</li>
+            <li>MFA forte obrigatório (Authenticator + number matching)</li>
+            <li>Credencial no vault — sem senha pessoal guardada</li>
+            <li>Log de sessão retido por no mínimo 90 dias</li>
+            <li>Revisão trimestral com evidência</li>
+          </ul>
+        </div>
+      </div>
+      <div class="account-card elevated">
+        <div class="account-header">
+          <div class="account-tier">TIER 3 · ELEVADO</div>
+          <div class="account-name">Privilégio Funcional</div>
+          <div class="account-sub">Acesso amplo dentro de um escopo definido</div>
+        </div>
+        <div class="account-body">
+          <div class="account-examples">App Admin Local · Backup Op · Deploy Prod · Read-All</div>
+          <ul class="account-rules">
+            <li>MFA obrigatório</li>
+            <li>Aprovação formal para concessão</li>
+            <li>Revisão semestral com evidência</li>
+            <li>Vault recomendado para credenciais técnicas</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:var(--white); border:1px solid var(--border); border-left:4px solid var(--accent); border-radius:6px; padding:18px 22px; font-size:13px; color:var(--text); line-height:1.7;">
+      <strong style="color:var(--navy)">Princípio do menor privilégio:</strong> Toda conta privilegiada deve ser usada <em>exclusivamente</em> para a finalidade que justificou sua concessão. Uso de conta Tier 1 para tarefas rotineiras é uma violação explícita deste padrão — independente do cargo do titular.
+    </div>
+  </div>
+
+  <!-- ═══ TAB: CONTROLES ═══ -->
+  <div id="tab-controles" class="tab-panel">
+    <div class="section-label">Requisitos Técnicos</div>
+    <div class="section-title">Controles Obrigatórios por Tier</div>
+    <p class="section-sub">Requisitos mínimos de implementação para cada classificação de acesso privilegiado.</p>
+
+    <table class="pam-table">
+      <thead>
+        <tr>
+          <th>Controle</th>
+          <th>Tier 1 · Crítico</th>
+          <th>Tier 2 · Alto</th>
+          <th>Tier 3 · Elevado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Conta dedicada separada da conta padrão</td>
+          <td><span class="tag tag-required">OBRIGATÓRIO</span></td>
+          <td><span class="tag tag-required">OBRIGATÓRIO</span></td>
+          <td><span class="tag tag-recommended">RECOMENDADO</span></td>
+        </tr>
+        <tr>
+          <td>MFA de fator forte (FIDO2 / certificado)</td>
+          <td><span class="tag tag-required">OBRIGATÓRIO</span></td>
+          <td><span class="tag tag-recommended">RECOMENDADO</span></td>
+          <td><span class="tag tag-required">MFA padrão</span></td>
+        </tr>
+        <tr>
+          <td>Credencial gerenciada por vault</td>
+          <td><span class="tag tag-required">OBRIGATÓRIO</span></td>
+          <td><span class="tag tag-required">OBRIGATÓRIO</span></td>
+          <td><span class="tag tag-conditional">CONDICIONAL</span></td>
+        </tr>
+        <tr>
+          <td>Rotação automática de credencial</td>
+          <td><span class="tag tag-required">OBRIGATÓRIO</span></td>
+          <td><span class="tag tag-recommended">RECOMENDADO</span></td>
+          <td><span class="tag tag-conditional">CONDICIONAL</span></td>
+        </tr>
+        <tr>
+          <td>Gravação de sessão (Session Recording)</td>
+          <td><span class="tag tag-required">OBRIGATÓRIO</span></td>
+          <td><span class="tag tag-recommended">RECOMENDADO</span></td>
+          <td><span class="tag tag-na">N/A</span></td>
+        </tr>
+        <tr>
+          <td>Acesso JIT com janela de tempo limitada</td>
+          <td><span class="tag tag-required">OBRIGATÓRIO</span></td>
+          <td><span class="tag tag-recommended">RECOMENDADO</span></td>
+          <td><span class="tag tag-conditional">CONDICIONAL</span></td>
+        </tr>
+        <tr>
+          <td>Alerta automático em acesso fora do horário</td>
+          <td><span class="tag tag-required">OBRIGATÓRIO</span></td>
+          <td><span class="tag tag-required">OBRIGATÓRIO</span></td>
+          <td><span class="tag tag-recommended">RECOMENDADO</span></td>
+        </tr>
+        <tr>
+          <td>Revisão periódica com frequência reforçada</td>
+          <td>Mensal</td>
+          <td>Trimestral</td>
+          <td>Semestral</td>
+        </tr>
+        <tr>
+          <td>Aprovação dupla para concessão</td>
+          <td><span class="tag tag-required">OBRIGATÓRIO</span></td>
+          <td><span class="tag tag-required">OBRIGATÓRIO</span></td>
+          <td><span class="tag tag-na">Aprovação única</span></td>
+        </tr>
+        <tr>
+          <td>Inventário com responsável e justificativa</td>
+          <td><span class="tag tag-required">OBRIGATÓRIO</span></td>
+          <td><span class="tag tag-required">OBRIGATÓRIO</span></td>
+          <td><span class="tag tag-required">OBRIGATÓRIO</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="background:var(--amber-light); border:1px solid #f0d080; border-left:4px solid var(--amber); border-radius:6px; padding:16px 20px; font-size:13px; color:var(--amber); line-height:1.7;">
+      ⚠ <strong>Contas Break Glass:</strong> Devem existir para emergências operacionais mas nunca para uso cotidiano. Acesso deve acionar alertas automáticos, ser gravado integralmente e revisado dentro de 24h após qualquer uso. Credencial rotacionada imediatamente após cada uso.
+    </div>
+  </div>
+
+  <!-- ═══ TAB: VAULT ═══ -->
+  <div id="tab-vault" class="tab-panel">
+    <div class="section-label">Gestão de Credenciais Privilegiadas</div>
+    <div class="section-title">Vault e PAM — O que implementar</div>
+    <p class="section-sub">Padrão para custódia de credenciais administrativas. Nenhuma senha privilegiada deve existir fora de um cofre gerenciado.</p>
+
+    <div class="vault-grid">
+      <div class="vault-card bad">
+        <div class="vault-badge">PROIBIDO · PRÁTICAS INSEGURAS</div>
+        <div class="vault-title">O que nunca deve ocorrer</div>
+        <ul class="vault-items">
+          <li>Senha de admin salva no navegador pessoal</li>
+          <li>Credencial privilegiada em planilha ou documento</li>
+          <li>Senha de root compartilhada por e-mail ou chat</li>
+          <li>Conta global admin usada para acesso cotidiano</li>
+          <li>Credencial de emergência sem controle de rotação</li>
+          <li>Mesma senha de admin em múltiplos sistemas</li>
+        </ul>
+      </div>
+      <div class="vault-card good">
+        <div class="vault-badge">OBRIGATÓRIO · PRÁTICAS CORRETAS</div>
+        <div class="vault-title">O que deve ser implementado</div>
+        <ul class="vault-items">
+          <li>CyberArk, BeyondTrust, Delinea, HashiCorp Vault ou Azure PIM</li>
+          <li>Check-out de credencial com janela de tempo definida</li>
+          <li>Rotação automática após cada check-out</li>
+          <li>Log de quem acessou, quando e por quanto tempo</li>
+          <li>Alerta para qualquer acesso fora do horário padrão</li>
+          <li>Acesso ao vault protegido por MFA de fator forte</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section-label">Processo de Check-out</div>
+    <div class="section-title">Fluxo de Acesso via Vault</div>
+    <p class="section-sub">Todo acesso a conta privilegiada Tier 1 e Tier 2 deve seguir este fluxo.</p>
+
+    <table class="pam-table">
+      <thead>
+        <tr><th>Etapa</th><th>Ação</th><th>Evidência Gerada</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1 · Solicitação</td>
+          <td>Operador autentica no vault com MFA e solicita acesso à conta</td>
+          <td>Log de autenticação no vault com identidade do operador</td>
+        </tr>
+        <tr>
+          <td>2 · Justificativa</td>
+          <td>Preenchimento obrigatório: motivo, sistema alvo, janela de tempo</td>
+          <td>Registro de justificativa vinculado ao check-out</td>
+        </tr>
+        <tr>
+          <td>3 · Aprovação (Tier 1)</td>
+          <td>Aprovação em tempo real por outro admin ou gestor — se exigido</td>
+          <td>Registro do aprovador e timestamp</td>
+        </tr>
+        <tr>
+          <td>4 · Acesso</td>
+          <td>Vault libera a sessão — operador nunca vê a senha em texto claro</td>
+          <td>Sessão gravada (para Tier 1) / Log de acesso (Tier 2)</td>
+        </tr>
+        <tr>
+          <td>5 · Encerramento</td>
+          <td>Sessão encerrada manualmente ou por expiração do tempo</td>
+          <td>Log de encerramento com duração da sessão</td>
+        </tr>
+        <tr>
+          <td>6 · Rotação</td>
+          <td>Vault rotaciona a credencial automaticamente após check-in</td>
+          <td>Log de rotação com timestamp</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ═══ TAB: CHECKLIST ═══ -->
+  <div id="tab-checklist" class="tab-panel">
+    <div class="section-label">Evidências para Auditoria ISO 27001</div>
+    <div class="section-title">Checklist de Conformidade — 8.2</div>
+    <p class="section-sub">Marque os itens à medida que forem verificados. O progresso é salvo no navegador.</p>
+
+    <div class="audit-progress">
+      <div class="ap-label">CONFORMIDADE GERAL</div>
+      <div class="ap-bar-track"><div class="ap-bar-fill" id="progressBar"></div></div>
+      <div class="ap-count" id="progressCount">0 / 0</div>
+    </div>
+
+    <div class="checklist-group">
+      <div class="checklist-group-title">INVENTÁRIO E CLASSIFICAÇÃO <span class="progress-pill" id="prog-g1">0/4</span></div>
+      <div class="check-item" onclick="toggleCheck(this)" data-group="g1">
+        <div class="check-box"></div>
+        <div class="check-text">
+          <div class="check-name">Inventário de contas privilegiadas mantido e atualizado</div>
+          <div class="check-desc">Lista com tipo, tier, sistema, titular, data de concessão e data da última revisão. Revisão semestral mínima.</div>
+        </div>
+        <div class="check-ctrl">8.2</div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)" data-group="g1">
+        <div class="check-box"></div>
+        <div class="check-text">
+          <div class="check-name">Todas as contas classificadas por tier (Crítico / Alto / Elevado)</div>
+          <div class="check-desc">Classificação formal documentada — não implícita. Toda conta sem classificação é tratada como Tier 1 por padrão.</div>
+        </div>
+        <div class="check-ctrl">8.2</div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)" data-group="g1">
+        <div class="check-box"></div>
+        <div class="check-text">
+          <div class="check-name">Contas sem titular identificado (órfãs) zeradas ou revogadas</div>
+          <div class="check-desc">Nenhuma conta privilegiada sem responsável identificado e justificativa de existência.</div>
+        </div>
+        <div class="check-ctrl">8.2</div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)" data-group="g1">
+        <div class="check-box"></div>
+        <div class="check-text">
+          <div class="check-name">Contas administrativas separadas das contas padrão (Tier 1 e 2)</div>
+          <div class="check-desc">Cada admin tem conta privilegiada dedicada — não utiliza a mesma conta para e-mail e acesso administrativo.</div>
+        </div>
+        <div class="check-ctrl">8.2</div>
+      </div>
+    </div>
+
+    <div class="checklist-group">
+      <div class="checklist-group-title">AUTENTICAÇÃO E VAULT <span class="progress-pill" id="prog-g2">0/4</span></div>
+      <div class="check-item" onclick="toggleCheck(this)" data-group="g2">
+        <div class="check-box"></div>
+        <div class="check-text">
+          <div class="check-name">MFA de fator forte ativo para todas as contas Tier 1 e Tier 2</div>
+          <div class="check-desc">FIDO2, certificado ou Authenticator com number matching. Evidência de configuração no IdP / PAM.</div>
+        </div>
+        <div class="check-ctrl">8.2 / 8.5</div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)" data-group="g2">
+        <div class="check-box"></div>
+        <div class="check-text">
+          <div class="check-name">Vault de credenciais implantado para contas Tier 1 e Tier 2</div>
+          <div class="check-desc">Solução PAM em produção com check-out, rotação e log. Nenhuma credencial crítica fora do vault.</div>
+        </div>
+        <div class="check-ctrl">8.2</div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)" data-group="g2">
+        <div class="check-box"></div>
+        <div class="check-text">
+          <div class="check-name">Rotação automática de credenciais privilegiadas configurada</div>
+          <div class="check-desc">Evidência de configuração de rotação no vault — frequência dentro do padrão definido.</div>
+        </div>
+        <div class="check-ctrl">8.2</div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)" data-group="g2">
+        <div class="check-box"></div>
+        <div class="check-text">
+          <div class="check-name">Acesso JIT configurado para contas Tier 1</div>
+          <div class="check-desc">Contas de impacto crítico não têm acesso permanente ativo — provisionado por janela de tempo via Azure PIM ou equivalente.</div>
+        </div>
+        <div class="check-ctrl">8.2</div>
+      </div>
+    </div>
+
+    <div class="checklist-group">
+      <div class="checklist-group-title">MONITORAMENTO E REVISÃO <span class="progress-pill" id="prog-g3">0/4</span></div>
+      <div class="check-item" onclick="toggleCheck(this)" data-group="g3">
+        <div class="check-box"></div>
+        <div class="check-text">
+          <div class="check-name">Logs de sessão privilegiada retidos e consultáveis</div>
+          <div class="check-desc">Registros de acesso privilegiado com identidade, sistema, timestamp e ações — retidos por no mínimo 90 dias.</div>
+        </div>
+        <div class="check-ctrl">8.2</div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)" data-group="g3">
+        <div class="check-box"></div>
+        <div class="check-text">
+          <div class="check-name">Alertas para uso fora do horário padrão configurados</div>
+          <div class="check-desc">Qualquer uso de conta Tier 1 ou Tier 2 fora do horário definido deve gerar alerta para SI imediatamente.</div>
+        </div>
+        <div class="check-ctrl">8.2</div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)" data-group="g3">
+        <div class="check-box"></div>
+        <div class="check-text">
+          <div class="check-name">Access Review de contas privilegiadas realizado na frequência definida</div>
+          <div class="check-desc">Tier 1: mensal. Tier 2: trimestral. Evidência do último ciclo com decisões documentadas.</div>
+        </div>
+        <div class="check-ctrl">8.2</div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)" data-group="g3">
+        <div class="check-box"></div>
+        <div class="check-text">
+          <div class="check-name">Gravação de sessão ativa para contas Tier 1</div>
+          <div class="check-desc">Session recording configurado no PAM ou terminal — sessões de Global Admin / Domain Admin / Root gravadas integralmente.</div>
+        </div>
+        <div class="check-ctrl">8.2</div>
+      </div>
+    </div>
+
+    <div class="section-label" style="margin-top:40px">Artefatos de Evidência</div>
+    <div class="section-title">O que precisa existir para auditoria</div>
+    <div class="evidence-list">
+      <div class="evidence-item">
+        <div class="ev-icon">📄</div>
+        <div><div class="ev-name">Privileged Access Standard (este documento)</div><div class="ev-desc">Versão aprovada, vigente, com classificação de tiers e controles obrigatórios por nível</div></div>
+        <div class="ev-type">NORMATIVO</div>
+      </div>
+      <div class="evidence-item">
+        <div class="ev-icon">📋</div>
+        <div><div class="ev-name">Inventário de Contas Privilegiadas</div><div class="ev-desc">Lista atualizada com tier, titular, sistema, data de concessão e última revisão</div></div>
+        <div class="ev-type">INVENTÁRIO</div>
+      </div>
+      <div class="evidence-item">
+        <div class="ev-icon">⚙️</div>
+        <div><div class="ev-name">Configuração de PAM / Azure PIM</div><div class="ev-desc">Print ou export da configuração do vault, políticas de rotação e JIT ativas</div></div>
+        <div class="ev-type">CONFIGURAÇÃO</div>
+      </div>
+      <div class="evidence-item">
+        <div class="ev-icon">🔍</div>
+        <div><div class="ev-name">Logs de sessão privilegiada — amostra</div><div class="ev-desc">Registros dos últimos 30 dias mostrando uso rastreável das contas de alto privilégio</div></div>
+        <div class="ev-type">LOG</div>
+      </div>
+      <div class="evidence-item">
+        <div class="ev-icon">📊</div>
+        <div><div class="ev-name">Access Review Register — Privilegiados</div><div class="ev-desc">Registro do último ciclo de revisão com decisões documentadas por conta e sistema</div></div>
+        <div class="ev-type">REGISTRO</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ TAB: REFERÊNCIAS ═══ -->
+  <div id="tab-referencias" class="tab-panel">
+    <div class="section-label">Base Normativa</div>
+    <div class="section-title">Controles ISO/IEC 27001:2022</div>
+    <div class="ref-block">
+      <h3>ISO/IEC 27001:2022 — Controles Referenciados</h3>
+      <div class="ref-item"><span class="ref-code">8.2</span><span class="ref-desc">Privileged Access Rights — controle de acessos com privilégio elevado</span></div>
+      <div class="ref-item"><span class="ref-code">5.18</span><span class="ref-desc">Access Rights — ciclo de vida base que se aplica a todos os acessos, incluindo privilegiados</span></div>
+      <div class="ref-item"><span class="ref-code">5.17</span><span class="ref-desc">Authentication Information — credenciais privilegiadas demandam proteção reforçada de custódia</span></div>
+      <div class="ref-item"><span class="ref-code">8.5</span><span class="ref-desc">Secure Authentication — MFA forte obrigatório para qualquer conta de alto privilégio</span></div>
+      <div class="ref-item"><span class="ref-code">8.15</span><span class="ref-desc">Logging — uso de contas privilegiadas deve gerar logs detalhados e protegidos</span></div>
+    </div>
+
+    <div class="section-label">Artefatos Relacionados</div>
+    <div class="section-title">Documentos da Arquitetura IAM</div>
+    <div class="artifact-list">
+      <div class="artifact-item">
+        <div class="art-icon">⚙️</div>
+        <div><div class="art-name">8.2 — Privileged Access Rights</div><div class="art-desc">Deep dive do controle que fundamenta este padrão</div></div>
+        <a class="art-link" href="../controles/8.2.html">Ver deep dive</a>
+      </div>
+      <div class="artifact-item">
+        <div class="art-icon">🔐</div>
+        <div><div class="art-name">Access Provisioning Procedure</div><div class="art-desc">O provisionamento de contas privilegiadas segue o mesmo fluxo base com aprovações adicionais</div></div>
+        <a class="art-link" href="access-provisioning.html">Ver artefato</a>
+      </div>
+      <div class="artifact-item">
+        <div class="art-icon">🔑</div>
+        <div><div class="art-name">Authentication Standard</div><div class="art-desc">Padrão de autenticação — MFA e credenciais para todos os tipos de conta</div></div>
+        <a class="art-link" href="authentication-standard.html">Ver artefato</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-bottom">
+    <a class="nav-btn" href="access-provisioning.html">← Anterior: Access Provisioning Procedure</a>
+    <a class="nav-btn disabled" href="#">Próximo: Access Recertification →</a>
+  </div>
+
+</main>
+
+<footer>
+  <p>Projeto: Access Management Maturity Model ·
+    <a href="https://github.com/gilbertocrv" target="_blank">github.com/gilbertocrv</a>
+  </p>
+</footer>
+
+<script>
+  function switchTab(id, btn) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    btn.classList.add('active');
+    if (id === 'checklist') updateProgress();
+  }
+
+  const STORAGE_KEY = 'pam-std-checklist-v1';
+  function loadState() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch { return {}; } }
+  function saveState(s) { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); } catch {} }
+  function getKey(el) { return el.querySelector('.check-name').textContent.trim().slice(0,60); }
+
+  function toggleCheck(el) {
+    const state = loadState(), key = getKey(el), checked = !el.classList.contains('checked');
+    el.classList.toggle('checked', checked);
+    el.querySelector('.check-box').textContent = checked ? '✓' : '';
+    state[key] = checked; saveState(state); updateProgress();
+  }
+
+  function updateProgress() {
+    const groups = { g1:4, g2:4, g3:4 };
+    let total = 0, done = 0;
+    Object.entries(groups).forEach(([g, max]) => {
+      const items = document.querySelectorAll(`[data-group="${g}"]`);
+      const gDone = [...items].filter(i => i.classList.contains('checked')).length;
+      total += max; done += gDone;
+      const pill = document.getElementById('prog-' + g);
+      if (pill) pill.textContent = `${gDone}/${max}`;
+    });
+    const pct = total > 0 ? Math.round((done/total)*100) : 0;
+    const bar = document.getElementById('progressBar');
+    const count = document.getElementById('progressCount');
+    if (bar) bar.style.width = pct + '%';
+    if (count) count.textContent = `${done} / ${total}`;
+  }
+
+  function restore() {
+    const state = loadState();
+    document.querySelectorAll('.check-item').forEach(el => {
+      if (state[getKey(el)]) { el.classList.add('checked'); el.querySelector('.check-box').textContent = '✓'; }
+    });
+    updateProgress();
+  }
+  restore();
+</script>
+</body>
+</html>

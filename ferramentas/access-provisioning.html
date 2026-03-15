@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Access Provisioning Procedure | ISO 27001:2022</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:#003366;--navy-mid:#004080;--navy-light:#0056b3;
+    --accent:#c8922a;--accent-light:#e8a83a;
+    --bg:#f4f6f8;--white:#ffffff;--gray:#666;
+    --border:#d1d9e4;--text:#1a2340;
+    --green:#1a7a4a;--green-light:#e8f5ee;
+    --red:#a32020;--red-light:#fdf0f0;
+    --amber:#a06400;--amber-light:#fff8ed;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'IBM Plex Sans',sans-serif; background:var(--bg); color:var(--text); }
+
+  .breadcrumb { background:var(--navy); padding:12px 30px; font-family:'IBM Plex Mono',monospace; font-size:11px; color:rgba(255,255,255,0.45); letter-spacing:1px; }
+  .breadcrumb a { color:var(--accent-light); text-decoration:none; }
+  .breadcrumb span { margin:0 8px; }
+
+  header { background:var(--navy); padding:0; position:relative; overflow:hidden; }
+  header::before { content:''; position:absolute; top:-60px; right:-60px; width:320px; height:320px; border:40px solid rgba(200,146,42,0.12); border-radius:50%; }
+  header::after { content:'PROV'; position:absolute; bottom:-20px; right:20px; font-family:'IBM Plex Mono',monospace; font-size:110px; font-weight:700; color:rgba(255,255,255,0.03); line-height:1; user-select:none; }
+  .header-inner { max-width:960px; margin:auto; padding:50px 30px 44px; position:relative; z-index:1; }
+  .ctrl-badge { display:inline-block; font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600; background:rgba(200,146,42,0.2); color:var(--accent-light); border:1px solid rgba(200,146,42,0.4); padding:4px 12px; border-radius:3px; letter-spacing:2px; margin-bottom:16px; }
+  header h1 { font-size:30px; font-weight:700; color:#fff; line-height:1.25; margin-bottom:12px; }
+  header h1 span { color:var(--accent-light); }
+  header p { font-size:14px; color:rgba(255,255,255,0.6); max-width:560px; line-height:1.7; margin-bottom:24px; }
+  .header-meta { display:flex; gap:16px; flex-wrap:wrap; }
+  .meta-pill { font-family:'IBM Plex Mono',monospace; font-size:10px; padding:4px 10px; border:1px solid rgba(255,255,255,0.18); border-radius:3px; color:rgba(255,255,255,0.5); letter-spacing:1px; }
+
+  main { max-width:960px; margin:0 auto; padding:52px 30px 80px; }
+  .section-label { font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:3px; text-transform:uppercase; color:var(--accent); margin-bottom:10px; }
+  .section-title { font-size:20px; font-weight:700; color:var(--navy); margin-bottom:6px; }
+  .section-sub { font-size:14px; color:var(--gray); margin-bottom:28px; line-height:1.6; max-width:580px; }
+
+  /* TABS */
+  .tab-bar { display:flex; gap:0; border-bottom:2px solid var(--border); margin-bottom:32px; }
+  .tab-btn { font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.5px; padding:10px 20px; border:none; background:transparent; color:var(--gray); cursor:pointer; border-bottom:2px solid transparent; margin-bottom:-2px; transition:all 0.2s; }
+  .tab-btn:hover { color:var(--navy); }
+  .tab-btn.active { color:var(--navy); border-bottom-color:var(--accent); font-weight:600; }
+  .tab-panel { display:none; }
+  .tab-panel.active { display:block; }
+
+  /* FLOW */
+  .flow-container { margin-bottom:40px; }
+  .flow-step { display:flex; gap:0; align-items:stretch; margin-bottom:0; }
+  .flow-step:last-child .flow-connector { display:none; }
+  .flow-left { width:80px; min-width:80px; display:flex; flex-direction:column; align-items:center; }
+  .flow-circle { width:44px; height:44px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:14px; color:#fff; flex-shrink:0; }
+  .flow-circle.solicit  { background:var(--navy); }
+  .flow-circle.approve  { background:var(--amber); }
+  .flow-circle.provision{ background:var(--green); }
+  .flow-circle.notify   { background:var(--navy-mid); }
+  .flow-circle.revoke   { background:var(--red); }
+  .flow-connector { width:2px; flex:1; background:var(--border); margin:4px 0; min-height:24px; }
+  .flow-card { flex:1; background:var(--white); border:1px solid var(--border); border-radius:6px; padding:18px 22px; margin-bottom:8px; margin-left:16px; transition:box-shadow 0.2s; }
+  .flow-card:hover { box-shadow:0 2px 10px rgba(0,51,102,0.08); }
+  .flow-tag { font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:2px; margin-bottom:6px; }
+  .flow-card-title { font-size:14px; font-weight:700; color:var(--navy); margin-bottom:10px; }
+  .flow-details { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+  .flow-detail { font-size:12px; color:var(--gray); line-height:1.5; }
+  .flow-detail strong { color:var(--text); display:block; font-size:11px; margin-bottom:2px; }
+  .flow-sla { font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:600; padding:3px 10px; border-radius:3px; margin-top:10px; display:inline-block; }
+  .sla-green { background:var(--green-light); color:var(--green); }
+  .sla-amber { background:var(--amber-light); color:var(--amber); }
+  .sla-red   { background:var(--red-light); color:var(--red); }
+
+  /* RACI */
+  .raci-table { width:100%; border-collapse:collapse; background:var(--white); border-radius:6px; overflow:hidden; border:1px solid var(--border); margin-bottom:40px; }
+  .raci-table thead tr { background:var(--navy); }
+  .raci-table th { text-align:left; padding:13px 16px; font-family:'IBM Plex Mono',monospace; font-size:11px; color:rgba(255,255,255,0.7); letter-spacing:1px; font-weight:400; }
+  .raci-table td { padding:12px 16px; border-bottom:1px solid var(--border); font-size:13px; vertical-align:middle; }
+  .raci-table tr:last-child td { border-bottom:none; }
+  .raci-table tr:hover td { background:#f8fafc; }
+  .raci-table td:first-child { font-weight:600; color:var(--navy); }
+  .raci-badge { font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:600; padding:3px 8px; border-radius:3px; display:inline-block; text-align:center; min-width:24px; }
+  .r { background:#fdf0f0; color:var(--red); }
+  .a { background:var(--amber-light); color:var(--amber); }
+  .c { background:var(--green-light); color:var(--green); }
+  .i { background:#eef2f8; color:var(--navy); }
+  .na { color:var(--border); font-size:14px; }
+
+  /* SLA BOARD */
+  .sla-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:12px; margin-bottom:40px; }
+  .sla-card { background:var(--white); border:1px solid var(--border); border-radius:6px; padding:18px 20px; text-align:center; }
+  .sla-value { font-family:'IBM Plex Mono',monospace; font-size:28px; font-weight:600; margin-bottom:4px; }
+  .sla-label { font-size:12px; color:var(--gray); line-height:1.4; }
+  .sla-type  { font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:2px; color:var(--accent); margin-bottom:8px; }
+
+  /* CHECKLIST */
+  .checklist-group { margin-bottom:24px; }
+  .checklist-group-title { font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:2px; color:var(--navy); background:#eef2f8; padding:8px 14px; border-radius:4px; margin-bottom:2px; display:flex; justify-content:space-between; align-items:center; }
+  .progress-pill { font-size:10px; font-family:'IBM Plex Mono',monospace; background:var(--white); padding:2px 8px; border-radius:10px; color:var(--gray); border:1px solid var(--border); }
+  .check-item { display:flex; align-items:flex-start; gap:12px; padding:11px 14px; background:var(--white); border:1px solid var(--border); border-top:none; cursor:pointer; transition:background 0.15s; user-select:none; }
+  .check-item:last-child { border-radius:0 0 4px 4px; }
+  .check-item:hover { background:#f8fafc; }
+  .check-item.checked { background:#f2fbf5; }
+  .check-box { width:18px; min-width:18px; height:18px; border:2px solid var(--border); border-radius:3px; margin-top:1px; display:flex; align-items:center; justify-content:center; transition:all 0.15s; flex-shrink:0; }
+  .check-item.checked .check-box { background:var(--green); border-color:var(--green); color:white; font-size:11px; }
+  .check-name { font-size:13px; color:var(--text); margin-bottom:2px; font-weight:500; }
+  .check-item.checked .check-name { color:var(--gray); text-decoration:line-through; }
+  .check-desc { font-size:11px; color:var(--gray); line-height:1.5; }
+  .check-ctrl { font-family:'IBM Plex Mono',monospace; font-size:9px; color:var(--navy-light); background:#eef2f8; padding:2px 6px; border-radius:2px; white-space:nowrap; margin-left:auto; flex-shrink:0; }
+  .audit-progress { background:var(--white); border:1px solid var(--border); border-radius:6px; padding:20px 24px; margin-bottom:28px; display:flex; align-items:center; gap:20px; }
+  .ap-label { font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--gray); white-space:nowrap; }
+  .ap-bar-track { flex:1; height:8px; background:#eef2f8; border-radius:4px; overflow:hidden; }
+  .ap-bar-fill { height:100%; background:linear-gradient(90deg,var(--green),#2dbd6e); border-radius:4px; transition:width 0.4s ease; width:0%; }
+  .ap-count { font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:600; color:var(--navy); white-space:nowrap; min-width:56px; text-align:right; }
+
+  /* EVIDENCE */
+  .evidence-list { display:flex; flex-direction:column; gap:8px; margin-bottom:36px; }
+  .evidence-item { background:var(--white); border:1px solid var(--border); border-radius:6px; padding:14px 18px; display:flex; align-items:center; gap:14px; }
+  .ev-icon { width:38px; min-width:38px; height:38px; background:var(--green-light); border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:16px; }
+  .ev-name { font-size:13px; font-weight:700; color:var(--navy); margin-bottom:2px; }
+  .ev-desc { font-size:12px; color:var(--gray); line-height:1.5; }
+  .ev-type { margin-left:auto; font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--green); background:var(--green-light); padding:3px 8px; border-radius:3px; white-space:nowrap; border:1px solid #b8dfc8; }
+
+  /* ARTIFACT LINKS */
+  .artifact-list { display:flex; flex-direction:column; gap:10px; margin-bottom:36px; }
+  .artifact-item { background:var(--white); border:1px solid var(--border); border-radius:6px; padding:14px 18px; display:flex; align-items:center; gap:14px; transition:border-color 0.2s; }
+  .artifact-item:hover { border-color:var(--navy-light); }
+  .art-icon { width:40px; min-width:40px; height:40px; background:var(--navy); border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:16px; }
+  .art-name { font-size:13px; font-weight:700; color:var(--navy); margin-bottom:2px; }
+  .art-desc { font-size:12px; color:var(--gray); }
+  .art-link { margin-left:auto; font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--navy-light); text-decoration:none; white-space:nowrap; }
+  .art-link::after { content:' →'; }
+  .art-link.disabled { opacity:0.4; pointer-events:none; }
+
+  .ref-block { background:var(--white); border:1px solid var(--border); border-radius:6px; padding:22px 24px; margin-bottom:36px; }
+  .ref-block h3 { font-size:14px; font-weight:700; color:var(--navy); margin-bottom:14px; }
+  .ref-item { display:flex; gap:12px; align-items:flex-start; padding:8px 0; border-bottom:1px solid #f0f2f5; font-size:13px; }
+  .ref-item:last-child { border-bottom:none; }
+  .ref-code { font-family:'IBM Plex Mono',monospace; font-weight:600; color:var(--navy); min-width:80px; }
+  .ref-desc { color:var(--gray); line-height:1.5; }
+
+  .nav-bottom { display:flex; justify-content:space-between; align-items:center; margin-top:60px; padding-top:28px; border-top:1px solid var(--border); }
+  .nav-btn { font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--navy-light); text-decoration:none; padding:8px 14px; border:1px solid var(--border); border-radius:4px; background:var(--white); transition:border-color 0.2s,background 0.2s; }
+  .nav-btn:hover { border-color:var(--navy-light); background:#f0f5fb; }
+  .nav-btn.disabled { opacity:0.4; pointer-events:none; }
+
+  footer { background:var(--navy); padding:24px 30px; text-align:center; }
+  footer p { font-family:'IBM Plex Mono',monospace; font-size:11px; color:rgba(255,255,255,0.35); letter-spacing:1px; }
+  footer a { color:var(--accent-light); text-decoration:none; }
+
+  @media(max-width:640px) {
+    .flow-details { grid-template-columns:1fr; }
+    .sla-grid { grid-template-columns:1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="breadcrumb">
+  <a href="../index.html">Início</a><span>/</span>Ferramentas<span>/</span>Access Provisioning Procedure
+</div>
+
+<header>
+  <div class="header-inner">
+    <div class="ctrl-badge">PROCEDIMENTO OPERACIONAL · ARTEFATO</div>
+    <h1>Access Provisioning <span>Procedure</span></h1>
+    <p>Procedimento formal para concessão e revogação de acessos: fluxo de aprovação, RACI, SLAs e checklist de auditoria para o controle 5.18.</p>
+    <div class="header-meta">
+      <span class="meta-pill">5.18 · Access Rights</span>
+      <span class="meta-pill">5.15 · Access Control</span>
+      <span class="meta-pill">Procedimento Operacional</span>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('fluxo',this)">FLUXO DE APROVAÇÃO</button>
+    <button class="tab-btn" onclick="switchTab('raci',this)">RACI</button>
+    <button class="tab-btn" onclick="switchTab('slas',this)">SLAs</button>
+    <button class="tab-btn" onclick="switchTab('checklist',this)">CHECKLIST AUDITORIA</button>
+    <button class="tab-btn" onclick="switchTab('referencias',this)">REFERÊNCIAS</button>
+  </div>
+
+  <!-- ═══ TAB: FLUXO ═══ -->
+  <div id="tab-fluxo" class="tab-panel active">
+    <div class="section-label">Controle 5.18 — Access Rights</div>
+    <div class="section-title">Fluxo de Provisionamento de Acesso</div>
+    <p class="section-sub">Cada etapa exige registros rastreáveis. O processo é válido como evidência de auditoria apenas se cada fase estiver documentada.</p>
+
+    <div class="flow-container">
+
+      <div class="flow-step">
+        <div class="flow-left">
+          <div class="flow-circle solicit">01</div>
+          <div class="flow-connector"></div>
+        </div>
+        <div class="flow-card">
+          <div class="flow-tag" style="color:var(--navy)">SOLICITAÇÃO</div>
+          <div class="flow-card-title">Abertura de Chamado Formal</div>
+          <div class="flow-details">
+            <div class="flow-detail"><strong>Canal</strong>ITSM corporativo (ServiceNow, Jira, Freshservice ou equivalente)</div>
+            <div class="flow-detail"><strong>Campos obrigatórios</strong>Identidade, sistema, perfil solicitado, justificativa de negócio</div>
+            <div class="flow-detail"><strong>Responsável</strong>Solicitante ou gestor da área</div>
+            <div class="flow-detail"><strong>Critério SoD</strong>Validação automática de conflito antes de encaminhar para aprovação</div>
+          </div>
+          <span class="flow-sla sla-green">Abertura imediata</span>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-left">
+          <div class="flow-circle approve">02</div>
+          <div class="flow-connector"></div>
+        </div>
+        <div class="flow-card">
+          <div class="flow-tag" style="color:var(--amber)">APROVAÇÃO NÍVEL 1</div>
+          <div class="flow-card-title">Aprovação pelo Gestor da Área</div>
+          <div class="flow-details">
+            <div class="flow-detail"><strong>Responsável</strong>Gestor direto do solicitante — não pode ser o próprio solicitante</div>
+            <div class="flow-detail"><strong>Valida</strong>Necessidade de negócio, adequação ao cargo, ausência de conflito SoD</div>
+            <div class="flow-detail"><strong>Rejeição</strong>Deve ser registrada com justificativa no chamado</div>
+            <div class="flow-detail"><strong>Escalada</strong>Sem resposta no SLA → escalada automática para gestor superior</div>
+          </div>
+          <span class="flow-sla sla-green">SLA: 1 dia útil</span>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-left">
+          <div class="flow-circle approve">02b</div>
+          <div class="flow-connector"></div>
+        </div>
+        <div class="flow-card">
+          <div class="flow-tag" style="color:var(--red)">APROVAÇÃO NÍVEL 2 · CONDICIONAL</div>
+          <div class="flow-card-title">Aprovação pela Segurança da Informação</div>
+          <div class="flow-details">
+            <div class="flow-detail"><strong>Quando se aplica</strong>Acessos privilegiados, sistemas críticos, dados confidenciais ou exceção de SoD</div>
+            <div class="flow-detail"><strong>Responsável</strong>Equipe de Segurança da Informação / CISO</div>
+            <div class="flow-detail"><strong>Documentação extra</strong>Justificativa de risco aceito se houver exceção ao padrão</div>
+            <div class="flow-detail"><strong>Registro</strong>Aprovação formal no chamado com nome e cargo do aprovador</div>
+          </div>
+          <span class="flow-sla sla-amber">SLA: 2 dias úteis</span>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-left">
+          <div class="flow-circle provision">03</div>
+          <div class="flow-connector"></div>
+        </div>
+        <div class="flow-card">
+          <div class="flow-tag" style="color:var(--green)">PROVISIONAMENTO</div>
+          <div class="flow-card-title">Execução Técnica do Acesso</div>
+          <div class="flow-details">
+            <div class="flow-detail"><strong>Responsável</strong>Equipe de TI / Operações de Identidade</div>
+            <div class="flow-detail"><strong>Execução</strong>Baseada exclusivamente no chamado aprovado — não em solicitações verbais ou por chat</div>
+            <div class="flow-detail"><strong>Validação</strong>Confirmação técnica de que o acesso foi concedido conforme solicitado</div>
+            <div class="flow-detail"><strong>Registro</strong>Evidência da execução (print, log, export) anexada ao chamado</div>
+          </div>
+          <span class="flow-sla sla-green">SLA: 1 dia útil após aprovação</span>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-left">
+          <div class="flow-circle notify">04</div>
+          <div class="flow-connector"></div>
+        </div>
+        <div class="flow-card">
+          <div class="flow-tag" style="color:var(--navy-mid)">NOTIFICAÇÃO E FECHAMENTO</div>
+          <div class="flow-card-title">Confirmação e Registro Final</div>
+          <div class="flow-details">
+            <div class="flow-detail"><strong>Notificação</strong>Usuário e gestor notificados do acesso concedido com escopo definido</div>
+            <div class="flow-detail"><strong>Fechamento</strong>Chamado fechado com data, executor e evidência técnica</div>
+            <div class="flow-detail"><strong>Registro de access rights</strong>Atualização do inventário de acessos do usuário</div>
+            <div class="flow-detail"><strong>Retenção</strong>Chamado retido conforme política de retenção de evidências</div>
+          </div>
+          <span class="flow-sla sla-green">No mesmo dia da execução</span>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-left">
+          <div class="flow-circle revoke">05</div>
+        </div>
+        <div class="flow-card">
+          <div class="flow-tag" style="color:var(--red)">REVOGAÇÃO</div>
+          <div class="flow-card-title">Remoção de Acesso</div>
+          <div class="flow-details">
+            <div class="flow-detail"><strong>Gatilhos</strong>Desligamento, mudança de função, revisão periódica, incidente ou solicitação do gestor</div>
+            <div class="flow-detail"><strong>Desligamento</strong>Revogação em D+0 (mesmo dia) para contas críticas / D+1 para demais</div>
+            <div class="flow-detail"><strong>Mudança de função</strong>Acessos anteriores removidos antes de conceder novos — sem sobreposição</div>
+            <div class="flow-detail"><strong>Confirmação</strong>Evidência técnica de remoção arquivada no chamado de offboarding</div>
+          </div>
+          <span class="flow-sla sla-red">SLA: D+0 (críticos) / D+1 (padrão)</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══ TAB: RACI ═══ -->
+  <div id="tab-raci" class="tab-panel">
+    <div class="section-label">Matriz de Responsabilidades</div>
+    <div class="section-title">RACI — Access Provisioning</div>
+    <p class="section-sub">R = Responsável pela execução · A = Accountable (aprova) · C = Consultado · I = Informado</p>
+
+    <table class="raci-table">
+      <thead>
+        <tr>
+          <th>Atividade</th>
+          <th>Solicitante</th>
+          <th>Gestor da Área</th>
+          <th>Segurança da Info</th>
+          <th>TI / Operações</th>
+          <th>Data Owner</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Abertura do chamado de acesso</td>
+          <td><span class="raci-badge r">R</span></td>
+          <td><span class="raci-badge i">I</span></td>
+          <td><span class="raci-badge na">—</span></td>
+          <td><span class="raci-badge na">—</span></td>
+          <td><span class="raci-badge na">—</span></td>
+        </tr>
+        <tr>
+          <td>Aprovação de acesso padrão</td>
+          <td><span class="raci-badge na">—</span></td>
+          <td><span class="raci-badge a">A</span></td>
+          <td><span class="raci-badge i">I</span></td>
+          <td><span class="raci-badge na">—</span></td>
+          <td><span class="raci-badge c">C</span></td>
+        </tr>
+        <tr>
+          <td>Aprovação de acesso privilegiado / crítico</td>
+          <td><span class="raci-badge na">—</span></td>
+          <td><span class="raci-badge a">A</span></td>
+          <td><span class="raci-badge a">A</span></td>
+          <td><span class="raci-badge na">—</span></td>
+          <td><span class="raci-badge c">C</span></td>
+        </tr>
+        <tr>
+          <td>Validação de conflito SoD</td>
+          <td><span class="raci-badge na">—</span></td>
+          <td><span class="raci-badge c">C</span></td>
+          <td><span class="raci-badge r">R</span></td>
+          <td><span class="raci-badge na">—</span></td>
+          <td><span class="raci-badge na">—</span></td>
+        </tr>
+        <tr>
+          <td>Provisionamento técnico do acesso</td>
+          <td><span class="raci-badge na">—</span></td>
+          <td><span class="raci-badge i">I</span></td>
+          <td><span class="raci-badge i">I</span></td>
+          <td><span class="raci-badge r">R</span></td>
+          <td><span class="raci-badge na">—</span></td>
+        </tr>
+        <tr>
+          <td>Confirmação e fechamento do chamado</td>
+          <td><span class="raci-badge i">I</span></td>
+          <td><span class="raci-badge i">I</span></td>
+          <td><span class="raci-badge na">—</span></td>
+          <td><span class="raci-badge r">R</span></td>
+          <td><span class="raci-badge na">—</span></td>
+        </tr>
+        <tr>
+          <td>Revisão periódica de acessos</td>
+          <td><span class="raci-badge na">—</span></td>
+          <td><span class="raci-badge r">R</span></td>
+          <td><span class="raci-badge a">A</span></td>
+          <td><span class="raci-badge c">C</span></td>
+          <td><span class="raci-badge c">C</span></td>
+        </tr>
+        <tr>
+          <td>Revogação no desligamento</td>
+          <td><span class="raci-badge na">—</span></td>
+          <td><span class="raci-badge a">A</span></td>
+          <td><span class="raci-badge i">I</span></td>
+          <td><span class="raci-badge r">R</span></td>
+          <td><span class="raci-badge na">—</span></td>
+        </tr>
+        <tr>
+          <td>Revogação por mudança de função</td>
+          <td><span class="raci-badge na">—</span></td>
+          <td><span class="raci-badge a">A</span></td>
+          <td><span class="raci-badge c">C</span></td>
+          <td><span class="raci-badge r">R</span></td>
+          <td><span class="raci-badge na">—</span></td>
+        </tr>
+        <tr>
+          <td>Retenção de evidências de auditoria</td>
+          <td><span class="raci-badge na">—</span></td>
+          <td><span class="raci-badge na">—</span></td>
+          <td><span class="raci-badge a">A</span></td>
+          <td><span class="raci-badge r">R</span></td>
+          <td><span class="raci-badge na">—</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ═══ TAB: SLAs ═══ -->
+  <div id="tab-slas" class="tab-panel">
+    <div class="section-label">Acordos de Nível de Serviço</div>
+    <div class="section-title">SLAs do Processo de Provisionamento</div>
+    <p class="section-sub">Prazos máximos por tipo de operação. O não cumprimento deve ser registrado e comunicado à Segurança da Informação.</p>
+
+    <div class="sla-grid">
+      <div class="sla-card">
+        <div class="sla-type">APROVAÇÃO</div>
+        <div class="sla-value" style="color:var(--navy)">1 DU</div>
+        <div class="sla-label">Aprovação de acesso padrão pelo gestor</div>
+      </div>
+      <div class="sla-card">
+        <div class="sla-type">APROVAÇÃO CRÍTICA</div>
+        <div class="sla-value" style="color:var(--amber)">2 DU</div>
+        <div class="sla-label">Aprovação de acesso privilegiado ou sensível pela SI</div>
+      </div>
+      <div class="sla-card">
+        <div class="sla-type">PROVISIONAMENTO</div>
+        <div class="sla-value" style="color:var(--green)">1 DU</div>
+        <div class="sla-label">Execução técnica após aprovação concluída</div>
+      </div>
+      <div class="sla-card">
+        <div class="sla-type">REVOGAÇÃO CRÍTICA</div>
+        <div class="sla-value" style="color:var(--red)">D+0</div>
+        <div class="sla-label">Desligamento de contas com acesso privilegiado ou crítico</div>
+      </div>
+      <div class="sla-card">
+        <div class="sla-type">REVOGAÇÃO PADRÃO</div>
+        <div class="sla-value" style="color:var(--red)">D+1</div>
+        <div class="sla-label">Desligamento de contas padrão sem privilégio elevado</div>
+      </div>
+      <div class="sla-card">
+        <div class="sla-type">REVISÃO PERIÓDICA</div>
+        <div class="sla-value" style="color:var(--navy)">5 DU</div>
+        <div class="sla-label">Conclusão do ciclo de recertificação pelo gestor após notificação</div>
+      </div>
+    </div>
+
+    <div style="background:var(--white); border:1px solid var(--border); border-left:4px solid var(--amber); border-radius:6px; padding:18px 22px; font-size:13px; color:var(--text); line-height:1.7;">
+      <strong style="color:var(--navy)">Escalada por SLA vencido:</strong> Chamados sem resposta no prazo definido devem ser escalonados automaticamente pelo ITSM para o nível gerencial superior. A Segurança da Informação deve ser notificada após a segunda escalada sem resolução. Casos recorrentes são tratados como indicador de maturidade de processo e registrados nas métricas de IAM.
+    </div>
+  </div>
+
+  <!-- ═══ TAB: CHECKLIST ═══ -->
+  <div id="tab-checklist" class="tab-panel">
+    <div class="section-label">Evidências para Auditoria ISO 27001</div>
+    <div class="section-title">Checklist de Conformidade — 5.18</div>
+    <p class="section-sub">Marque os itens à medida que forem verificados. O progresso é salvo no navegador.</p>
+
+    <div class="audit-progress">
+      <div class="ap-label">CONFORMIDADE GERAL</div>
+      <div class="ap-bar-track"><div class="ap-bar-fill" id="progressBar"></div></div>
+      <div class="ap-count" id="progressCount">0 / 0</div>
+    </div>
+
+    <div class="checklist-group">
+      <div class="checklist-group-title">PROCESSO E DOCUMENTAÇÃO <span class="progress-pill" id="prog-g1">0/4</span></div>
+      <div class="check-item" onclick="toggleCheck(this)" data-group="g1">
+        <div class="check-box"></div>
+        <div class="check-text">
+          <div class="check-name">Access Provisioning Procedure documentado e aprovado</div>
+          <div class="check-desc">Versão vigente com data de aprovação, fluxo de aprovação e responsabilidades definidas.</div>
+        </div>
+        <div class="check-ctrl">5.18</div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)" data-group="g1">
+        <div class="check-box"></div>
+        <div class="check-text">
+          <div class="check-name">SLAs de provisionamento e revogação definidos</div>
+          <div class="check-desc">Prazos máximos documentados por tipo de operação e nível de criticidade.</div>
+        </div>
+        <div class="check-ctrl">5.18</div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)" data-group="g1">
+        <div class="check-box"></div>
+        <div class="check-text">
+          <div class="check-name">RACI de aprovação formalmente definido</div>
+          <div class="check-desc">Responsabilidades por etapa documentadas — gestor, SI e TI com papéis claros e distintos.</div>
+        </div>
+        <div class="check-ctrl">5.18</div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)" data-group="g1">
+        <div class="check-box"></div>
+        <div class="check-text">
+          <div class="check-name">Ciclo de revisão periódica definido em procedimento</div>
+          <div class="check-desc">Frequência documentada por tipo de conta (padrão vs. privilegiado) com processo de recertificação.</div>
+        </div>
+        <div class="check-ctrl">5.18</div>
+      </div>
+    </div>
+
+    <div class="checklist-group">
+      <div class="checklist-group-title">EXECUÇÃO E RASTREABILIDADE <span class="progress-pill" id="prog-g2">0/4</span></div>
+      <div class="check-item" onclick="toggleCheck(this)" data-group="g2">
+        <div class="check-box"></div>
+        <div class="check-text">
+          <div class="check-name">Todos os acessos provisionados via ITSM com aprovação registrada</div>
+          <div class="check-desc">Chamados com aprovador identificado, data e justificativa. Provisionamentos sem ticket = não conformidade.</div>
+        </div>
+        <div class="check-ctrl">5.18</div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)" data-group="g2">
+        <div class="check-box"></div>
+        <div class="check-text">
+          <div class="check-name">Revogações no desligamento dentro do SLA definido</div>
+          <div class="check-desc">Evidência de que acessos foram removidos no prazo após saída — comparação entre data de desligamento e data de revogação.</div>
+        </div>
+        <div class="check-ctrl">5.18</div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)" data-group="g2">
+        <div class="check-box"></div>
+        <div class="check-text">
+          <div class="check-name">Acessos por mudança de função revisados e substituídos</div>
+          <div class="check-desc">Evidência de remoção dos acessos do cargo anterior antes da concessão dos novos — sem sobreposição.</div>
+        </div>
+        <div class="check-ctrl">5.18</div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)" data-group="g2">
+        <div class="check-box"></div>
+        <div class="check-text">
+          <div class="check-name">Conflitos SoD validados antes da aprovação</div>
+          <div class="check-desc">Processo de verificação ativo — automático ou manual — antes de encaminhar para aprovação do gestor.</div>
+        </div>
+        <div class="check-ctrl">5.18</div>
+      </div>
+    </div>
+
+    <div class="checklist-group">
+      <div class="checklist-group-title">REVISÃO E EVIDÊNCIA <span class="progress-pill" id="prog-g3">0/4</span></div>
+      <div class="check-item" onclick="toggleCheck(this)" data-group="g3">
+        <div class="check-box"></div>
+        <div class="check-text">
+          <div class="check-name">Access Review realizado dentro do ciclo definido</div>
+          <div class="check-desc">Evidência do último ciclo de recertificação com data, gestor responsável e decisões documentadas.</div>
+        </div>
+        <div class="check-ctrl">5.18</div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)" data-group="g3">
+        <div class="check-box"></div>
+        <div class="check-text">
+          <div class="check-name">Decisões de revisão documentadas por usuário e sistema</div>
+          <div class="check-desc">Para cada acesso revisado: decisão explícita de manter ou revogar — não apenas "revisado sem alterações".</div>
+        </div>
+        <div class="check-ctrl">5.18</div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)" data-group="g3">
+        <div class="check-box"></div>
+        <div class="check-text">
+          <div class="check-name">Acessos identificados na revisão como desnecessários foram removidos</div>
+          <div class="check-desc">Evidência de que a revisão gerou ação — acessos revogados com ticket correspondente.</div>
+        </div>
+        <div class="check-ctrl">5.18</div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)" data-group="g3">
+        <div class="check-box"></div>
+        <div class="check-text">
+          <div class="check-name">Exceções ao processo formalmente documentadas e aprovadas</div>
+          <div class="check-desc">Desvios do procedimento com justificativa, aprovação da SI e prazo de regularização definido.</div>
+        </div>
+        <div class="check-ctrl">5.18</div>
+      </div>
+    </div>
+
+    <div class="section-label" style="margin-top:40px">Artefatos de Evidência</div>
+    <div class="section-title">O que precisa existir para auditoria</div>
+    <div class="evidence-list">
+      <div class="evidence-item">
+        <div class="ev-icon">📋</div>
+        <div><div class="ev-name">Access Provisioning Procedure (este documento)</div><div class="ev-desc">Versão aprovada, vigente, com fluxo de aprovação, RACI e SLAs</div></div>
+        <div class="ev-type">NORMATIVO</div>
+      </div>
+      <div class="evidence-item">
+        <div class="ev-icon">🗂️</div>
+        <div><div class="ev-name">Amostra de tickets de provisionamento</div><div class="ev-desc">10–15 chamados recentes com aprovador, data, execução e confirmação técnica</div></div>
+        <div class="ev-type">LOG</div>
+      </div>
+      <div class="evidence-item">
+        <div class="ev-icon">📊</div>
+        <div><div class="ev-name">Access Review Register — último ciclo</div><div class="ev-desc">Registro da recertificação mais recente com decisões por usuário e sistema</div></div>
+        <div class="ev-type">REGISTRO</div>
+      </div>
+      <div class="evidence-item">
+        <div class="ev-icon">🗑️</div>
+        <div><div class="ev-name">Offboarding Log — revogações recentes</div><div class="ev-desc">Evidência de revogação dos últimos desligamentos com data de saída e data de remoção de acessos</div></div>
+        <div class="ev-type">LOG</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ TAB: REFERÊNCIAS ═══ -->
+  <div id="tab-referencias" class="tab-panel">
+    <div class="section-label">Base Normativa</div>
+    <div class="section-title">Controles ISO/IEC 27001:2022</div>
+    <div class="ref-block">
+      <h3>ISO/IEC 27001:2022 — Controles Referenciados</h3>
+      <div class="ref-item"><span class="ref-code">5.18</span><span class="ref-desc">Access Rights — provisão, revisão e revogação de direitos de acesso</span></div>
+      <div class="ref-item"><span class="ref-code">5.15</span><span class="ref-desc">Access Control — política que define os princípios aplicados neste procedimento</span></div>
+      <div class="ref-item"><span class="ref-code">5.16</span><span class="ref-desc">Identity Management — o ciclo de vida da identidade é o gatilho para provisão e revogação</span></div>
+      <div class="ref-item"><span class="ref-code">8.2</span><span class="ref-desc">Privileged Access Rights — acessos privilegiados seguem este procedimento com aprovações adicionais</span></div>
+    </div>
+
+    <div class="section-label">Artefatos Relacionados</div>
+    <div class="section-title">Documentos da Arquitetura IAM</div>
+    <div class="artifact-list">
+      <div class="artifact-item">
+        <div class="art-icon">🔐</div>
+        <div><div class="art-name">5.18 — Access Rights</div><div class="art-desc">Deep dive do controle que fundamenta este procedimento</div></div>
+        <a class="art-link" href="../controles/5.18.html">Ver deep dive</a>
+      </div>
+      <div class="artifact-item">
+        <div class="art-icon">📄</div>
+        <div><div class="art-name">Access Control Policy</div><div class="art-desc">Política-mãe com princípios, modelo de acesso e responsabilidades</div></div>
+        <a class="art-link" href="../controles/5.15.html">Ver deep dive</a>
+      </div>
+      <div class="artifact-item">
+        <div class="art-icon">⚙️</div>
+        <div><div class="art-name">Privileged Access Standard</div><div class="art-desc">Normativo específico para contas de alto privilégio com controles reforçados</div></div>
+        <a class="art-link" href="privileged-access-standard.html">Ver artefato</a>
+      </div>
+      <div class="artifact-item">
+        <div class="art-icon">⚖️</div>
+        <div><div class="art-name">Simulador de Conflitos SoD</div><div class="art-desc">Validação de combinações de perfis antes do provisionamento</div></div>
+        <a class="art-link" href="sod-simulator.html">Abrir ferramenta</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-bottom">
+    <a class="nav-btn" href="../controles/5.18.html">← Deep Dive: 5.18 Access Rights</a>
+    <a class="nav-btn" href="privileged-access-standard.html">Próximo: Privileged Access Standard →</a>
+  </div>
+
+</main>
+
+<footer>
+  <p>Projeto: Access Management Maturity Model ·
+    <a href="https://github.com/gilbertocrv" target="_blank">github.com/gilbertocrv</a>
+  </p>
+</footer>
+
+<script>
+  function switchTab(id, btn) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    btn.classList.add('active');
+    if (id === 'checklist') updateProgress();
+  }
+
+  const STORAGE_KEY = 'prov-checklist-v1';
+  function loadState() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch { return {}; } }
+  function saveState(s) { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); } catch {} }
+  function getKey(el) { return el.querySelector('.check-name').textContent.trim().slice(0,60); }
+
+  function toggleCheck(el) {
+    const state = loadState(), key = getKey(el), checked = !el.classList.contains('checked');
+    el.classList.toggle('checked', checked);
+    el.querySelector('.check-box').textContent = checked ? '✓' : '';
+    state[key] = checked; saveState(state); updateProgress();
+  }
+
+  function updateProgress() {
+    const groups = { g1:4, g2:4, g3:4 };
+    let total = 0, done = 0;
+    Object.entries(groups).forEach(([g, max]) => {
+      const items = document.querySelectorAll(`[data-group="${g}"]`);
+      const gDone = [...items].filter(i => i.classList.contains('checked')).length;
+      total += max; done += gDone;
+      const pill = document.getElementById('prog-' + g);
+      if (pill) pill.textContent = `${gDone}/${max}`;
+    });
+    const pct = total > 0 ? Math.round((done/total)*100) : 0;
+    const bar = document.getElementById('progressBar');
+    const count = document.getElementById('progressCount');
+    if (bar) bar.style.width = pct + '%';
+    if (count) count.textContent = `${done} / ${total}`;
+  }
+
+  function restore() {
+    const state = loadState();
+    document.querySelectorAll('.check-item').forEach(el => {
+      if (state[getKey(el)]) { el.classList.add('checked'); el.querySelector('.check-box').textContent = '✓'; }
+    });
+    updateProgress();
+  }
+  restore();
+</script>
+</body>
+</html>
