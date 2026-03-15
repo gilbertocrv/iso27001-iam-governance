@@ -1,6 +1,21 @@
 {
-  "updated": "2026-03-14",
+  "updated": "2026-03-15",
   "entries": [
+    {
+      "id": "466b42d4c00f",
+      "date": "2026-03-14",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "Deploy AWS applications and access AWS accounts across multiple Regions with IAM Identity Center",
+      "url": "https://aws.amazon.com/blogs/security/deploy-aws-applications-and-access-aws-accounts-across-multiple-regions-with-iam-identity-center/",
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
+      "action": "Avaliar relevância para controles de acesso",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "bacen-001",
       "date": "2026-03-13",
