@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Secure Authentication Standard | ISO 27001:2022</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--navy:#003366;--navy-mid:#004080;--navy-light:#0056b3;--accent:#c8922a;--accent-light:#e8a83a;--bg:#f4f6f8;--white:#ffffff;--gray:#666;--border:#d1d9e4;--text:#1a2340;--green:#1a7a4a;--green-light:#e8f5ee;--green-border:#b8dfc8;--red:#a32020;--red-light:#fdf0f0;--amber:#a06400;--amber-light:#fff8ed;}
+  *{box-sizing:border-box;margin:0;padding:0}body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg);color:var(--text)}
+  .breadcrumb{background:var(--navy);padding:12px 30px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:rgba(255,255,255,.45);letter-spacing:1px}.breadcrumb a{color:var(--accent-light);text-decoration:none}.breadcrumb span{margin:0 8px}
+  header{background:var(--navy);padding:0;position:relative;overflow:hidden}
+  header::before{content:'';position:absolute;top:-60px;right:-60px;width:320px;height:320px;border:40px solid rgba(200,146,42,.12);border-radius:50%}
+  header::after{content:'AUTH';position:absolute;bottom:-20px;right:20px;font-family:'IBM Plex Mono',monospace;font-size:110px;font-weight:700;color:rgba(255,255,255,.03);line-height:1;user-select:none}
+  .header-inner{max-width:960px;margin:auto;padding:50px 30px 44px;position:relative;z-index:1}
+  .ctrl-badge{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;background:rgba(200,146,42,.2);color:var(--accent-light);border:1px solid rgba(200,146,42,.4);padding:4px 12px;border-radius:3px;letter-spacing:2px;margin-bottom:16px}
+  header h1{font-size:30px;font-weight:700;color:#fff;line-height:1.25;margin-bottom:12px}header h1 span{color:var(--accent-light)}
+  header p{font-size:14px;color:rgba(255,255,255,.6);max-width:560px;line-height:1.7;margin-bottom:24px}
+  .header-meta{display:flex;gap:16px;flex-wrap:wrap}.meta-pill{font-family:'IBM Plex Mono',monospace;font-size:10px;padding:4px 10px;border:1px solid rgba(255,255,255,.18);border-radius:3px;color:rgba(255,255,255,.5);letter-spacing:1px}
+  main{max-width:960px;margin:0 auto;padding:52px 30px 80px}
+  .section-label{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+  .section-title{font-size:20px;font-weight:700;color:var(--navy);margin-bottom:6px}
+  .section-sub{font-size:14px;color:var(--gray);margin-bottom:28px;line-height:1.6;max-width:580px}
+  .tab-bar{display:flex;gap:0;border-bottom:2px solid var(--border);margin-bottom:32px}
+  .tab-btn{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1.5px;padding:10px 20px;border:none;background:transparent;color:var(--gray);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .2s}
+  .tab-btn:hover{color:var(--navy)}.tab-btn.active{color:var(--navy);border-bottom-color:var(--accent);font-weight:600}
+  .tab-panel{display:none}.tab-panel.active{display:block}
+  .param-table{width:100%;border-collapse:collapse;background:var(--white);border-radius:6px;overflow:hidden;border:1px solid var(--border);margin-bottom:36px}
+  .param-table thead tr{background:var(--navy)}.param-table th{text-align:left;padding:14px 18px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:rgba(255,255,255,.7);letter-spacing:1px;font-weight:400}
+  .param-table td{padding:15px 18px;border-bottom:1px solid var(--border);font-size:13px;vertical-align:middle}.param-table tr:last-child td{border-bottom:none}.param-table tr:hover td{background:#f8fafc}.param-table td:first-child{font-weight:600;color:var(--navy)}
+  .tag{font-family:'IBM Plex Mono',monospace;font-size:10px;padding:3px 8px;border-radius:3px;display:inline-block}
+  .tag-required{background:#fdf0f0;color:var(--red);border:1px solid #f0b8b8}.tag-recommended{background:var(--green-light);color:var(--green);border:1px solid var(--green-border)}.tag-conditional{background:var(--amber-light);color:var(--amber);border:1px solid #f0d080}.tag-na{background:#f0f2f5;color:#888;border:1px solid var(--border)}
+  .mfa-tree{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:28px;margin-bottom:36px}
+  .mfa-tree-title{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--accent);letter-spacing:2px;margin-bottom:20px}
+  .mfa-row{display:flex;align-items:center;padding:10px 0;border-bottom:1px solid #f0f2f5;gap:0}.mfa-row:last-child{border-bottom:none}
+  .mfa-scenario{flex:1;font-size:13px;color:var(--text);padding-right:12px}
+  .mfa-arrow{font-family:'IBM Plex Mono',monospace;color:var(--accent);font-size:12px;padding:0 12px;flex-shrink:0}
+  .mfa-result{flex:0 0 220px;font-size:12px;font-weight:600}
+  .mfa-result.critical{color:var(--red)}.mfa-result.mandatory{color:var(--green)}.mfa-result.conditional{color:var(--amber)}.mfa-result.exempt{color:#888}
+  .notice{background:var(--amber-light);border:1px solid #f0d080;border-left:4px solid var(--amber);border-radius:6px;padding:14px 18px;margin-bottom:24px;font-size:13px;color:var(--amber);line-height:1.6}
+  .session-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-bottom:36px}
+  .session-card{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:18px 20px;text-align:center}
+  .session-value{font-family:'IBM Plex Mono',monospace;font-size:26px;font-weight:600;color:var(--navy);margin-bottom:4px}
+  .session-type{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:2px;margin-bottom:8px}
+  .session-label{font-size:12px;color:var(--gray);line-height:1.4}
+  .checklist-group{margin-bottom:24px}
+  .checklist-group-title{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--navy);background:#eef2f8;padding:8px 14px;border-radius:4px;margin-bottom:2px;display:flex;justify-content:space-between;align-items:center}
+  .progress-pill{font-size:10px;font-family:'IBM Plex Mono',monospace;background:var(--white);padding:2px 8px;border-radius:10px;color:var(--gray);border:1px solid var(--border)}
+  .check-item{display:flex;align-items:flex-start;gap:12px;padding:11px 14px;background:var(--white);border:1px solid var(--border);border-top:none;cursor:pointer;transition:background .15s;user-select:none}
+  .check-item:last-child{border-radius:0 0 4px 4px}.check-item:hover{background:#f8fafc}.check-item.checked{background:#f2fbf5}
+  .check-box{width:18px;min-width:18px;height:18px;border:2px solid var(--border);border-radius:3px;margin-top:1px;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0}
+  .check-item.checked .check-box{background:var(--green);border-color:var(--green);color:white;font-size:11px}
+  .check-name{font-size:13px;color:var(--text);margin-bottom:2px;font-weight:500}.check-item.checked .check-name{color:var(--gray);text-decoration:line-through}
+  .check-desc{font-size:11px;color:var(--gray);line-height:1.5}
+  .check-ctrl{font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--navy-light);background:#eef2f8;padding:2px 6px;border-radius:2px;white-space:nowrap;margin-left:auto;flex-shrink:0}
+  .audit-progress{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:20px 24px;margin-bottom:28px;display:flex;align-items:center;gap:20px}
+  .ap-label{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--gray);white-space:nowrap}
+  .ap-bar-track{flex:1;height:8px;background:#eef2f8;border-radius:4px;overflow:hidden}
+  .ap-bar-fill{height:100%;background:linear-gradient(90deg,var(--green),#2dbd6e);border-radius:4px;transition:width .4s ease;width:0%}
+  .ap-count{font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;color:var(--navy);white-space:nowrap;min-width:56px;text-align:right}
+  .artifact-list{display:flex;flex-direction:column;gap:10px;margin-bottom:36px}
+  .artifact-item{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:14px 18px;display:flex;align-items:center;gap:14px;transition:border-color .2s}.artifact-item:hover{border-color:var(--navy-light)}
+  .art-icon{width:40px;min-width:40px;height:40px;background:var(--navy);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:16px}
+  .art-name{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:2px}.art-desc{font-size:12px;color:var(--gray)}
+  .art-link{margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--navy-light);text-decoration:none;white-space:nowrap}.art-link::after{content:' →'}.art-link.disabled{opacity:.4;pointer-events:none}
+  .ref-block{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:22px 24px;margin-bottom:36px}
+  .ref-block h3{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:14px}
+  .ref-item{display:flex;gap:12px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #f0f2f5;font-size:13px}.ref-item:last-child{border-bottom:none}
+  .ref-code{font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--navy);min-width:80px}.ref-desc{color:var(--gray);line-height:1.5}
+  .nav-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:60px;padding-top:28px;border-top:1px solid var(--border)}
+  .nav-btn{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--navy-light);text-decoration:none;padding:8px 14px;border:1px solid var(--border);border-radius:4px;background:var(--white);transition:border-color .2s,background .2s}.nav-btn:hover{border-color:var(--navy-light);background:#f0f5fb}.nav-btn.disabled{opacity:.4;pointer-events:none}
+  footer{background:var(--navy);padding:24px 30px;text-align:center}footer p{font-family:'IBM Plex Mono',monospace;font-size:11px;color:rgba(255,255,255,.35);letter-spacing:1px}footer a{color:var(--accent-light);text-decoration:none}
+  @media(max-width:640px){.mfa-result{flex:0 0 140px}}
+</style>
+</head>
+<body>
+<div class="breadcrumb"><a href="../index.html">Início</a><span>/</span>Ferramentas<span>/</span>Secure Authentication Standard</div>
+<header>
+  <div class="header-inner">
+    <div class="ctrl-badge">PADRÃO TÉCNICO · ARTEFATO</div>
+    <h1>Secure Authentication <span>Standard</span></h1>
+    <p>Normativo operacional para mecanismos de autenticação segura: MFA adaptativo, gestão de sessão, SSO e checklist de auditoria para o controle 8.5.</p>
+    <div class="header-meta">
+      <span class="meta-pill">8.5 · Secure Authentication</span>
+      <span class="meta-pill">5.17 · Authentication Information</span>
+      <span class="meta-pill">Padrão Técnico</span>
+    </div>
+  </div>
+</header>
+<main>
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('mfa',this)">MFA</button>
+    <button class="tab-btn" onclick="switchTab('sessao',this)">SESSÃO</button>
+    <button class="tab-btn" onclick="switchTab('sso',this)">SSO</button>
+    <button class="tab-btn" onclick="switchTab('checklist',this)">CHECKLIST AUDITORIA</button>
+    <button class="tab-btn" onclick="switchTab('referencias',this)">REFERÊNCIAS</button>
+  </div>
+
+  <!-- MFA -->
+  <div id="tab-mfa" class="tab-panel active">
+    <div class="section-label">Controle 8.5 — Secure Authentication</div>
+    <div class="section-title">Matriz de decisão de MFA</div>
+    <p class="section-sub">Critérios para determinar qual nível de autenticação aplicar por cenário de acesso.</p>
+    <div class="mfa-tree">
+      <div class="mfa-tree-title">MATRIZ DE DECISÃO · MFA POR CENÁRIO</div>
+      <div class="mfa-row"><div class="mfa-scenario"><strong>Acesso remoto</strong> — VPN, RDP, SSH, apps expostos</div><div class="mfa-arrow">→</div><div class="mfa-result critical">CRÍTICO — sem exceção</div></div>
+      <div class="mfa-row"><div class="mfa-scenario"><strong>Conta privilegiada</strong> — qualquer sistema</div><div class="mfa-arrow">→</div><div class="mfa-result critical">CRÍTICO — sem exceção</div></div>
+      <div class="mfa-row"><div class="mfa-scenario"><strong>Dados confidenciais ou restritos</strong></div><div class="mfa-arrow">→</div><div class="mfa-result critical">CRÍTICO — sem exceção</div></div>
+      <div class="mfa-row"><div class="mfa-scenario"><strong>Usuário padrão</strong> em sistemas corporativos</div><div class="mfa-arrow">→</div><div class="mfa-result mandatory">OBRIGATÓRIO</div></div>
+      <div class="mfa-row"><div class="mfa-scenario"><strong>Parceiros e terceiros</strong> com acesso ao ambiente</div><div class="mfa-arrow">→</div><div class="mfa-result mandatory">OBRIGATÓRIO</div></div>
+      <div class="mfa-row"><div class="mfa-scenario"><strong>Sistema legado</strong> sem suporte nativo a MFA</div><div class="mfa-arrow">→</div><div class="mfa-result conditional">CONTROLE COMPENSATÓRIO documentado</div></div>
+      <div class="mfa-row"><div class="mfa-scenario"><strong>Conta de serviço</strong> — autenticação máquina a máquina</div><div class="mfa-arrow">→</div><div class="mfa-result exempt">Credencial via Vault — MFA não aplicável</div></div>
+    </div>
+    <div class="section-label">Métodos Aceitos</div>
+    <div class="section-title">Hierarquia de fatores</div>
+    <p class="section-sub">Ordenados do mais para o menos recomendado.</p>
+    <table class="param-table">
+      <thead><tr><th>Método</th><th>Tipo</th><th>Resistência a Phishing</th><th>Recomendação</th></tr></thead>
+      <tbody>
+        <tr><td>FIDO2 / Chave de hardware</td><td>Posse física</td><td>Nativa por design</td><td><span class="tag tag-required">CONTAS CRÍTICAS</span></td></tr>
+        <tr><td>Certificado digital</td><td>Posse / PKI</td><td>Alta</td><td><span class="tag tag-recommended">DISPOSITIVOS CORP.</span></td></tr>
+        <tr><td>Authenticator Push com number matching</td><td>Posse (app)</td><td>Alta com NM ativo</td><td><span class="tag tag-recommended">PADRÃO CORPORATIVO</span></td></tr>
+        <tr><td>TOTP (Google Auth / Microsoft Auth)</td><td>Posse (app)</td><td>Média</td><td><span class="tag tag-conditional">ACEITÁVEL</span></td></tr>
+        <tr><td>SMS / OTP por voz</td><td>Posse (SIM)</td><td>Baixa — SIM swap</td><td><span class="tag tag-na">EVITAR / EXCEPÇÃO</span></td></tr>
+      </tbody>
+    </table>
+    <div class="notice">⚠ <strong>Number matching obrigatório:</strong> Qualquer deploy de Authenticator Push sem number matching ativo é vulnerável a ataques de fadiga. Esta configuração deve ser verificada no tenant do IdP — não depende do comportamento do usuário.</div>
+  </div>
+
+  <!-- SESSÃO -->
+  <div id="tab-sessao" class="tab-panel">
+    <div class="section-label">Gestão de Sessão</div>
+    <div class="section-title">Parâmetros de expiração por tipo de acesso</div>
+    <p class="section-sub">Sessões sem expiração configurada são não conformidade direta com 8.5. Os parâmetros abaixo são os valores máximos recomendados.</p>
+    <div class="session-grid">
+      <div class="session-card"><div class="session-type">ACESSO PADRÃO</div><div class="session-value">8h</div><div class="session-label">Expiração de sessão após inatividade para usuários corporativos</div></div>
+      <div class="session-card"><div class="session-type">ACESSO REMOTO</div><div class="session-value">4h</div><div class="session-label">Sessões remotas com re-autenticação obrigatória após este período</div></div>
+      <div class="session-card"><div class="session-type">CONTA PRIVILEGIADA</div><div class="session-value">2h</div><div class="session-label">Sessões administrativas com expiração reduzida — JIT preferível</div></div>
+      <div class="session-card"><div class="session-type">TOKEN DE API</div><div class="session-value">1h</div><div class="session-label">Access tokens de curta duração com refresh token controlado</div></div>
+      <div class="session-card"><div class="session-type">INATIVIDADE</div><div class="session-value">15min</div><div class="session-label">Bloqueio de tela e encerramento de sessão após inatividade</div></div>
+      <div class="session-card"><div class="session-type">RE-AUTENTICAÇÃO</div><div class="session-value">Obrigatória</div><div class="session-label">Elevação de privilégio ou acesso a dados restritos exige nova autenticação</div></div>
+    </div>
+    <div class="notice">⚠ <strong>Tokens permanentes:</strong> Refresh tokens sem expiração configurada ou service accounts com tokens de longa duração sem rotação são achados recorrentes em auditorias de 8.5. Revisar e configurar expiração em todos os sistemas é pré-requisito para conformidade.</div>
+  </div>
+
+  <!-- SSO -->
+  <div id="tab-sso" class="tab-panel">
+    <div class="section-label">Single Sign-On</div>
+    <div class="section-title">Centralização da autenticação</div>
+    <p class="section-sub">SSO reduz a superfície de ataque ao eliminar credenciais fracas distribuídas e concentra os controles de autenticação em um ponto auditável.</p>
+    <table class="param-table">
+      <thead><tr><th>Requisito</th><th>Descrição</th><th>Status esperado</th></tr></thead>
+      <tbody>
+        <tr><td>Identity Provider único</td><td>Todos os sistemas corporativos autenticam via IdP centralizado (Entra ID, Okta, etc.)</td><td><span class="tag tag-required">OBRIGATÓRIO</span></td></tr>
+        <tr><td>MFA aplicado no IdP</td><td>MFA configurado centralmente — não dependente de cada aplicação individual</td><td><span class="tag tag-required">OBRIGATÓRIO</span></td></tr>
+        <tr><td>Protocolo moderno</td><td>SAML 2.0, OIDC ou OAuth 2.0 — sem autenticações legadas não federadas</td><td><span class="tag tag-required">OBRIGATÓRIO</span></td></tr>
+        <tr><td>Cobertura de sistemas críticos</td><td>100% dos sistemas críticos integrados ao IdP — sem autenticação local paralela</td><td><span class="tag tag-required">OBRIGATÓRIO</span></td></tr>
+        <tr><td>Sistemas legados</td><td>Sem integração SSO nativa — proxy de autenticação ou controle compensatório documentado</td><td><span class="tag tag-conditional">EXCEÇÃO DOCUMENTADA</span></td></tr>
+        <tr><td>Logs centralizados</td><td>Sign-in logs de todos os sistemas consolidados no SIEM ou repositório de logs</td><td><span class="tag tag-recommended">RECOMENDADO</span></td></tr>
+        <tr><td>Conditional Access</td><td>Políticas de acesso condicional baseadas em risco, dispositivo e localização</td><td><span class="tag tag-recommended">NÍVEL 4+</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- CHECKLIST -->
+  <div id="tab-checklist" class="tab-panel">
+    <div class="section-label">Evidências para Auditoria ISO 27001</div>
+    <div class="section-title">Checklist de Conformidade — 8.5</div>
+    <p class="section-sub">Marque os itens à medida que forem verificados. O progresso é salvo no navegador.</p>
+    <div class="audit-progress">
+      <div class="ap-label">CONFORMIDADE GERAL</div>
+      <div class="ap-bar-track"><div class="ap-bar-fill" id="progressBar"></div></div>
+      <div class="ap-count" id="progressCount">0 / 0</div>
+    </div>
+    <div class="checklist-group">
+      <div class="checklist-group-title">MFA E AUTENTICAÇÃO <span class="progress-pill" id="prog-g1">0/5</span></div>
+      <div class="check-item" onclick="toggleCheck(this)" data-group="g1"><div class="check-box"></div><div class="check-text"><div class="check-name">MFA ativo para todos os usuários no IdP corporativo</div><div class="check-desc">Export ou print de configuração — zero contas ativas sem MFA.</div></div><div class="check-ctrl">8.5</div></div>
+      <div class="check-item" onclick="toggleCheck(this)" data-group="g1"><div class="check-box"></div><div class="check-text"><div class="check-name">Number matching ativo em todos os deployments de Authenticator Push</div><div class="check-desc">Configuração verificada no tenant do IdP — não dependente do usuário.</div></div><div class="check-ctrl">8.5</div></div>
+      <div class="check-item" onclick="toggleCheck(this)" data-group="g1"><div class="check-box"></div><div class="check-text"><div class="check-name">Fator forte (FIDO2 ou certificado) para contas críticas</div><div class="check-desc">Global Admin, Domain Admin e equivalentes com autenticação resistente a phishing.</div></div><div class="check-ctrl">8.5</div></div>
+      <div class="check-item" onclick="toggleCheck(this)" data-group="g1"><div class="check-box"></div><div class="check-text"><div class="check-name">Exceções documentadas com controle compensatório aprovado</div><div class="check-desc">Sistemas legados sem MFA listados com justificativa, responsável e prazo de regularização.</div></div><div class="check-ctrl">8.5</div></div>
+      <div class="check-item" onclick="toggleCheck(this)" data-group="g1"><div class="check-box"></div><div class="check-text"><div class="check-name">Relatório de cobertura de MFA disponível</div><div class="check-desc">Percentual de usuários com MFA ativo — evidência pontual para auditoria.</div></div><div class="check-ctrl">8.5</div></div>
+    </div>
+    <div class="checklist-group">
+      <div class="checklist-group-title">GESTÃO DE SESSÃO <span class="progress-pill" id="prog-g2">0/4</span></div>
+      <div class="check-item" onclick="toggleCheck(this)" data-group="g2"><div class="check-box"></div><div class="check-text"><div class="check-name">Expiração de sessão configurada por tipo de acesso</div><div class="check-desc">Parâmetros aplicados no IdP — padrão, remoto, privilegiado e tokens de API com valores distintos.</div></div><div class="check-ctrl">8.5</div></div>
+      <div class="check-item" onclick="toggleCheck(this)" data-group="g2"><div class="check-box"></div><div class="check-text"><div class="check-name">Sem tokens permanentes ou de longa duração sem rotação</div><div class="check-desc">Inventário de tokens com validade configurada — nenhum token sem expiração em sistemas de produção.</div></div><div class="check-ctrl">8.5</div></div>
+      <div class="check-item" onclick="toggleCheck(this)" data-group="g2"><div class="check-box"></div><div class="check-text"><div class="check-name">Re-autenticação obrigatória para elevação de privilégio</div><div class="check-desc">Ação de alto impacto exige nova autenticação — configurado no IdP ou na aplicação.</div></div><div class="check-ctrl">8.5</div></div>
+      <div class="check-item" onclick="toggleCheck(this)" data-group="g2"><div class="check-box"></div><div class="check-text"><div class="check-name">Revogação imediata de sessão em desligamento ou incidente</div><div class="check-desc">Processo documentado e testado — sessões encerradas e tokens invalidados no mesmo evento.</div></div><div class="check-ctrl">8.5</div></div>
+    </div>
+    <div class="checklist-group">
+      <div class="checklist-group-title">SSO E LOGS <span class="progress-pill" id="prog-g3">0/4</span></div>
+      <div class="check-item" onclick="toggleCheck(this)" data-group="g3"><div class="check-box"></div><div class="check-text"><div class="check-name">Sistemas críticos integrados ao IdP centralizado</div><div class="check-desc">Sem autenticação local paralela em sistemas críticos — SSO como único ponto de entrada.</div></div><div class="check-ctrl">8.5</div></div>
+      <div class="check-item" onclick="toggleCheck(this)" data-group="g3"><div class="check-box"></div><div class="check-text"><div class="check-name">Logs de sign-in retidos por no mínimo 90 dias</div><div class="check-desc">Eventos com identidade, método de autenticação, resultado, IP e timestamp.</div></div><div class="check-ctrl">8.5</div></div>
+      <div class="check-item" onclick="toggleCheck(this)" data-group="g3"><div class="check-box"></div><div class="check-text"><div class="check-name">Alertas configurados para falhas repetidas de autenticação</div><div class="check-desc">Threshold de bloqueio definido e alerta para SI em tentativas acima do padrão.</div></div><div class="check-ctrl">8.5</div></div>
+      <div class="check-item" onclick="toggleCheck(this)" data-group="g3"><div class="check-box"></div><div class="check-text"><div class="check-name">Secure Authentication Standard documentado e aprovado</div><div class="check-desc">Versão vigente com mecanismos obrigatórios, exceções e responsabilidades definidas.</div></div><div class="check-ctrl">8.5</div></div>
+    </div>
+  </div>
+
+  <!-- REFERÊNCIAS -->
+  <div id="tab-referencias" class="tab-panel">
+    <div class="section-label">Base Normativa</div>
+    <div class="section-title">Controles ISO/IEC 27001:2022</div>
+    <div class="ref-block">
+      <h3>ISO/IEC 27001:2022 — Controles Referenciados</h3>
+      <div class="ref-item"><span class="ref-code">8.5</span><span class="ref-desc">Secure Authentication — mecanismos técnicos de autenticação segura</span></div>
+      <div class="ref-item"><span class="ref-code">5.17</span><span class="ref-desc">Authentication Information — proteção da informação de autenticação</span></div>
+      <div class="ref-item"><span class="ref-code">8.2</span><span class="ref-desc">Privileged Access Rights — autenticação de fator forte obrigatória para contas privilegiadas</span></div>
+      <div class="ref-item"><span class="ref-code">8.3</span><span class="ref-desc">Information Access Restriction — autenticação é o pré-requisito para restrição por classificação</span></div>
+    </div>
+    <div class="section-label">Artefatos Relacionados</div>
+    <div class="section-title">Documentos da Arquitetura IAM</div>
+    <div class="artifact-list">
+      <div class="artifact-item"><div class="art-icon">🔒</div><div><div class="art-name">8.5 — Secure Authentication</div><div class="art-desc">Deep dive do controle que fundamenta este padrão</div></div><a class="art-link" href="../controles/8.5.html">Ver deep dive</a></div>
+      <div class="artifact-item"><div class="art-icon">🔐</div><div><div class="art-name">Authentication Standard — 5.17 + 8.5</div><div class="art-desc">Parâmetros de senha, MFA e credenciais — artefato complementar</div></div><a class="art-link" href="authentication-standard.html">Ver artefato</a></div>
+      <div class="artifact-item"><div class="art-icon">🛠️</div><div><div class="art-name">Authentication Standard Builder</div><div class="art-desc">Gerador interativo com score de aderência</div></div><a class="art-link" href="authentication-standard-builder.html">Abrir ferramenta</a></div>
+      <div class="artifact-item"><div class="art-icon">⚙️</div><div><div class="art-name">Privileged Access Standard</div><div class="art-desc">Padrão PAM — autenticação de contas privilegiadas com controles reforçados</div></div><a class="art-link" href="privileged-access-standard.html">Ver artefato</a></div>
+    </div>
+  </div>
+
+  <div class="nav-bottom">
+    <a class="nav-btn" href="../controles/8.5.html">← Deep Dive: 8.5 Secure Authentication</a>
+    <a class="nav-btn" href="information-access-restriction.html">Próximo: Information Access Restriction →</a>
+  </div>
+</main>
+<footer><p>Projeto: Access Management Maturity Model · <a href="https://github.com/gilbertocrv" target="_blank">github.com/gilbertocrv</a></p></footer>
+<script>
+  function switchTab(id,btn){document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.getElementById('tab-'+id).classList.add('active');btn.classList.add('active');if(id==='checklist')updateProgress();}
+  const SK='sec-auth-std-v1';
+  function loadState(){try{return JSON.parse(localStorage.getItem(SK))||{};}catch{return {};}}
+  function saveState(s){try{localStorage.setItem(SK,JSON.stringify(s));}catch{}}
+  function getKey(el){return el.querySelector('.check-name').textContent.trim().slice(0,60);}
+  function toggleCheck(el){const state=loadState(),key=getKey(el),checked=!el.classList.contains('checked');el.classList.toggle('checked',checked);el.querySelector('.check-box').textContent=checked?'✓':'';state[key]=checked;saveState(state);updateProgress();}
+  function updateProgress(){const groups={g1:5,g2:4,g3:4};let total=0,done=0;Object.entries(groups).forEach(([g,max])=>{const items=document.querySelectorAll(`[data-group="${g}"]`);const gDone=[...items].filter(i=>i.classList.contains('checked')).length;total+=max;done+=gDone;const pill=document.getElementById('prog-'+g);if(pill)pill.textContent=`${gDone}/${max}`;});const pct=total>0?Math.round((done/total)*100):0;const bar=document.getElementById('progressBar');const count=document.getElementById('progressCount');if(bar)bar.style.width=pct+'%';if(count)count.textContent=`${done} / ${total}`;}
+  function restore(){const state=loadState();document.querySelectorAll('.check-item').forEach(el=>{if(state[getKey(el)]){el.classList.add('checked');el.querySelector('.check-box').textContent='✓';}});updateProgress();}
+  restore();
+</script>
+</body>
+</html>
