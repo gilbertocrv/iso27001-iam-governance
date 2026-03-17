@@ -29,7 +29,8 @@ iso27001-iam-governance/
 │   ├── authentication-standard.html                # Padrão técnico 5.17 + 8.5 — checklist interativo ✅
 │   ├── authentication-standard-builder.html        # Gerador de Authentication Standard com score ✅
 │   ├── access-provisioning.html                    # Procedimento de provisionamento 5.18 — RACI + SLAs ✅
-│   └── privileged-access-standard.html             # Padrão PAM 8.2 — tiers + vault + checklist ✅
+│   ├── privileged-access-standard.html             # Padrão PAM 8.2 — tiers + vault + checklist ✅
+│   └── entra-user-script-generator.html            # Gerador educacional de script para provisionamento Entra ID ✅
 │
 ├── policies/                                       # Documentos de referência
 │   ├── Access_Control_Policy.html                  # Política renderizada (acessível via GitHub Pages)
@@ -75,6 +76,7 @@ iso27001-iam-governance/
 | `ferramentas/authentication-standard-builder.html` | Gerador interativo de Authentication Standard com score de aderência e download em Markdown | 5.17 · 8.5 | ✅ Publicado |
 | `ferramentas/access-provisioning.html` | Procedimento de provisionamento — fluxo de aprovação, RACI, SLAs e checklist | 5.18 | ✅ Publicado |
 | `ferramentas/privileged-access-standard.html` | Padrão PAM — classificação por tier, controles obrigatórios, vault e checklist | 8.2 | ✅ Publicado |
+| `ferramentas/entra-user-script-generator.html` | Gerador educacional de script PowerShell para provisionamento revisável de usuários no Entra ID | 5.16 · 5.18 | ✅ Publicado |
 
 ### Documentos de política
 
