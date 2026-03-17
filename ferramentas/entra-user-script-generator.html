@@ -37,22 +37,23 @@ textarea { width:100%; height:220px; margin-top:10px; font-family:monospace; }
 function parseCSV(text){
     const lines = text.split(/\r?\n/);
     return lines.map(line => {
-        const result = [];
+        let result = [];
         let current = '';
         let insideQuotes = false;
 
-        for(let i=0;i<line.length;i++){
+        for (let i = 0; i < line.length; i++) {
             const char = line[i];
 
-            if(char === '"'){
+            if (char === '"') {
                 insideQuotes = !insideQuotes;
-            } else if(char === ',' && !insideQuotes){
+            } else if (char === ',' && !insideQuotes) {
                 result.push(current);
                 current = '';
             } else {
                 current += char;
             }
         }
+
         result.push(current);
         return result;
     });
@@ -63,7 +64,7 @@ function generateScript(){
     const fileInput = document.getElementById('csvFile');
     const log = document.getElementById('log');
 
-    if(!fileInput.files.length){
+    if(!fileInput || !fileInput.files.length){
         log.innerHTML = "<div class='error'>Selecione um CSV</div>";
         return;
     }
@@ -72,105 +73,85 @@ function generateScript(){
 
     reader.onload = function(e){
 
-        const data = parseCSV(e.target.result);
+        try {
 
-        let errors = [];
-        let users = [];
+            const data = parseCSV(e.target.result);
 
-        for(let i=1;i<data.length;i++){
-            const row = data[i];
+            let users = [];
+            let errors = [];
 
-            if(row.length < 4){
-                errors.push(`Linha ${i+1} inválida`);
-                continue;
+            for(let i = 1; i < data.length; i++){
+                const row = data[i];
+
+                if(!row || row.length < 4){
+                    continue;
+                }
+
+                const nome = (row[0] || '').trim();
+                const upn = (row[1] || '').trim();
+                const cargo = (row[2] || '').trim();
+                const depto = (row[3] || '').trim();
+
+                if(!nome || !upn){
+                    errors.push(`Linha ${i+1} inválida`);
+                    continue;
+                }
+
+                users.push({nome, upn, cargo, depto});
             }
 
-            const [nome, upn, cargo, depto] = row.map(v => v.trim());
-
-            if(!nome || !upn){
-                errors.push(`Linha ${i+1} sem nome ou UPN`);
-                continue;
+            if(users.length === 0){
+                log.innerHTML = "<div class='error'>Nenhum usuário válido encontrado</div>";
+                return;
             }
 
-            users.push({nome, upn, cargo, depto});
-        }
+            let script = "# Script gerado - IAM ISO 27001\n";
+            script += "Connect-MgGraph -Scopes \"User.ReadWrite.All\"\n\n";
 
-        if(users.length === 0){
-            log.innerHTML = "<div class='error'>Nenhum usuário válido</div>";
-            return;
-        }
+            users.forEach(u => {
+                script += `Write-Host "Criando usuário: ${u.nome}"\n`;
+                script += `New-MgUser -DisplayName "${u.nome}" -UserPrincipalName "${u.upn}" -MailNickname "${u.upn.split('@')[0]}" -AccountEnabled -JobTitle "${u.cargo}" -Department "${u.depto}" -PasswordProfile @{Password="Alterar123!"; ForceChangePasswordNextSignIn=$true}\n\n`;
+            });
 
-        let script = `# ==========================================
-# Script Gerado - Projeto Educacional IAM
-# Data: ${new Date().toISOString()}
-# ==========================================
+            script += "Disconnect-MgGraph\n";
 
-Connect-MgGraph -Scopes "User.ReadWrite.All"
+            document.getElementById('outputScript').value = script;
 
-$users = @(
-`;
-
-        users.forEach(u=>{
-            script += `    @{
-        DisplayName = "${u.nome}"
-        UserPrincipalName = "${u.upn}"
-        JobTitle = "${u.cargo}"
-        Department = "${u.depto}"
-    }
-`;
-        });
-
-        script += `)
-
-foreach ($user in $users) {
-    try {
-        Write-Host "Criando usuário: $($user.DisplayName)"
-
-        New-MgUser `
-            -DisplayName $user.DisplayName `
-            -UserPrincipalName $user.UserPrincipalName `
-            -MailNickname ($user.UserPrincipalName.Split("@")[0]) `
-            -AccountEnabled `
-            -JobTitle $user.JobTitle `
-            -Department $user.Department `
-            -PasswordProfile @{
-                Password = "Alterar123!"
-                ForceChangePasswordNextSignIn = $true
+            let msg = `<div class='success'>${users.length} usuários gerados</div>`;
+            if(errors.length){
+                msg += `<div class='error'>${errors.join("<br>")}</div>`;
             }
 
-    } catch {
-        Write-Host "Erro ao criar $($user.DisplayName)"
-    }
-}
+            log.innerHTML = msg;
 
-Disconnect-MgGraph
-`;
-
-        document.getElementById('outputScript').value = script;
-
-        let logMsg = `<div class='success'>${users.length} usuários processados</div>`;
-
-        if(errors.length){
-            logMsg += `<div class='error'>Erros:<br>${errors.join("<br>")}</div>`;
+        } catch (err){
+            log.innerHTML = "<div class='error'>Erro ao processar CSV</div>";
+            console.error(err);
         }
 
-        log.innerHTML = logMsg;
     };
 
     reader.readAsText(fileInput.files[0]);
 }
 
 function downloadScript(){
+
     const content = document.getElementById('outputScript').value;
 
-    const blob = new Blob([content], {type: 'text/plain'});
+    if(!content){
+        alert("Gere o script primeiro");
+        return;
+    }
 
+    const blob = new Blob([content], {type: 'text/plain'});
     const link = document.createElement('a');
 
     link.href = URL.createObjectURL(blob);
     link.download = "Provisionamento-EntraID.ps1";
 
+    document.body.appendChild(link);
     link.click();
+    document.body.removeChild(link);
 }
 
 </script>
