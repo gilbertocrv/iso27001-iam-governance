@@ -1,6 +1,21 @@
 {
-  "updated": "2026-03-16",
+  "updated": "2026-03-17",
   "entries": [
+    {
+      "id": "a43950faf096",
+      "date": "2026-03-16",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "Help on the line: How a Microsoft Teams support call led to compromise",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/03/16/help-on-the-line-how-a-microsoft-teams-support-call-led-to-compromise/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Monitorar impacto em procedimentos de provisionamento",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "466b42d4c00f",
       "date": "2026-03-14",
