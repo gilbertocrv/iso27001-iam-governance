@@ -1,595 +1,175 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Entra User Script Generator | IAM Maturity | ISO 27001:2022</title>
-  <meta
-    name="description"
-    content="Exercício educacional para validar CSV, padronizar dados e gerar script revisável de provisionamento no Entra ID."
-  />
-  <style>
-    :root {
-      --bg: #0b1020;
-      --panel: #121a31;
-      --panel-2: #18233f;
-      --text: #e8eefc;
-      --muted: #aebbd6;
-      --line: #2a3860;
-      --accent: #76a9ff;
-      --accent-2: #9fd0ff;
-      --success: #9be7b1;
-      --error: #ffb0b0;
-      --warning: #ffd98f;
-      --btn: #2d6cdf;
-      --btn-hover: #2458b6;
-      --btn-success: #21824c;
-      --btn-success-hover: #19653a;
-      --shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
-      --radius: 18px;
-      --radius-sm: 12px;
-      --max: 1120px;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entra User Script Generator | ISO 27001:2022</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --navy: #003366; --navy-mid: #004080; --navy-light: #0056b3;
+            --accent: #c8922a; --accent-light: #e8a83a;
+            --bg: #f4f6f8; --white: #ffffff; --gray: #666;
+            --border: #d1d9e4; --text: #1a2340;
+            --green: #1a7a4a; --green-light: #e8f5ee;
+            --red: #a32020; --red-light: #fdf0f0;
+            --amber: #a06400; --amber-light: #fff8ed;
+        }
 
-    * { box-sizing: border-box; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'IBM Plex Sans', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
 
-    html {
-      scroll-behavior: smooth;
-    }
+        /* Navegação Superior */
+        .breadcrumb { background: var(--navy); padding: 12px 30px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: rgba(255,255,255,0.45); letter-spacing: 1px; }
+        .breadcrumb a { color: var(--accent-light); text-decoration: none; }
+        
+        /* Cabeçalho padrão do Repositório */
+        header { background: var(--navy); padding: 50px 30px 44px; position: relative; overflow: hidden; }
+        header::after { content: 'AUTO'; position: absolute; bottom: -20px; right: 20px; font-family: 'IBM Plex Mono', monospace; font-size: 110px; font-weight: 700; color: rgba(255,255,255,0.03); pointer-events: none; }
+        
+        .header-inner { max-width: 960px; margin: auto; position: relative; z-index: 1; }
+        .ctrl-badge { display: inline-block; font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 600; background: rgba(200,146,42,0.2); color: var(--accent-light); border: 1px solid rgba(200,146,42,0.4); padding: 4px 12px; border-radius: 3px; letter-spacing: 2px; margin-bottom: 16px; }
+        header h1 { font-size: 30px; font-weight: 700; color: #fff; margin-bottom: 12px; }
+        header h1 span { color: var(--accent-light); }
+        header p { font-size: 14px; color: rgba(255,255,255,0.6); max-width: 560px; }
 
-    body {
-      margin: 0;
-      font-family: Inter, Segoe UI, Roboto, Arial, sans-serif;
-      background:
-        radial-gradient(circle at top, rgba(118, 169, 255, 0.12), transparent 22%),
-        linear-gradient(180deg, #0a0f1d 0%, #0b1020 100%);
-      color: var(--text);
-      line-height: 1.6;
-    }
+        main { max-width: 960px; margin: 0 auto; padding: 40px 30px; }
+        
+        /* Cards */
+        .tool-card { background: var(--white); border: 1px solid var(--border); border-radius: 6px; padding: 30px; box-shadow: 0 2px 10px rgba(0,51,102,0.05); margin-bottom: 24px; }
+        .section-label { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; }
+        
+        /* Formulário e Inputs */
+        .upload-area { background: #f8f9fa; border: 2px dashed var(--border); padding: 25px; text-align: center; border-radius: 4px; margin-bottom: 20px; }
+        input[type="file"] { font-family: 'IBM Plex Mono', monospace; font-size: 12px; margin-top: 10px; }
+        
+        textarea { width: 100%; height: 280px; margin-top: 15px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; padding: 15px; border: 1px solid var(--border); border-radius: 4px; background: #1e1e1e; color: #d4d4d4; line-height: 1.5; }
+        
+        /* Botões */
+        .btn { font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600; padding: 12px 20px; border: none; cursor: pointer; border-radius: 4px; text-transform: uppercase; letter-spacing: 1px; transition: all 0.2s; text-decoration: none; display: inline-block; vertical-align: middle; }
+        .btn-primary { background: var(--navy); color: white; margin-right: 10px; }
+        .btn-outline { border: 1px solid var(--navy); color: var(--navy); background: transparent; }
+        .btn-outline:hover { background: var(--navy); color: white; }
+        .btn-success { background: var(--green); color: white; margin-top: 15px; width: 100%; }
 
-    a {
-      color: var(--accent-2);
-      text-decoration: none;
-    }
+        /* Tabela de Exemplo */
+        .template-table { width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 12px; }
+        .template-table th { background: var(--bg); color: var(--navy); text-align: left; padding: 12px; border: 1px solid var(--border); font-family: 'IBM Plex Mono', monospace; }
+        .template-table td { padding: 10px; border: 1px solid var(--border); color: var(--gray); }
 
-    a:hover {
-      text-decoration: underline;
-    }
-
-    .wrap {
-      width: min(var(--max), calc(100% - 32px));
-      margin: 0 auto;
-    }
-
-    .hero {
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0));
-    }
-
-    .hero-inner {
-      padding: 28px 0 30px;
-    }
-
-    .topline {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 20px;
-    }
-
-    .brand {
-      font-size: 0.9rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    .repo-link {
-      font-size: 0.92rem;
-      color: var(--muted);
-    }
-
-    .breadcrumb {
-      display: inline-flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 14px;
-      font-size: 0.92rem;
-      color: var(--muted);
-    }
-
-    .badge-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin: 18px 0 0;
-    }
-
-    .badge {
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,0.03);
-      color: var(--muted);
-      padding: 7px 10px;
-      border-radius: 999px;
-      font-size: 0.82rem;
-    }
-
-    h1 {
-      font-size: clamp(2rem, 4vw, 3rem);
-      line-height: 1.05;
-      margin: 0 0 12px;
-      letter-spacing: -0.03em;
-    }
-
-    .subtitle {
-      max-width: 860px;
-      color: var(--muted);
-      margin: 0;
-      font-size: 1.02rem;
-    }
-
-    main {
-      padding: 30px 0 48px;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 22px;
-      align-items: start;
-    }
-
-    .panel {
-      background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.015));
-      border: 1px solid rgba(255,255,255,0.07);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-    }
-
-    .panel-body {
-      padding: 22px;
-    }
-
-    .panel-title {
-      margin: 0 0 8px;
-      font-size: 1.15rem;
-      letter-spacing: -0.02em;
-    }
-
-    .panel-text {
-      margin: 0;
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
-
-    .note {
-      margin-top: 16px;
-      padding: 14px 16px;
-      border-radius: var(--radius-sm);
-      background: rgba(118, 169, 255, 0.08);
-      border: 1px solid rgba(118, 169, 255, 0.22);
-      color: var(--text);
-      font-size: 0.93rem;
-    }
-
-    .tool-head {
-      padding: 18px 22px;
-      border-bottom: 1px solid rgba(255,255,255,0.07);
-      background: linear-gradient(180deg, rgba(118, 169, 255, 0.08), rgba(118, 169, 255, 0.02));
-    }
-
-    .tool-head h2 {
-      margin: 0 0 6px;
-      font-size: 1.15rem;
-    }
-
-    .tool-head p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 0.94rem;
-    }
-
-    .field {
-      margin-bottom: 16px;
-    }
-
-    .label {
-      display: block;
-      margin-bottom: 8px;
-      font-size: 0.92rem;
-      color: var(--muted);
-    }
-
-    input[type="file"] {
-      width: 100%;
-      padding: 14px;
-      border-radius: var(--radius-sm);
-      border: 1px dashed var(--line);
-      background: rgba(255,255,255,0.025);
-      color: var(--text);
-    }
-
-    .actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 16px;
-    }
-
-    .btn {
-      appearance: none;
-      border: 0;
-      border-radius: 12px;
-      cursor: pointer;
-      padding: 11px 16px;
-      color: white;
-      font-weight: 600;
-      font-size: 0.95rem;
-      transition: transform 0.12s ease, background 0.12s ease, opacity 0.12s ease;
-    }
-
-    .btn:hover {
-      transform: translateY(-1px);
-    }
-
-    .btn-primary {
-      background: var(--btn);
-    }
-
-    .btn-primary:hover {
-      background: var(--btn-hover);
-    }
-
-    .btn-success {
-      background: var(--btn-success);
-    }
-
-    .btn-success:hover {
-      background: var(--btn-success-hover);
-    }
-
-    .btn-secondary {
-      background: transparent;
-      border: 1px solid var(--line);
-      color: var(--text);
-    }
-
-    .btn-secondary:hover {
-      background: rgba(255,255,255,0.04);
-    }
-
-    .log {
-      min-height: 56px;
-      margin-bottom: 16px;
-      padding: 14px 16px;
-      border-radius: var(--radius-sm);
-      border: 1px solid rgba(255,255,255,0.06);
-      background: rgba(255,255,255,0.025);
-      color: var(--muted);
-      font-size: 0.93rem;
-    }
-
-    .log.success {
-      border-color: rgba(155, 231, 177, 0.25);
-      background: rgba(155, 231, 177, 0.08);
-      color: var(--success);
-    }
-
-    .log.error {
-      border-color: rgba(255, 176, 176, 0.25);
-      background: rgba(255, 176, 176, 0.08);
-      color: var(--error);
-    }
-
-    textarea {
-      width: 100%;
-      min-height: 320px;
-      resize: vertical;
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: var(--radius-sm);
-      background: #0d1428;
-      color: #f3f7ff;
-      padding: 16px;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      font-size: 0.9rem;
-      line-height: 1.55;
-    }
-
-    .list {
-      display: grid;
-      gap: 12px;
-      margin-top: 18px;
-    }
-
-    .list-item {
-      padding: 14px 16px;
-      border-radius: var(--radius-sm);
-      background: rgba(255,255,255,0.025);
-      border: 1px solid rgba(255,255,255,0.06);
-    }
-
-    .list-item strong {
-      display: block;
-      margin-bottom: 4px;
-      font-size: 0.96rem;
-    }
-
-    .list-item span {
-      color: var(--muted);
-      font-size: 0.92rem;
-    }
-
-    footer {
-      padding: 22px 0 40px;
-      color: var(--muted);
-      font-size: 0.92rem;
-      border-top: 1px solid rgba(255,255,255,0.06);
-    }
-
-    @media (max-width: 920px) {
-      .grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .wrap {
-        width: min(var(--max), calc(100% - 20px));
-      }
-
-      .hero-inner,
-      main {
-        padding-top: 22px;
-      }
-
-      .panel-body,
-      .tool-head {
-        padding: 18px;
-      }
-
-      textarea {
-        min-height: 260px;
-      }
-    }
-  </style>
+        /* Box de Alerta */
+        .info-box { background: var(--amber-light); border-left: 4px solid var(--accent); padding: 20px; margin-top: 15px; border-radius: 0 4px 4px 0; }
+        .info-box h4 { color: var(--amber); font-size: 13px; font-weight: 700; margin-bottom: 5px; text-transform: uppercase; }
+        
+        footer { background: var(--navy); padding: 24px 30px; text-align: center; margin-top: 50px; }
+        footer p { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: rgba(255,255,255,0.35); }
+    </style>
 </head>
 <body>
-  <header class="hero">
-    <div class="wrap hero-inner">
-      <div class="topline">
-        <div class="brand">ISO/IEC 27001:2022 · IAM GOVERNANCE</div>
-        <a class="repo-link" href="https://github.com/gilbertocrv/iso27001-iam-governance" target="_blank" rel="noopener noreferrer">
-          Ver repositório no GitHub
-        </a>
-      </div>
 
-      <div class="breadcrumb">
-        <a href="../index.html">Home</a>
-        <span>·</span>
-        <span>Ferramentas Interativas</span>
-        <span>·</span>
-        <span>Entra User Script Generator</span>
-      </div>
+<div class="breadcrumb">
+    <a href="../index.html">Início</a><span>/</span>Ferramentas<span>/</span>Entra ID Script Generator
+</div>
 
-      <p class="brand" style="margin: 0 0 10px;">PROJETO DE ESTUDO INDEPENDENTE · GILBERTO GONÇALVES</p>
-      <h1>Entra User Script Generator</h1>
-      <p class="subtitle">
-        Exercício educacional para validar CSV, padronizar dados e gerar um script revisável de provisionamento no Entra ID,
-        conectando estudo normativo com execução controlada.
-      </p>
-
-      <div class="badge-row">
-        <span class="badge">5.16 · Identity Management</span>
-        <span class="badge">5.18 · Access Rights</span>
-        <span class="badge">Artefato de apoio</span>
-        <span class="badge">Projeto educacional</span>
-      </div>
+<header>
+    <div class="header-inner">
+        <div class="ctrl-badge">AUTOMAÇÃO · ISO 27001</div>
+        <h1>Entra ID <span>Script Generator</span></h1>
+        <p>Artefato de apoio para o controle 5.18. Geração de scripts PowerShell para provisionamento em massa seguindo padrões de GRC.</p>
     </div>
-  </header>
+</header>
 
-  <main>
-    <div class="wrap">
-      <div class="grid">
-        <section class="panel">
-          <div class="tool-head">
-            <h2>Gerador de script</h2>
-            <p>Entrada padronizada em CSV, validação básica e geração local de script PowerShell para revisão antes da execução.</p>
-          </div>
-          <div class="panel-body">
-            <div class="field">
-              <label class="label" for="csvFile">CSV esperado: <strong>Nome, UPN, Cargo, Departamento</strong></label>
-              <input type="file" id="csvFile" accept=".csv" />
-            </div>
+<main>
+    <div class="tool-card">
+        <div class="section-label">Execução Técnica</div>
+        
+        <div class="upload-area">
+            <label style="display:block; font-size:12px; font-weight:700; color:var(--navy); margin-bottom:10px;">ARQUIVO DE PROVISIONAMENTO (CSV):</label>
+            <input type="file" id="csvFile" accept=".csv">
+        </div>
 
-            <div class="actions">
-              <button class="btn btn-primary" type="button" onclick="generateScript()">Gerar Script</button>
-              <button class="btn btn-success" type="button" onclick="downloadScript()">Baixar .ps1</button>
-              <a class="btn btn-secondary" href="../index.html">Voltar para Home</a>
-            </div>
-
-            <div id="log" class="log">Aguardando arquivo CSV.</div>
-
-            <textarea
-              id="outputScript"
-              readonly
-              placeholder="O script gerado aparecerá aqui..."
-            ></textarea>
-          </div>
-        </section>
-
-        <aside class="panel">
-          <div class="panel-body">
-            <h2 class="panel-title">Contexto no projeto</h2>
-            <p class="panel-text">
-              Este artefato não é um produto separado. Ele funciona como apoio didático para materializar,
-              em um cenário simples, como controles de gestão de identidades e direitos de acesso podem sair da norma
-              e chegar a um fluxo operacional revisável.
-            </p>
-
-            <div class="note">
-              O objetivo aqui não é automatizar produção. O foco é padronização, redução de erro manual,
-              rastreabilidade do processo e aprendizado aplicado em governança de IAM.
-            </div>
-
-            <div class="list">
-              <div class="list-item">
-                <strong>Fluxo educacional</strong>
-                <span>Entrada aprovada → CSV padronizado → geração local → revisão do script → execução controlada.</span>
-              </div>
-              <div class="list-item">
-                <strong>Ligação com 5.16</strong>
-                <span>Ajuda a estruturar o ciclo de vida de identidade no momento do provisionamento inicial.</span>
-              </div>
-              <div class="list-item">
-                <strong>Ligação com 5.18</strong>
-                <span>Reforça concessão padronizada, revisão prévia e redução de inconsistência operacional.</span>
-              </div>
-              <div class="list-item">
-                <strong>Privacidade</strong>
-                <span>O processamento ocorre localmente no navegador; nada é enviado para backend.</span>
-              </div>
-            </div>
-          </div>
-        </aside>
-      </div>
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <button class="btn btn-primary" onclick="generateScript()">Gerar Comandos PowerShell</button>
+            <a href="data/template.csv" class="btn btn-outline" download="template_iam.csv">Baixar Template.csv</a>
+        </div>
+        
+        <textarea id="outputScript" readonly placeholder="O script PowerShell será gerado aqui..."></textarea>
+        <button class="btn btn-success" onclick="downloadScript()">Baixar arquivo .ps1 pronto</button>
     </div>
-  </main>
 
-  <footer>
-    <div class="wrap">
-      Projeto de estudo independente · Baseado em normas públicas ·
-      <a href="https://github.com/gilbertocrv/iso27001-iam-governance" target="_blank" rel="noopener noreferrer">github.com/gilbertocrv</a>
+    <div class="tool-card">
+        <div class="section-label">Instruções do Template</div>
+        <p style="font-size: 13px; color: var(--gray); margin-bottom: 15px;">O arquivo CSV deve ser estruturado com os cabeçalhos exatos conforme o exemplo abaixo:</p>
+        
+        <table class="template-table">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>UPN</th>
+                    <th>Cargo</th>
+                    <th>Departamento</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Exemplo Usuario</td>
+                    <td>usuario@dominio.com</td>
+                    <td>Analista de IAM</td>
+                    <td>Segurança da Informação</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="info-box">
+            <h4>⚠️ Nota de Segurança</h4>
+            <p style="font-size: 12px;">Os scripts gerados configuram <strong>ForceChangePasswordNextSignIn</strong> como <strong>True</strong> por padrão, garantindo que a conformidade com a política de troca de senha no primeiro acesso seja mantida.</p>
+        </div>
     </div>
-  </footer>
+</main>
 
-  <script>
-    function parseCSV(text) {
-      const lines = text.split(/\r?\n/);
-      return lines.map(line => {
-        let result = [];
-        let current = '';
-        let insideQuotes = false;
+<footer>
+    <p>Projeto: Access Management Maturity Model · <a href="https://github.com/gilbertocrv" style="color:var(--accent-light); text-decoration:none;">github.com/gilbertocrv</a></p>
+</footer>
 
-        for (let i = 0; i < line.length; i++) {
-          const char = line[i];
-
-          if (char === '"') {
-            insideQuotes = !insideQuotes;
-          } else if (char === ',' && !insideQuotes) {
-            result.push(current);
-            current = '';
-          } else {
-            current += char;
-          }
-        }
-
-        result.push(current);
-        return result;
-      });
-    }
-
-    function setLog(message, type = '') {
-      const log = document.getElementById('log');
-      log.className = 'log' + (type ? ' ' + type : '');
-      log.innerHTML = message;
-    }
-
+<script>
     function generateScript() {
-      const fileInput = document.getElementById('csvFile');
+        const fileInput = document.getElementById('csvFile');
+        if (!fileInput.files.length) { alert("Por favor, selecione o arquivo CSV primeiro."); return; }
 
-      if (!fileInput || !fileInput.files.length) {
-        setLog('Selecione um arquivo CSV antes de gerar o script.', 'error');
-        return;
-      }
-
-      const reader = new FileReader();
-
-      reader.onload = function (e) {
-        try {
-          const data = parseCSV(e.target.result);
-          let users = [];
-          let errors = [];
-
-          for (let i = 1; i < data.length; i++) {
-            const row = data[i];
-
-            if (!row || row.length < 4 || row.every(col => !String(col).trim())) {
-              continue;
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const lines = e.target.result.split(/\r?\n/);
+            let script = "# Script de Provisionamento Automático - IAM Framework\n";
+            script += "# Baseado no controle ISO 27001:2022 A.5.18\n\n";
+            script += "Connect-MgGraph -Scopes 'User.ReadWrite.All'\n\n";
+            
+            for(let i = 1; i < lines.length; i++) {
+                const row = lines[i].split(',');
+                if(row.length >= 4) {
+                    const [nome, upn, cargo, depto] = row.map(c => c.trim());
+                    if(!nome || !upn) continue;
+                    
+                    script += `Write-Host \"Processando: ${nome}\" -ForegroundColor Cyan\n`;
+                    script += `New-MgUser -DisplayName \"${nome}\" -UserPrincipalName \"${upn}\" -JobTitle \"${cargo}\" -Department \"${depto}\" -MailNickname \"${upn.split('@')[0]}\" -AccountEnabled -PasswordProfile @{Password=\"SenhaTemp123!\"; ForceChangePasswordNextSignIn=$true}\n\n`;
+                }
             }
-
-            const nome = (row[0] || '').trim();
-            const upn = (row[1] || '').trim();
-            const cargo = (row[2] || '').trim();
-            const depto = (row[3] || '').trim();
-
-            if (!nome || !upn) {
-              errors.push(`Linha ${i + 1}: registro sem Nome ou UPN.`);
-              continue;
-            }
-
-            users.push({ nome, upn, cargo, depto });
-          }
-
-          if (users.length === 0) {
-            setLog('Nenhum usuário válido foi encontrado no CSV.', 'error');
-            document.getElementById('outputScript').value = '';
-            return;
-          }
-
-          let script = "# ==========================================\n";
-          script += "# Script gerado - IAM ISO 27001\n";
-          script += "# Artefato educacional de apoio\n";
-          script += `# Data: ${new Date().toISOString()}\n`;
-          script += "# ==========================================\n\n";
-          script += "Connect-MgGraph -Scopes \"User.ReadWrite.All\"\n\n";
-
-          users.forEach(u => {
-            const mailNickname = u.upn.includes('@') ? u.upn.split('@')[0] : u.upn;
-
-            script += `Write-Host "Criando usuário: ${u.nome}"\n`;
-            script += `New-MgUser -DisplayName "${u.nome}" -UserPrincipalName "${u.upn}" -MailNickname "${mailNickname}" -AccountEnabled -JobTitle "${u.cargo}" -Department "${u.depto}" -PasswordProfile @{Password="Alterar123!"; ForceChangePasswordNextSignIn=$true}\n\n`;
-          });
-
-          script += "Disconnect-MgGraph\n";
-
-          document.getElementById('outputScript').value = script;
-
-          let msg = `${users.length} usuário(s) processado(s) com sucesso.`;
-          if (errors.length) {
-            msg += "<br><br><strong>Ocorrências:</strong><br>" + errors.join("<br>");
-          }
-
-          setLog(msg, errors.length ? 'success' : 'success');
-        } catch (err) {
-          console.error(err);
-          setLog('Erro ao processar o CSV. Revise a estrutura do arquivo.', 'error');
-        }
-      };
-
-      reader.readAsText(fileInput.files[0]);
+            document.getElementById('outputScript').value = script;
+        };
+        reader.readAsText(fileInput.files[0]);
     }
 
     function downloadScript() {
-      const content = document.getElementById('outputScript').value;
-
-      if (!content) {
-        setLog('Gere o script antes de fazer o download.', 'error');
-        return;
-      }
-
-      const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
-      const link = document.createElement('a');
-
-      link.href = URL.createObjectURL(blob);
-      link.download = "Provisionamento-EntraID.ps1";
-
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+        const content = document.getElementById('outputScript').value;
+        if(!content) { alert("Gere o script primeiro!"); return; }
+        const blob = new Blob([content], {type: 'text/plain'});
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = "Provisionamento_EntraID.ps1";
+        link.click();
     }
-  </script>
+</script>
+
 </body>
 </html>
