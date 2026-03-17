@@ -6,68 +6,219 @@
 <title>8.5 — Secure Authentication | ISO 27001:2022</title>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
-  :root{--navy:#003366;--accent:#c8922a;--accent-light:#e8a83a;--bg:#f4f6f8;--white:#fff;--gray:#666;--border:#d1d9e4;--text:#1a2340;}
-  *{box-sizing:border-box;margin:0;padding:0;}
-  body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg);color:var(--text);}
-  .breadcrumb{background:var(--navy);padding:12px 30px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:rgba(255,255,255,0.45);letter-spacing:1px;}
-  .breadcrumb a{color:var(--accent-light);text-decoration:none;}
-  .breadcrumb span{margin:0 8px;}
-  header{background:var(--navy);position:relative;overflow:hidden;padding:0;}
-  header::before{content:'';position:absolute;top:-60px;right:-60px;width:320px;height:320px;border:40px solid rgba(200,146,42,0.12);border-radius:50%;}
-  .header-inner{max-width:900px;margin:auto;padding:50px 30px 44px;position:relative;z-index:1;}
-  .ctrl-badge{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;background:rgba(200,146,42,0.2);color:var(--accent-light);border:1px solid rgba(200,146,42,0.4);padding:4px 12px;border-radius:3px;letter-spacing:2px;margin-bottom:16px;}
-  header h1{font-size:30px;font-weight:700;color:#fff;line-height:1.25;margin-bottom:12px;}
-  header p{font-size:14px;color:rgba(255,255,255,0.6);max-width:520px;line-height:1.7;}
-  main{max-width:900px;margin:0 auto;padding:60px 30px 80px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:24px;}
-  .soon-badge{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);border:1px solid rgba(200,146,42,0.35);padding:6px 16px;border-radius:3px;}
-  .soon-title{font-size:22px;font-weight:700;color:var(--navy);}
-  .soon-desc{font-size:14px;color:var(--gray);max-width:460px;line-height:1.7;}
-  .soon-list{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:24px 28px;max-width:480px;width:100%;text-align:left;}
-  .soon-list-label{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--accent);margin-bottom:14px;}
-  .soon-list ul{list-style:none;padding:0;}
-  .soon-list li{font-size:13px;color:var(--gray);padding:6px 0;border-bottom:1px solid #f0f2f5;display:flex;align-items:flex-start;gap:8px;line-height:1.45;}
-  .soon-list li:last-child{border-bottom:none;}
-  .soon-list li::before{content:'→';color:var(--accent);font-size:11px;flex-shrink:0;margin-top:2px;}
-  .back-btn{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--navy);border:1px solid var(--border);padding:9px 18px;border-radius:4px;text-decoration:none;background:var(--white);transition:border-color 0.15s;}
-  .back-btn:hover{border-color:var(--navy);}
-  footer{background:var(--navy);padding:24px 30px;text-align:center;margin-top:60px;}
-  footer p{font-family:'IBM Plex Mono',monospace;font-size:11px;color:rgba(255,255,255,0.35);letter-spacing:1px;}
-  footer a{color:var(--accent-light);text-decoration:none;}
+  :root{--navy:#003366;--navy-mid:#004080;--navy-light:#0056b3;--accent:#c8922a;--accent-light:#e8a83a;--bg:#f4f6f8;--white:#ffffff;--gray:#666;--border:#d1d9e4;--text:#1a2340;--green:#1a7a4a;--green-light:#e8f5ee;--red:#a32020;--red-light:#fdf0f0;--amber:#a06400;--amber-light:#fff8ed;}
+  *{box-sizing:border-box;margin:0;padding:0}body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg);color:var(--text)}
+  .breadcrumb{background:var(--navy);padding:12px 30px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:rgba(255,255,255,.45);letter-spacing:1px}.breadcrumb a{color:var(--accent-light);text-decoration:none}.breadcrumb span{margin:0 8px}
+  header{background:var(--navy);padding:0;position:relative;overflow:hidden}
+  header::before{content:'';position:absolute;top:-60px;right:-60px;width:320px;height:320px;border:40px solid rgba(200,146,42,.12);border-radius:50%}
+  header::after{content:'8.5';position:absolute;bottom:-20px;right:30px;font-family:'IBM Plex Mono',monospace;font-size:120px;font-weight:700;color:rgba(255,255,255,.03);line-height:1;user-select:none}
+  .header-inner{max-width:900px;margin:auto;padding:50px 30px 44px;position:relative;z-index:1}
+  .ctrl-badge{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;background:rgba(200,146,42,.2);color:var(--accent-light);border:1px solid rgba(200,146,42,.4);padding:4px 12px;border-radius:3px;letter-spacing:2px;margin-bottom:16px}
+  header h1{font-size:30px;font-weight:700;color:#fff;line-height:1.25;margin-bottom:12px}header h1 span{color:var(--accent-light)}
+  header p{font-size:14px;color:rgba(255,255,255,.6);max-width:560px;line-height:1.7;margin-bottom:24px}
+  .header-meta{display:flex;gap:16px;flex-wrap:wrap}.meta-pill{font-family:'IBM Plex Mono',monospace;font-size:10px;padding:4px 10px;border:1px solid rgba(255,255,255,.18);border-radius:3px;color:rgba(255,255,255,.5);letter-spacing:1px}
+  main{max-width:900px;margin:0 auto;padding:52px 30px 80px}
+  .section-label{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+  .section-title{font-size:20px;font-weight:700;color:var(--navy);margin-bottom:6px}
+  .section-sub{font-size:14px;color:var(--gray);margin-bottom:36px;line-height:1.6;max-width:580px}
+  .concept-block{background:var(--white);border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:6px;padding:24px 28px;margin-bottom:48px}
+  .concept-block p{font-size:14px;line-height:1.8;color:var(--text)}.concept-block p+p{margin-top:12px}.concept-block strong{color:var(--navy)}
+  .tech-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-bottom:48px}
+  .tech-card{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:22px;border-top:4px solid var(--navy);transition:box-shadow .2s,border-top-color .2s}
+  .tech-card:hover{box-shadow:0 4px 16px rgba(0,51,102,.1);border-top-color:var(--accent)}
+  .tech-card-icon{font-size:22px;margin-bottom:12px}
+  .tech-card h3{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:8px}
+  .tech-card p{font-size:13px;color:var(--gray);line-height:1.65}
+  .maturity-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-bottom:56px}
+  .maturity-card{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:18px 20px;transition:border-color .2s,box-shadow .2s}.maturity-card:hover{border-color:var(--navy-light);box-shadow:0 2px 10px rgba(0,51,102,.08)}
+  .mc-level{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:2px;margin-bottom:6px}.mc-title{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:10px}
+  .mc-checks{list-style:none}.mc-checks li{font-size:12px;color:var(--gray);padding:5px 0;border-bottom:1px solid #f0f2f5;display:flex;align-items:flex-start;gap:8px;line-height:1.45}.mc-checks li:last-child{border-bottom:none}.mc-checks li::before{content:'·';color:var(--accent);font-weight:700;flex-shrink:0;margin-top:1px}
+  .risk-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:56px}
+  .risk-card{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:18px 20px}.risk-card.high{border-left:4px solid var(--red)}.risk-card.med{border-left:4px solid var(--amber)}
+  .risk-label{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;margin-bottom:6px}.risk-card.high .risk-label{color:var(--red)}.risk-card.med .risk-label{color:var(--amber)}
+  .risk-title{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:8px}.risk-desc{font-size:12px;color:var(--gray);line-height:1.6}
+  .evidence-list{display:flex;flex-direction:column;gap:8px;margin-bottom:56px}
+  .evidence-item{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:14px 18px;display:flex;align-items:center;gap:14px}
+  .ev-icon{width:36px;min-width:36px;height:36px;background:var(--green-light);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:15px}
+  .ev-name{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:2px}.ev-desc{font-size:12px;color:var(--gray)}
+  .ev-type{margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--green);background:var(--green-light);padding:3px 8px;border-radius:3px;white-space:nowrap}
+  .artifact-list{display:flex;flex-direction:column;gap:10px;margin-bottom:56px}
+  .artifact-item{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:14px 18px;display:flex;align-items:center;gap:14px;transition:border-color .2s}.artifact-item:hover{border-color:var(--navy-light)}
+  .art-icon{width:40px;min-width:40px;height:40px;background:var(--navy);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:16px}
+  .art-name{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:2px}.art-desc{font-size:12px;color:var(--gray)}
+  .art-link{margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--navy-light);text-decoration:none;white-space:nowrap}.art-link::after{content:' →'}.art-link.disabled{opacity:.4;pointer-events:none}
+  .ref-block{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:22px 24px;margin-bottom:56px}
+  .ref-block h3{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:14px}
+  .ref-item{display:flex;gap:12px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #f0f2f5;font-size:13px}.ref-item:last-child{border-bottom:none}
+  .ref-code{font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--navy);min-width:80px}.ref-desc{color:var(--gray);line-height:1.5}
+  .nav-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:60px;padding-top:28px;border-top:1px solid var(--border)}
+  .nav-btn{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--navy-light);text-decoration:none;padding:8px 14px;border:1px solid var(--border);border-radius:4px;background:var(--white);transition:border-color .2s,background .2s}.nav-btn:hover{border-color:var(--navy-light);background:#f0f5fb}.nav-btn.disabled{opacity:.4;pointer-events:none}
+  footer{background:var(--navy);padding:24px 30px;text-align:center}footer p{font-family:'IBM Plex Mono',monospace;font-size:11px;color:rgba(255,255,255,.35);letter-spacing:1px}footer a{color:var(--accent-light);text-decoration:none}
+  @media(max-width:640px){.risk-grid{grid-template-columns:1fr}.tech-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-<div class="breadcrumb">
-  <a href="../index.html">Início</a>
-  <span>/</span>
-  Controles
-  <span>/</span>
-  8.5 — Secure Authentication
-</div>
+<div class="breadcrumb"><a href="../index.html">Início</a><span>/</span>Controles<span>/</span>8.5 — Secure Authentication</div>
 <header>
   <div class="header-inner">
     <div class="ctrl-badge">CONTROLE · 8.5</div>
-    <h1>Secure Authentication</h1>
-    <p>Mecanismos robustos de autenticação — MFA, autenticação adaptativa, proteção técnica de credenciais e SSO seguro.</p>
+    <h1>Secure <span>Authentication</span></h1>
+    <p>Define os mecanismos técnicos que garantem que quem acessa é realmente quem diz ser — autenticação robusta, gestão de sessão e proteção proporcional ao risco.</p>
+    <div class="header-meta">
+      <span class="meta-pill">8.5 · Secure Authentication</span>
+      <span class="meta-pill">5.17 · Authentication Information</span>
+      <span class="meta-pill">Camada: Autenticação</span>
+    </div>
   </div>
 </header>
 <main>
-  <div class="soon-badge">Em construção</div>
-  <div class="soon-title">Deep dive em desenvolvimento</div>
-  <div class="soon-desc">Este conteúdo será publicado na sequência da série. Acompanhe as próximas publicações no LinkedIn.</div>
-  <div class="soon-list">
-    <div class="soon-list-label">O que este deep dive vai cobrir</div>
-    <ul>
-      <li>Requisitos de autenticação segura</li>
-      <li>Implementação de MFA</li>
-      <li>Autenticação adaptativa e baseada em risco</li>
-      <li>Proteção contra ataques de credencial</li>
-      <li>SSO seguro e federação de identidade</li>
-    </ul>
+
+  <div class="section-label">Conceito Central</div>
+  <div class="section-title">O que o controle exige</div>
+  <p class="section-sub">O que está em jogo antes de qualquer avaliação de maturidade.</p>
+  <div class="concept-block">
+    <p>O controle <strong>8.5</strong> exige que a organização implemente mecanismos técnicos de autenticação seguros para todos os sistemas e aplicações. A diferença em relação ao 5.17 é a camada: enquanto o 5.17 trata da <strong>informação de autenticação</strong> (o segredo em si), o 8.5 trata do <strong>mecanismo técnico</strong> que verifica essa informação — como a autenticação acontece, com que robustez e proporcional a qual risco.</p>
+    <p>Estar autenticado não é garantia de segurança. Uma sessão sem expiração, um MFA sem number matching ou um SSO mal configurado são falhas técnicas que comprometem o controle independente de quantos fatores foram exigidos. O auditor verifica a <strong>configuração aplicada</strong>, não apenas a política documentada.</p>
   </div>
-  <a class="back-btn" href="../index.html">← Voltar ao índice</a>
+
+  <div class="section-label">Mecanismos Técnicos</div>
+  <div class="section-title">Implementações que sustentam o controle</div>
+  <p class="section-sub">Cada mecanismo tem requisitos técnicos mínimos para ser considerado efetivo em auditoria.</p>
+  <div class="tech-grid">
+    <div class="tech-card">
+      <div class="tech-card-icon">🔐</div>
+      <h3>MFA Adaptativo</h3>
+      <p>Autenticação multifator com avaliação de risco baseada em IP, geolocalização, dispositivo e comportamento. Fator adicional exigido quando o risco contextual é elevado — não apenas no login inicial.</p>
+    </div>
+    <div class="tech-card">
+      <div class="tech-card-icon">⏱️</div>
+      <h3>Gestão de Sessão</h3>
+      <p>Sessões com expiração definida por tipo de acesso. Tokens sem validade configurada são uma não conformidade direta. Re-autenticação obrigatória após inatividade ou elevação de privilégio.</p>
+    </div>
+    <div class="tech-card">
+      <div class="tech-card-icon">🔗</div>
+      <h3>SSO — Single Sign-On</h3>
+      <p>Centralização da autenticação em Identity Provider único. Elimina credenciais fracas distribuídas por sistemas. Reduz superfície de ataque e concentra os controles de autenticação em um ponto auditável.</p>
+    </div>
+    <div class="tech-card">
+      <div class="tech-card-icon">🔑</div>
+      <h3>Autenticação Forte em Sistemas Críticos</h3>
+      <p>Sistemas com dados classificados como confidenciais ou restritos exigem autenticação reforçada independente do nível de acesso já estabelecido — FIDO2, certificado ou equivalente.</p>
+    </div>
+  </div>
+
+  <div class="section-label">Avaliação de Maturidade</div>
+  <div class="section-title">Critérios por Nível</div>
+  <p class="section-sub">Identifique em qual nível sua organização se encontra e quais critérios ainda precisam ser atendidos.</p>
+  <div class="maturity-grid">
+    <div class="maturity-card">
+      <div class="mc-level">NÍVEL 0–1 · INEXISTENTE / AD-HOC</div>
+      <div class="mc-title">Autenticação sem controle técnico</div>
+      <ul class="mc-checks">
+        <li>Apenas senha sem fator adicional</li>
+        <li>Sessões sem expiração configurada</li>
+        <li>Sem centralização de autenticação</li>
+        <li>MFA ausente ou apenas em sistemas isolados</li>
+      </ul>
+    </div>
+    <div class="maturity-card">
+      <div class="mc-level">NÍVEL 2 · DOCUMENTADO</div>
+      <div class="mc-title">Política existe, aplicação parcial</div>
+      <ul class="mc-checks">
+        <li>MFA habilitado em alguns sistemas</li>
+        <li>Sem cobertura universal — sistemas legados excluídos</li>
+        <li>Sessões com expiração, mas sem consistência entre sistemas</li>
+        <li>SSO em implantação, não completo</li>
+      </ul>
+    </div>
+    <div class="maturity-card">
+      <div class="mc-level">NÍVEL 3 · PADRONIZADO</div>
+      <div class="mc-title">Autenticação segura aplicada consistentemente</div>
+      <ul class="mc-checks">
+        <li>MFA obrigatório para todos os acessos críticos e remotos</li>
+        <li>Number matching ativo em Authenticator Push</li>
+        <li>SSO centralizado cobrindo sistemas corporativos</li>
+        <li>Sessões com expiração configurada por tipo de acesso</li>
+        <li>Logs de autenticação retidos e consultáveis</li>
+      </ul>
+    </div>
+    <div class="maturity-card">
+      <div class="mc-level">NÍVEL 4–5 · AUTOMATIZADO / RISCO</div>
+      <div class="mc-title">Autenticação adaptativa e baseada em risco</div>
+      <ul class="mc-checks">
+        <li>Conditional Access com avaliação de risco em tempo real</li>
+        <li>FIDO2 ou Passwordless para contas críticas</li>
+        <li>Detecção de anomalia de autenticação com alerta automático</li>
+        <li>Revisão contínua de políticas de autenticação por risco</li>
+        <li>Métricas de cobertura de MFA acompanhadas continuamente</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-label">Riscos Associados</div>
+  <div class="section-title">O que pode dar errado</div>
+  <p class="section-sub">Falhas técnicas de autenticação e seu impacto em auditorias e incidentes.</p>
+  <div class="risk-grid">
+    <div class="risk-card high">
+      <div class="risk-label">ALTO · SESSÃO</div>
+      <div class="risk-title">Token ou sessão sem expiração definida</div>
+      <div class="risk-desc">Sessão ativa indefinidamente após o login. Se o dispositivo for comprometido ou a sessão interceptada, o acesso persiste sem necessidade de re-autenticação — sem alertas, sem revogação automática.</div>
+    </div>
+    <div class="risk-card high">
+      <div class="risk-label">ALTO · MFA</div>
+      <div class="risk-title">Push fatigue sem number matching</div>
+      <div class="risk-desc">Authenticator Push sem number matching permite ataques de fadiga — o usuário aprova uma notificação legítima sem perceber que está autorizando acesso fraudulento. Configuração ausente é não conformidade direta com 8.5.</div>
+    </div>
+    <div class="risk-card med">
+      <div class="risk-label">MÉDIO · COBERTURA</div>
+      <div class="risk-title">Sistemas legados fora do escopo de MFA</div>
+      <div class="risk-desc">Exceções não documentadas para sistemas que "não suportam MFA". Em auditoria, cada exceção precisa de controle compensatório aprovado formalmente — ausência disso é lacuna de conformidade.</div>
+    </div>
+    <div class="risk-card med">
+      <div class="risk-label">MÉDIO · EVIDÊNCIA</div>
+      <div class="risk-title">MFA habilitado sem evidência de configuração</div>
+      <div class="risk-desc">A política diz que MFA está ativo, mas o auditor não encontra export ou print da configuração no IdP. A ausência de evidência técnica equivale à ausência do controle para fins de auditoria.</div>
+    </div>
+  </div>
+
+  <div class="section-label">Evidências para Auditoria</div>
+  <div class="section-title">O que precisa estar documentado</div>
+  <p class="section-sub">Artefatos que um auditor ISO 27001 vai solicitar para este controle.</p>
+  <div class="evidence-list">
+    <div class="evidence-item"><div class="ev-icon">📄</div><div><div class="ev-name">Secure Authentication Standard</div><div class="ev-desc">Normativo com mecanismos obrigatórios por tipo de acesso, exceções documentadas e controles compensatórios</div></div><div class="ev-type">NORMATIVO</div></div>
+    <div class="evidence-item"><div class="ev-icon">⚙️</div><div><div class="ev-name">Export de configuração do IdP</div><div class="ev-desc">Print ou relatório da política de MFA, Conditional Access e expiração de sessão aplicados na plataforma de identidade</div></div><div class="ev-type">CONFIGURAÇÃO</div></div>
+    <div class="evidence-item"><div class="ev-icon">📊</div><div><div class="ev-name">Relatório de cobertura de MFA</div><div class="ev-desc">Percentual de usuários com MFA ativo — resultado esperado: zero contas ativas sem MFA habilitado</div></div><div class="ev-type">MÉTRICA</div></div>
+    <div class="evidence-item"><div class="ev-icon">📋</div><div><div class="ev-name">Logs de eventos de autenticação</div><div class="ev-desc">Sign-in logs com identidade, método de autenticação, resultado e timestamp — retidos por no mínimo 90 dias</div></div><div class="ev-type">LOG</div></div>
+    <div class="evidence-item"><div class="ev-icon">📝</div><div><div class="ev-name">Registro de exceções documentadas</div><div class="ev-desc">Sistemas sem MFA nativo com controle compensatório aprovado, responsável e prazo de regularização definido</div></div><div class="ev-type">REGISTRO</div></div>
+  </div>
+
+  <div class="section-label">Artefatos Relacionados</div>
+  <div class="section-title">Documentos e Ferramentas</div>
+  <p class="section-sub">Artefatos que derivam deste controle ou o suportam diretamente.</p>
+  <div class="artifact-list">
+    <div class="artifact-item"><div class="art-icon">🔐</div><div><div class="art-name">Secure Authentication Standard</div><div class="art-desc">Artefato operacional com parâmetros técnicos, MFA, gestão de sessão e checklist de auditoria</div></div><a class="art-link" href="../ferramentas/secure-authentication-standard.html">Ver artefato</a></div>
+    <div class="artifact-item"><div class="art-icon">🔑</div><div><div class="art-name">Authentication Information — 5.17</div><div class="art-desc">Controle par — trata da informação de autenticação enquanto 8.5 trata do mecanismo técnico</div></div><a class="art-link" href="5.17.html">Ver deep dive</a></div>
+    <div class="artifact-item"><div class="art-icon">🛠️</div><div><div class="art-name">Authentication Standard Builder</div><div class="art-desc">Gerador interativo de Authentication Standard com score de aderência e download em Markdown</div></div><a class="art-link" href="../ferramentas/authentication-standard-builder.html">Abrir ferramenta</a></div>
+    <div class="artifact-item"><div class="art-icon">🔐</div><div><div class="art-name">Authentication Standard — 5.17 + 8.5</div><div class="art-desc">Checklist interativo de conformidade para os controles de autenticação</div></div><a class="art-link" href="../ferramentas/authentication-standard.html">Ver artefato</a></div>
+  </div>
+
+  <div class="section-label">Referências Normativas</div>
+  <div class="section-title">Base da Norma</div>
+  <p class="section-sub">Controles da ISO/IEC 27001:2022 diretamente relacionados a este deep dive.</p>
+  <div class="ref-block">
+    <h3>ISO/IEC 27001:2022</h3>
+    <div class="ref-item"><span class="ref-code">8.5</span><span class="ref-desc">Secure Authentication — mecanismos técnicos de autenticação segura em sistemas e aplicações</span></div>
+    <div class="ref-item"><span class="ref-code">5.17</span><span class="ref-desc">Authentication Information — proteção e gestão da informação de autenticação ao longo do ciclo de vida</span></div>
+    <div class="ref-item"><span class="ref-code">5.18</span><span class="ref-desc">Access Rights — autenticação valida a identidade que receberá os direitos de acesso</span></div>
+    <div class="ref-item"><span class="ref-code">8.2</span><span class="ref-desc">Privileged Access Rights — contas privilegiadas exigem autenticação de fator forte obrigatoriamente</span></div>
+    <div class="ref-item"><span class="ref-code">8.3</span><span class="ref-desc">Information Access Restriction — autenticação bem-sucedida é o pré-requisito para restrição por classificação</span></div>
+  </div>
+
+  <div class="nav-bottom">
+    <a class="nav-btn" href="8.2.html">← Anterior: 8.2 Privileged Access Rights</a>
+    <a class="nav-btn" href="8.3.html">Próximo: 8.3 Information Access Restriction →</a>
+  </div>
 </main>
-<footer>
-  <p>Projeto de estudo independente · Baseado em normas públicas · <a href="https://github.com/gilbertocrv" target="_blank">github.com/gilbertocrv</a></p>
-</footer>
+<footer><p>Projeto de estudo independente · Baseado em normas públicas · <a href="https://github.com/gilbertocrv" target="_blank">github.com/gilbertocrv</a></p></footer>
 </body>
 </html>
