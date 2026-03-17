@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Entra User Script Generator | ISO 27001 IAM Governance</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:#003366;--navy-mid:#004080;--navy-light:#0056b3;
+    --accent:#c8922a;--accent-light:#e8a83a;
+    --bg:#f0f2f5;--white:#ffffff;--gray:#666;
+    --border:#d1d9e4;--text:#1a2340;
+    --green:#1a7a4a;--green-light:#e8f5ee;
+    --amber:#b7791f;--amber-light:#fff7e8;
+    --red:#b42318;--red-light:#fff2f0;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'IBM Plex Sans',sans-serif; background:var(--bg); color:var(--text); }
+  .breadcrumb { max-width:1100px; margin:0 auto; padding:22px 30px 0; font-family:'IBM Plex Mono',monospace; font-size:11px; color:#5f6b84; }
+  .breadcrumb a { color:var(--navy-light); text-decoration:none; }
+  .breadcrumb span { margin:0 8px; color:#8fa0ba; }
+  header { background:var(--navy); position:relative; overflow:hidden; }
+  header::before { content:''; position:absolute; top:-120px; right:-100px; width:360px; height:360px; border:48px solid rgba(200,146,42,0.08); border-radius:50%; }
+  .header-inner { max-width:1100px; margin:auto; padding:42px 30px 48px; position:relative; z-index:1; }
+  .ctrl-badge { display:inline-block; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:2px; color:var(--accent-light); margin-bottom:16px; }
+  header h1 { font-size:34px; color:var(--white); line-height:1.15; margin-bottom:12px; }
+  header h1 span { color:rgba(255,255,255,0.55); font-weight:300; }
+  header p { max-width:760px; color:rgba(255,255,255,0.7); line-height:1.75; font-size:15px; margin-bottom:20px; }
+  .header-meta { display:flex; gap:10px; flex-wrap:wrap; }
+  .meta-pill { font-family:'IBM Plex Mono',monospace; font-size:11px; padding:5px 10px; border:1px solid rgba(255,255,255,0.14); border-radius:4px; color:rgba(255,255,255,0.72); }
+
+  main { max-width:1100px; margin:0 auto; padding:36px 30px 70px; }
+  .section-label { font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:3px; text-transform:uppercase; color:var(--accent); margin-bottom:8px; }
+  .section-title { font-size:22px; font-weight:700; color:var(--navy); margin-bottom:8px; }
+  .section-sub { font-size:13px; color:var(--gray); line-height:1.7; margin-bottom:22px; max-width:860px; }
+  .grid { display:grid; grid-template-columns:1.2fr 0.8fr; gap:22px; align-items:start; }
+  .panel { background:var(--white); border:1px solid var(--border); border-radius:8px; padding:22px 24px; margin-bottom:22px; }
+  .panel h2 { font-size:15px; color:var(--navy); margin-bottom:14px; }
+  .field-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+  .field { display:flex; flex-direction:column; gap:6px; margin-bottom:14px; }
+  .field.full { grid-column:1 / -1; }
+  label { font-size:12px; font-weight:600; color:var(--navy); }
+  input[type="text"], input[type="password"], input[type="file"], textarea, select {
+    width:100%; border:1px solid var(--border); border-radius:6px; padding:11px 12px; font:inherit; color:var(--text); background:#fff;
+  }
+  textarea { min-height:110px; resize:vertical; font-family:'IBM Plex Mono',monospace; font-size:12px; line-height:1.6; }
+  .help { font-size:11px; color:var(--gray); line-height:1.5; }
+  .inline { display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+  .btn {
+    display:inline-flex; align-items:center; justify-content:center; gap:8px;
+    border:1px solid transparent; border-radius:6px; padding:11px 14px;
+    font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.5px;
+    text-decoration:none; cursor:pointer; transition:all 0.15s ease;
+  }
+  .btn-primary { background:var(--navy); color:#fff; }
+  .btn-primary:hover { background:var(--navy-mid); }
+  .btn-secondary { background:#fff; border-color:var(--border); color:var(--navy); }
+  .btn-secondary:hover { border-color:var(--navy-light); background:#f6f9fc; }
+  .btn-success { background:var(--green); color:#fff; }
+  .btn-success:hover { filter:brightness(1.03); }
+  .callout { border-radius:8px; padding:14px 16px; margin-bottom:16px; font-size:13px; line-height:1.65; border:1px solid var(--border); }
+  .callout-info { background:#f8fafc; }
+  .callout-ok { background:var(--green-light); border-color:#b8dfc8; }
+  .callout-warn { background:var(--amber-light); border-color:#ecd4ab; }
+  .callout-err { background:var(--red-light); border-color:#f2c2bb; color:#7a271a; }
+  .list { display:flex; flex-direction:column; gap:10px; }
+  .list-item { padding:12px 14px; border:1px solid var(--border); border-radius:6px; background:#fff; }
+  .list-title { font-size:12px; font-weight:700; color:var(--navy); margin-bottom:4px; }
+  .list-desc { font-size:12px; color:var(--gray); line-height:1.6; }
+  .stats { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; margin-bottom:16px; }
+  .stat { background:#f8fafc; border:1px solid var(--border); border-radius:6px; padding:14px 12px; text-align:center; }
+  .stat-value { font-family:'IBM Plex Mono',monospace; font-size:24px; color:var(--navy); font-weight:600; }
+  .stat-label { font-size:11px; color:var(--gray); margin-top:4px; }
+  .codebox { width:100%; min-height:420px; background:#0d172a; color:#e7edf8; border:none; border-radius:8px; padding:18px; font-family:'IBM Plex Mono',monospace; font-size:12px; line-height:1.65; }
+  .minor { font-size:11px; color:var(--gray); }
+  .ref-item { display:flex; gap:12px; align-items:flex-start; padding:10px 0; border-bottom:1px solid #edf1f6; }
+  .ref-item:last-child { border-bottom:none; }
+  .ref-code { min-width:90px; font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--navy); font-weight:600; }
+  .ref-desc { font-size:12px; color:var(--gray); line-height:1.6; }
+  .footer-nav { display:flex; justify-content:space-between; gap:10px; margin-top:8px; }
+  .footer-link { font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--navy-light); text-decoration:none; border:1px solid var(--border); background:#fff; border-radius:6px; padding:10px 12px; }
+  .footer-link:hover { border-color:var(--navy-light); }
+  @media (max-width: 900px) {
+    .grid { grid-template-columns:1fr; }
+    .field-grid, .stats { grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="breadcrumb">
+  <a href="../index.html">Início</a><span>/</span>Ferramentas<span>/</span>Entra User Script Generator
+</div>
+
+<header>
+  <div class="header-inner">
+    <div class="ctrl-badge">ARTEFATO EDUCACIONAL · ANEXO A · 5.18</div>
+    <h1>Entra User Script <span>Generator</span></h1>
+    <p>Exercício prático para traduzir um fluxo controlado de provisionamento em script PowerShell revisável. O objetivo aqui não é entregar automação de produção, mas documentar como um controle de acesso pode ser padronizado, revisado e evidenciado no contexto de IAM e ISO/IEC 27001:2022.</p>
+    <div class="header-meta">
+      <span class="meta-pill">5.18 · Access Rights</span>
+      <span class="meta-pill">5.16 · Identity Management</span>
+      <span class="meta-pill">Artefato de apoio</span>
+      <span class="meta-pill">Conteúdo educacional</span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="section-label">Provisionamento padronizado</div>
+  <div class="section-title">CSV validado → script revisável → evidência operacional</div>
+  <p class="section-sub">A página valida o cabeçalho do CSV, normaliza os campos, gera um script com comentários de revisão e aponta linhas inválidas antes da execução. O script usa <code>New-MgUser</code> com <code>PasswordProfile</code> e <code>ForceChangePasswordNextSignIn = $true</code>, alinhado ao comportamento documentado para criação de usuários no Microsoft Graph PowerShell. citeturn0search0turn0search7</p>
+
+  <div class="grid">
+    <div>
+      <div class="panel">
+        <h2>Configuração do gerador</h2>
+        <div class="callout callout-info">Use um CSV com as colunas <strong>Nome</strong>, <strong>UPN</strong>, <strong>Cargo</strong> e <strong>Departamento</strong>. O parser deste artefato trata cabeçalho e linhas vazias; em projetos maiores, bibliotecas como Papa Parse são adequadas para parsing mais robusto no navegador. citeturn0search1turn0search3</div>
+        <div class="field-grid">
+          <div class="field full">
+            <label for="csvFile">Arquivo CSV</label>
+            <input type="file" id="csvFile" accept=".csv,text/csv">
+            <div class="help">O arquivo é processado localmente no navegador. Nada é enviado para servidor.</div>
+          </div>
+          <div class="field">
+            <label for="tenantHint">Tenant / domínio de referência</label>
+            <input type="text" id="tenantHint" placeholder="contoso.com">
+            <div class="help">Opcional. Usado apenas no cabeçalho do script como contexto operacional.</div>
+          </div>
+          <div class="field">
+            <label for="ticketId">Chamado / aprovação</label>
+            <input type="text" id="ticketId" placeholder="CHG-2026-001">
+            <div class="help">Opcional. Ajuda a vincular evidência ao fluxo de aprovação.</div>
+          </div>
+          <div class="field full">
+            <label for="tempPassword">Senha temporária padrão</label>
+            <input type="password" id="tempPassword" value="Alterar123!" spellcheck="false">
+            <div class="help">Este valor é incluído no script somente para fins educacionais. Em ambiente real, prefira segredo temporário controlado por processo.</div>
+          </div>
+        </div>
+        <div class="inline">
+          <button class="btn btn-primary" id="generateBtn">Gerar Script</button>
+          <button class="btn btn-secondary" id="downloadTemplateBtn">Baixar template CSV</button>
+          <button class="btn btn-secondary" id="copyBtn">Copiar Script</button>
+          <button class="btn btn-success" id="downloadBtn">Baixar .ps1</button>
+        </div>
+        <div id="statusBox" class="callout callout-info" style="margin-top:16px;">Aguardando arquivo CSV.</div>
+      </div>
+
+      <div class="panel">
+        <h2>Script gerado</h2>
+        <textarea id="outputScript" class="codebox" readonly placeholder="# O script gerado aparecerá aqui..."></textarea>
+        <div class="minor" style="margin-top:10px;">Revise o conteúdo antes de executar. O artefato gera comandos e comentários; a validação final continua sendo humana.</div>
+      </div>
+    </div>
+
+    <div>
+      <div class="panel">
+        <h2>Resumo do arquivo</h2>
+        <div class="stats">
+          <div class="stat"><div class="stat-value" id="validCount">0</div><div class="stat-label">Linhas válidas</div></div>
+          <div class="stat"><div class="stat-value" id="invalidCount">0</div><div class="stat-label">Linhas inválidas</div></div>
+          <div class="stat"><div class="stat-value" id="headerCount">0</div><div class="stat-label">Colunas reconhecidas</div></div>
+        </div>
+        <div id="validationList" class="list">
+          <div class="list-item">
+            <div class="list-title">Sem validação ainda</div>
+            <div class="list-desc">Selecione um arquivo e gere o script para ver o detalhamento.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>Como conectar isso ao projeto</h2>
+        <div class="list">
+          <div class="list-item">
+            <div class="list-title">Não é o produto central</div>
+            <div class="list-desc">Este artefato funciona como exemplo de materialização de controle, não como proposta comercial nem solução fechada.</div>
+          </div>
+          <div class="list-item">
+            <div class="list-title">Relacionamento com 5.18</div>
+            <div class="list-desc">A utilidade aqui é mostrar padronização do provisionamento, redução de erro manual e geração de evidência revisável.</div>
+          </div>
+          <div class="list-item">
+            <div class="list-title">Valor para governança</div>
+            <div class="list-desc">Você demonstra entendimento da ponte entre controle, processo, execução e auditoria — mesmo em um exercício educacional.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>Referências</h2>
+        <div class="ref-item">
+          <div class="ref-code">5.16</div>
+          <div class="ref-desc">Identity Management — a identidade precisa estar corretamente definida antes do provisionamento operacional.</div>
+        </div>
+        <div class="ref-item">
+          <div class="ref-code">5.18</div>
+          <div class="ref-desc">Access Rights — concessão, alteração e revogação devem seguir fluxo formal, aprovação e rastreabilidade.</div>
+        </div>
+        <div class="ref-item">
+          <div class="ref-code">Evidência</div>
+          <div class="ref-desc">CSV de entrada, aprovação, script gerado e registro de execução podem compor trilha de evidência do processo.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-nav">
+    <a class="footer-link" href="access-provisioning.html">← Access Provisioning Procedure</a>
+    <a class="footer-link" href="../index.html">Voltar ao índice</a>
+  </div>
+</main>
+
+<script>
+(function () {
+  const REQUIRED_HEADERS = [
+    { key: 'nome', aliases: ['nome', 'name', 'displayname', 'display_name'] },
+    { key: 'upn', aliases: ['upn', 'userprincipalname', 'user_principal_name', 'email'] },
+    { key: 'cargo', aliases: ['cargo', 'jobtitle', 'job_title', 'titulo', 'title'] },
+    { key: 'departamento', aliases: ['departamento', 'department', 'depto', 'depto.'] }
+  ];
+
+  const state = { generatedScript: '', parsedRows: [] };
+
+  function normalizeHeader(value) {
+    return String(value || '')
+      .trim()
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9]+/g, '');
+  }
+
+  function escapePsSingleQuoted(value) {
+    return String(value || '').replace(/'/g, "''");
+  }
+
+  function safeMailNickname(upn) {
+    const local = String(upn || '').split('@')[0] || '';
+    return local.replace(/[^a-zA-Z0-9._-]/g, '');
+  }
+
+  function parseCsv(text) {
+    const rows = [];
+    let row = [];
+    let cell = '';
+    let inQuotes = false;
+
+    for (let i = 0; i < text.length; i += 1) {
+      const char = text[i];
+      const next = text[i + 1];
+
+      if (char === '"') {
+        if (inQuotes && next === '"') {
+          cell += '"';
+          i += 1;
+        } else {
+          inQuotes = !inQuotes;
+        }
+      } else if (char === ',' && !inQuotes) {
+        row.push(cell);
+        cell = '';
+      } else if ((char === '\n' || char === '\r') && !inQuotes) {
+        if (char === '\r' && next === '\n') {
+          i += 1;
+        }
+        row.push(cell);
+        rows.push(row);
+        row = [];
+        cell = '';
+      } else {
+        cell += char;
+      }
+    }
+
+    if (cell.length > 0 || row.length > 0) {
+      row.push(cell);
+      rows.push(row);
+    }
+
+    return rows.filter(r => r.some(c => String(c).trim() !== ''));
+  }
+
+  function mapHeaders(headerRow) {
+    const mapped = {};
+    const normalized = headerRow.map(normalizeHeader);
+
+    REQUIRED_HEADERS.forEach(requirement => {
+      const index = normalized.findIndex(h => requirement.aliases.includes(h));
+      if (index >= 0) {
+        mapped[requirement.key] = index;
+      }
+    });
+
+    return mapped;
+  }
+
+  function buildScript(validRows, context) {
+    const now = new Date();
+    const isoStamp = now.toISOString();
+    const commentTicket = context.ticketId ? context.ticketId : 'N/A';
+    const tenantHint = context.tenantHint ? context.tenantHint : 'N/A';
+    const tempPassword = escapePsSingleQuoted(context.tempPassword || 'Alterar123!');
+
+    const lines = [];
+    lines.push('# =====================================================================');
+    lines.push('# ISO27001 IAM Governance — artefato educacional de apoio');
+    lines.push('# Provisionamento de usuários Microsoft Entra ID via Microsoft Graph');
+    lines.push(`# Gerado em: ${isoStamp}`);
+    lines.push(`# Referência de aprovação/chamado: ${commentTicket}`);
+    lines.push(`# Tenant de referência: ${tenantHint}`);
+    lines.push('# Revisar dados, aprovações e política de senha antes da execução.');
+    lines.push('# =====================================================================');
+    lines.push('');
+    lines.push('$ErrorActionPreference = "Stop"');
+    lines.push("Connect-MgGraph -Scopes 'User.ReadWrite.All'");
+    lines.push('');
+    lines.push(`$TemporaryPassword = '${tempPassword}'`);
+    lines.push('');
+    lines.push('$Users = @(');
+
+    validRows.forEach((user, index) => {
+      lines.push('    @{');
+      lines.push(`        DisplayName       = '${escapePsSingleQuoted(user.nome)}'`);
+      lines.push(`        UserPrincipalName = '${escapePsSingleQuoted(user.upn)}'`);
+      lines.push(`        JobTitle          = '${escapePsSingleQuoted(user.cargo)}'`);
+      lines.push(`        Department        = '${escapePsSingleQuoted(user.departamento)}'`);
+      lines.push(`        MailNickname      = '${escapePsSingleQuoted(user.mailNickname)}'`);
+      lines.push('    }' + (index < validRows.length - 1 ? ',' : ''));
+    });
+
+    lines.push(')');
+    lines.push('');
+    lines.push('foreach ($User in $Users) {');
+    lines.push('    try {');
+    lines.push('        Write-Host "Criando usuário: $($User.DisplayName)" -ForegroundColor Cyan');
+    lines.push('        $PasswordProfile = @{');
+    lines.push('            Password = $TemporaryPassword');
+    lines.push('            ForceChangePasswordNextSignIn = $true');
+    lines.push('        }');
+    lines.push('');
+    lines.push('        New-MgUser `');
+    lines.push('            -DisplayName $User.DisplayName `');
+    lines.push('            -UserPrincipalName $User.UserPrincipalName `');
+    lines.push('            -JobTitle $User.JobTitle `');
+    lines.push('            -Department $User.Department `');
+    lines.push('            -MailNickname $User.MailNickname `');
+    lines.push('            -AccountEnabled `');
+    lines.push('            -PasswordProfile $PasswordProfile');
+    lines.push('');
+    lines.push('        Write-Host "OK: $($User.UserPrincipalName)" -ForegroundColor Green');
+    lines.push('    } catch {');
+    lines.push('        Write-Host "FALHA: $($User.UserPrincipalName) :: $($_.Exception.Message)" -ForegroundColor Red');
+    lines.push('    }');
+    lines.push('}');
+    lines.push('');
+    lines.push('Disconnect-MgGraph');
+
+    return lines.join('\n');
+  }
+
+  function setStatus(type, message) {
+    const box = document.getElementById('statusBox');
+    box.className = 'callout ' + type;
+    box.textContent = message;
+  }
+
+  function updateSummary(validRows, invalidRows, mappedCount) {
+    document.getElementById('validCount').textContent = String(validRows.length);
+    document.getElementById('invalidCount').textContent = String(invalidRows.length);
+    document.getElementById('headerCount').textContent = String(mappedCount);
+
+    const validationList = document.getElementById('validationList');
+    if (!validRows.length && !invalidRows.length) {
+      validationList.innerHTML = '<div class="list-item"><div class="list-title">Sem validação ainda</div><div class="list-desc">Selecione um arquivo e gere o script para ver o detalhamento.</div></div>';
+      return;
+    }
+
+    const items = [];
+    items.push(`
+      <div class="list-item">
+        <div class="list-title">Linhas válidas</div>
+        <div class="list-desc">${validRows.length} registro(s) prontos para geração do script.</div>
+      </div>
+    `);
+
+    if (invalidRows.length) {
+      invalidRows.slice(0, 8).forEach(item => {
+        items.push(`
+          <div class="list-item">
+            <div class="list-title">Linha ${item.lineNumber}</div>
+            <div class="list-desc">${item.errors.join(' · ')}</div>
+          </div>
+        `);
+      });
+      if (invalidRows.length > 8) {
+        items.push(`
+          <div class="list-item">
+            <div class="list-title">Demais inconsistências</div>
+            <div class="list-desc">Mais ${invalidRows.length - 8} linha(s) inválida(s) não exibidas neste painel.</div>
+          </div>
+        `);
+      }
+    } else {
+      items.push(`
+        <div class="list-item">
+          <div class="list-title">Validação concluída</div>
+          <div class="list-desc">Nenhuma inconsistência estrutural encontrada nas linhas processadas.</div>
+        </div>
+      `);
+    }
+
+    validationList.innerHTML = items.join('');
+  }
+
+  function validateAndGenerate() {
+    const fileInput = document.getElementById('csvFile');
+    const file = fileInput.files[0];
+    if (!file) {
+      setStatus('callout-err', 'Selecione um arquivo CSV antes de gerar o script.');
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = function (event) {
+      try {
+        const csvText = String(event.target.result || '');
+        const rows = parseCsv(csvText);
+        if (!rows.length) {
+          updateSummary([], [], 0);
+          document.getElementById('outputScript').value = '';
+          setStatus('callout-err', 'O arquivo está vazio ou não contém linhas processáveis.');
+          return;
+        }
+
+        const headers = rows[0].map(value => String(value).trim());
+        const mappedHeaders = mapHeaders(headers);
+        const mappedCount = Object.keys(mappedHeaders).length;
+        const missing = REQUIRED_HEADERS.filter(item => mappedHeaders[item.key] === undefined).map(item => item.key);
+
+        if (missing.length) {
+          updateSummary([], [], mappedCount);
+          document.getElementById('outputScript').value = '';
+          setStatus('callout-err', 'Cabeçalho inválido. Colunas obrigatórias ausentes: ' + missing.join(', ') + '.');
+          return;
+        }
+
+        const validRows = [];
+        const invalidRows = [];
+
+        for (let i = 1; i < rows.length; i += 1) {
+          const source = rows[i];
+          const lineNumber = i + 1;
+          const record = {
+            nome: String(source[mappedHeaders.nome] || '').trim(),
+            upn: String(source[mappedHeaders.upn] || '').trim(),
+            cargo: String(source[mappedHeaders.cargo] || '').trim(),
+            departamento: String(source[mappedHeaders.departamento] || '').trim()
+          };
+          const errors = [];
+
+          if (!record.nome) errors.push('Nome ausente');
+          if (!record.upn) errors.push('UPN ausente');
+          if (record.upn && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(record.upn)) errors.push('UPN inválido');
+          if (!record.cargo) errors.push('Cargo ausente');
+          if (!record.departamento) errors.push('Departamento ausente');
+
+          record.mailNickname = safeMailNickname(record.upn);
+          if (!record.mailNickname) errors.push('MailNickname não pôde ser derivado do UPN');
+
+          if (errors.length) {
+            invalidRows.push({ lineNumber, errors, record });
+          } else {
+            validRows.push(record);
+          }
+        }
+
+        updateSummary(validRows, invalidRows, mappedCount);
+
+        if (!validRows.length) {
+          state.generatedScript = '';
+          document.getElementById('outputScript').value = '';
+          setStatus('callout-err', 'Nenhuma linha válida encontrada. Corrija o CSV e tente novamente.');
+          return;
+        }
+
+        const context = {
+          tenantHint: document.getElementById('tenantHint').value.trim(),
+          ticketId: document.getElementById('ticketId').value.trim(),
+          tempPassword: document.getElementById('tempPassword').value
+        };
+
+        state.generatedScript = buildScript(validRows, context);
+        state.parsedRows = validRows;
+        document.getElementById('outputScript').value = state.generatedScript;
+
+        const statusMessage = invalidRows.length
+          ? `Script gerado com ${validRows.length} linha(s) válida(s). ${invalidRows.length} linha(s) foram excluídas por erro de validação.`
+          : `Script gerado com ${validRows.length} linha(s) válida(s). Nenhuma inconsistência estrutural detectada.`;
+        setStatus(invalidRows.length ? 'callout-warn' : 'callout-ok', statusMessage);
+      } catch (error) {
+        document.getElementById('outputScript').value = '';
+        updateSummary([], [], 0);
+        setStatus('callout-err', 'Falha ao processar o CSV: ' + error.message);
+      }
+    };
+
+    reader.onerror = function () {
+      setStatus('callout-err', 'Não foi possível ler o arquivo informado.');
+    };
+
+    reader.readAsText(file, 'UTF-8');
+  }
+
+  function downloadText(filename, content, type) {
+    const blob = new Blob([content], { type: type || 'text/plain;charset=utf-8' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(link.href);
+  }
+
+  document.getElementById('generateBtn').addEventListener('click', validateAndGenerate);
+
+  document.getElementById('downloadBtn').addEventListener('click', function () {
+    if (!state.generatedScript) {
+      setStatus('callout-err', 'Gere o script antes de baixar o arquivo .ps1.');
+      return;
+    }
+    downloadText('Provisionamento-EntraID.ps1', state.generatedScript, 'text/plain;charset=utf-8');
+    setStatus('callout-ok', 'Arquivo .ps1 baixado com sucesso.');
+  });
+
+  document.getElementById('downloadTemplateBtn').addEventListener('click', function () {
+    const template = 'Nome,UPN,Cargo,Departamento\nAna Souza,ana.souza@contoso.com,Analista de IAM,Segurança da Informação\nBruno Lima,bruno.lima@contoso.com,Analista de Suporte,TI Corporativa\n';
+    downloadText('template-entra-users.csv', template, 'text/csv;charset=utf-8');
+    setStatus('callout-ok', 'Template CSV baixado.');
+  });
+
+  document.getElementById('copyBtn').addEventListener('click', async function () {
+    if (!state.generatedScript) {
+      setStatus('callout-err', 'Gere o script antes de copiar.');
+      return;
+    }
+    try {
+      await navigator.clipboard.writeText(state.generatedScript);
+      setStatus('callout-ok', 'Script copiado para a área de transferência.');
+    } catch (error) {
+      setStatus('callout-warn', 'Não foi possível copiar automaticamente. Use o campo de script para copiar manualmente.');
+    }
+  });
+})();
+</script>
+</body>
+</html>
