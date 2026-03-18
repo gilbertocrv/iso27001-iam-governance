@@ -1,6 +1,21 @@
 {
-  "updated": "2026-03-17",
+  "updated": "2026-03-18",
   "entries": [
+    {
+      "id": "5f9fad37432c",
+      "date": "2026-03-17",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "AWS completes the second GDV community audit with participant insurers in Germany",
+      "url": "https://aws.amazon.com/blogs/security/aws-completes-the-second-gdv-community-audit-with-participant-insurers-in-germany/",
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
+      "action": "Avaliar relevância para controles de acesso",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "a43950faf096",
       "date": "2026-03-16",
