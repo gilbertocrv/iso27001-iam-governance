@@ -1,6 +1,21 @@
 {
-  "updated": "2026-03-19",
+  "updated": "2026-03-20",
   "entries": [
+    {
+      "id": "0c01b5173e3d",
+      "date": "2026-03-19",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "New tools and guidance: Announcing Zero Trust for AI",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/03/19/new-tools-and-guidance-announcing-zero-trust-for-ai/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Monitorar impacto em procedimentos de provisionamento",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "5f9fad37432c",
       "date": "2026-03-17",
