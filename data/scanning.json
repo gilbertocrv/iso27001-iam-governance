@@ -1,6 +1,21 @@
 {
-  "updated": "2026-03-24",
+  "updated": "2026-03-25",
   "entries": [
+    {
+      "id": "a19f974151c7",
+      "date": "2026-03-25",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "Guidance for detecting, investigating, and defending against the Trivy supply chain compromise",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/03/24/detecting-investigating-defending-against-trivy-supply-chain-compromise/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Monitorar impacto em procedimentos de provisionamento",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "3b8f5bb10549",
       "date": "2026-03-23",
