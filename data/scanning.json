@@ -1,5 +1,5 @@
 {
-  "updated": "2026-03-25",
+  "updated": "2026-03-26",
   "entries": [
     {
       "id": "a19f974151c7",
@@ -8,6 +8,21 @@
       "category": "Mercado",
       "title": "Guidance for detecting, investigating, and defending against the Trivy supply chain compromise",
       "url": "https://www.microsoft.com/en-us/security/blog/2026/03/24/detecting-investigating-defending-against-trivy-supply-chain-compromise/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Monitorar impacto em procedimentos de provisionamento",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "c3edca0e1eb6",
+      "date": "2026-03-25",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "Identity security is the new pressure point for modern cyberattacks",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/03/25/identity-security-is-the-new-pressure-point-for-modern-cyberattacks/",
       "impact": [
         "IAM",
         "Acesso"
