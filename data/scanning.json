@@ -1,6 +1,21 @@
 {
-  "updated": "2026-03-26",
+  "updated": "2026-03-27",
   "entries": [
+    {
+      "id": "30bb5908507d",
+      "date": "2026-03-26",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "Preparing for agentic AI: A financial services approach",
+      "url": "https://aws.amazon.com/blogs/security/preparing-for-agentic-ai-a-financial-services-approach/",
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
+      "action": "Avaliar relevância para controles de acesso",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "a19f974151c7",
       "date": "2026-03-25",
