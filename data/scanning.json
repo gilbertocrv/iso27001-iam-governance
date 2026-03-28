@@ -1,6 +1,36 @@
 {
-  "updated": "2026-03-27",
+  "updated": "2026-03-28",
   "entries": [
+    {
+      "id": "e4fed77a1a4e",
+      "date": "2026-03-27",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "How Microsoft Defender protects high-value assets in real-world attack scenarios",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/03/27/microsoft-defender-protects-high-value-assets/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Monitorar impacto em procedimentos de provisionamento",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "a668a43724d8",
+      "date": "2026-03-27",
+      "source": "Google Cloud Security",
+      "category": "Mercado",
+      "title": "How to build production-ready AI agents with Google-managed MCP servers",
+      "url": "https://cloud.google.com/blog/products/ai-machine-learning/how-to-build-ai-agents-with-google-managed-mcp-servers/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Referência para controles de autenticação",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "30bb5908507d",
       "date": "2026-03-26",
