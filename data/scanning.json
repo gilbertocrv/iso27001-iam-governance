@@ -1,6 +1,21 @@
 {
-  "updated": "2026-03-30",
+  "updated": "2026-03-31",
   "entries": [
+    {
+      "id": "5d7739df1830",
+      "date": "2026-03-30",
+      "source": "Google Cloud Security",
+      "category": "Mercado",
+      "title": "Cloud CISO Perspectives: RSAC '26: AI, security, and the workforce of the future",
+      "url": "https://cloud.google.com/blog/products/identity-security/cloud-ciso-perspectives-rsac-26-ai-security-and-workforce-of-the-future/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Referência para controles de autenticação",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "e4fed77a1a4e",
       "date": "2026-03-27",
