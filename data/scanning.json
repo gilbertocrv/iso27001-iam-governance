@@ -1,6 +1,21 @@
 {
-  "updated": "2026-03-31",
+  "updated": "2026-04-01",
   "entries": [
+    {
+      "id": "fe6ef268856e",
+      "date": "2026-03-31",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "WhatsApp malware campaign delivers VBScript and MSI backdoors",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/03/31/whatsapp-malware-campaign-delivers-vbs-payloads-msi-backdoors/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Monitorar impacto em procedimentos de provisionamento",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "5d7739df1830",
       "date": "2026-03-30",
