@@ -1,6 +1,21 @@
 {
-  "updated": "2026-04-02",
+  "updated": "2026-04-03",
   "entries": [
+    {
+      "id": "c830b791c90c",
+      "date": "2026-04-02",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "Threat actor abuse of AI accelerates from tool to cyberattack surface",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/04/02/threat-actor-abuse-of-ai-accelerates-from-tool-to-cyberattack-surface/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Monitorar impacto em procedimentos de provisionamento",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "fe6ef268856e",
       "date": "2026-03-31",
