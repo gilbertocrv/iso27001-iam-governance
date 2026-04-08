@@ -1,6 +1,21 @@
 {
-  "updated": "2026-04-07",
+  "updated": "2026-04-08",
   "entries": [
+    {
+      "id": "a9c707170d5f",
+      "date": "2026-04-07",
+      "source": "Google Cloud Security",
+      "category": "Mercado",
+      "title": "See beyond the IP and secure URLs with Google Cloud NGFW",
+      "url": "https://cloud.google.com/blog/products/identity-security/see-beyond-the-ip-and-secure-urls-with-google-cloud-ngfw/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Referência para controles de autenticação",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "5f1834145908",
       "date": "2026-04-06",
