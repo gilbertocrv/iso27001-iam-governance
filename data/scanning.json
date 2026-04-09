@@ -1,6 +1,21 @@
 {
-  "updated": "2026-04-08",
+  "updated": "2026-04-09",
   "entries": [
+    {
+      "id": "abff02f34ec3",
+      "date": "2026-04-08",
+      "source": "Google Cloud Security",
+      "category": "Mercado",
+      "title": "Google Cloud named a Leader in The Forrester Wave™: Sovereign Cloud Platforms, Q2 2026",
+      "url": "https://cloud.google.com/blog/products/identity-security/a-leader-in-forrester-wave-sovereign-cloud-platform-2026/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Referência para controles de autenticação",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "a9c707170d5f",
       "date": "2026-04-07",
