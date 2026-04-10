@@ -1,6 +1,21 @@
 {
-  "updated": "2026-04-09",
+  "updated": "2026-04-10",
   "entries": [
+    {
+      "id": "c64c49b4fb85",
+      "date": "2026-04-09",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "Investigating Storm-2755: “Payroll pirate” attacks targeting Canadian employees",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/04/09/investigating-storm-2755-payroll-pirate-attacks-targeting-canadian-employees/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Monitorar impacto em procedimentos de provisionamento",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "abff02f34ec3",
       "date": "2026-04-08",
