@@ -1,6 +1,21 @@
 {
-  "updated": "2026-04-14",
+  "updated": "2026-04-15",
   "entries": [
+    {
+      "id": "4c3a33231763",
+      "date": "2026-04-14",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "Secure AI agent access patterns to AWS resources using Model Context Protocol",
+      "url": "https://aws.amazon.com/blogs/security/secure-ai-agent-access-patterns-to-aws-resources-using-model-context-protocol/",
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
+      "action": "Avaliar relevância para controles de acesso",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "641e46299ff0",
       "date": "2026-04-10",
