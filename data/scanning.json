@@ -1,6 +1,21 @@
 {
-  "updated": "2026-04-15",
+  "updated": "2026-04-16",
   "entries": [
+    {
+      "id": "968c6d04b306",
+      "date": "2026-04-15",
+      "source": "Google Cloud Security",
+      "category": "Mercado",
+      "title": "Cloud CISO Perspectives: How CISOs can pursue technical and cultural resilience (Q&A)",
+      "url": "https://cloud.google.com/blog/products/identity-security/cloud-ciso-perspectives-how-cisos-can-pursue-technical-and-cultural-resilience-q-a/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Referência para controles de autenticação",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "4c3a33231763",
       "date": "2026-04-14",
