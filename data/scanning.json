@@ -1,6 +1,21 @@
 {
-  "updated": "2026-04-16",
+  "updated": "2026-04-17",
   "entries": [
+    {
+      "id": "f4c0ae51fdcb",
+      "date": "2026-04-16",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "Dissecting Sapphire Sleet’s macOS intrusion from lure to compromise",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/04/16/dissecting-sapphire-sleets-macos-intrusion-from-lure-to-compromise/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Monitorar impacto em procedimentos de provisionamento",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "968c6d04b306",
       "date": "2026-04-15",
