@@ -1,6 +1,36 @@
 {
-  "updated": "2026-04-17",
+  "updated": "2026-04-18",
   "entries": [
+    {
+      "id": "caa551d2fcf0",
+      "date": "2026-04-17",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "Containing a domain compromise: How predictive shielding shut down lateral movement",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/04/17/domain-compromise-predictive-shielding-shut-down-lateral-movement/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Monitorar impacto em procedimentos de provisionamento",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "9f246b8eac18",
+      "date": "2026-04-17",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "Transform security logs into OCSF format using a configuration-driven ETL solution",
+      "url": "https://aws.amazon.com/blogs/security/transform-security-logs-into-ocsf-format-using-a-configuration-driven-etl-solution/",
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
+      "action": "Avaliar relevância para controles de acesso",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "f4c0ae51fdcb",
       "date": "2026-04-16",
