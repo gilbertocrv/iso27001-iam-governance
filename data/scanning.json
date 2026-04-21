@@ -1,6 +1,21 @@
 {
-  "updated": "2026-04-20",
+  "updated": "2026-04-21",
   "entries": [
+    {
+      "id": "da8beafb2793",
+      "date": "2026-04-20",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "Making opportunistic cyberattacks harder by design",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/04/20/making-opportunistic-cyberattacks-harder-by-design/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Monitorar impacto em procedimentos de provisionamento",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "7eb5d8ab2116",
       "date": "2026-04-18",
