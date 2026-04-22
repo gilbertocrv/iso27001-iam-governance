@@ -1,6 +1,21 @@
 {
-  "updated": "2026-04-21",
+  "updated": "2026-04-22",
   "entries": [
+    {
+      "id": "53b882b6cb3e",
+      "date": "2026-04-21",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "Detection strategies across cloud and identities against infiltrating IT workers",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/04/21/detection-strategies-cloud-identities-against-infiltrating-it-workers/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Monitorar impacto em procedimentos de provisionamento",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "da8beafb2793",
       "date": "2026-04-20",
