@@ -1,6 +1,21 @@
 {
-  "updated": "2026-04-27",
+  "updated": "2026-04-28",
   "entries": [
+    {
+      "id": "955f1bdaac4c",
+      "date": "2026-04-27",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "Can I do that with policy? Understanding the AWS Service Authorization Reference",
+      "url": "https://aws.amazon.com/blogs/security/can-i-do-that-with-policy-understanding-the-aws-service-authorization-reference/",
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
+      "action": "Avaliar relevância para controles de acesso",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "c543936bdef5",
       "date": "2026-04-22",
