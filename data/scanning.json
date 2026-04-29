@@ -1,6 +1,36 @@
 {
-  "updated": "2026-04-28",
+  "updated": "2026-04-29",
   "entries": [
+    {
+      "id": "f76af2c9f64b",
+      "date": "2026-04-28",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "What the March 2026 Threat Technique Catalog update means for your AWS environment",
+      "url": "https://aws.amazon.com/blogs/security/what-the-march-2026-threat-technique-catalog-update-means-for-your-aws-environment/",
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
+      "action": "Avaliar relevância para controles de acesso",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "c61e203f1dec",
+      "date": "2026-04-28",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "Access control with IAM Identity Center session tags",
+      "url": "https://aws.amazon.com/blogs/security/access-control-with-iam-identity-center-session-tags/",
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
+      "action": "Avaliar relevância para controles de acesso",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "955f1bdaac4c",
       "date": "2026-04-27",
