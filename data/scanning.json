@@ -1,6 +1,36 @@
 {
-  "updated": "2026-04-30",
+  "updated": "2026-05-01",
   "entries": [
+    {
+      "id": "b1d380ac4517",
+      "date": "2026-04-30",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "Email threat landscape: Q1 2026 trends and insights",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/04/30/email-threat-landscape-q1-2026-trends-and-insights/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Monitorar impacto em procedimentos de provisionamento",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "ed61c07ef704",
+      "date": "2026-04-30",
+      "source": "Google Cloud Security",
+      "category": "Mercado",
+      "title": "Cloud CISO Perspectives: At Next ‘26, why we’re multicloud and multi-AI",
+      "url": "https://cloud.google.com/blog/products/identity-security/cloud-ciso-perspectives-next-26-why-we-re-multicloud-and-multi-ai/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Referência para controles de autenticação",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "f76af2c9f64b",
       "date": "2026-04-28",
