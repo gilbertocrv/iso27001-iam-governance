@@ -1,6 +1,21 @@
 {
-  "updated": "2026-05-01",
+  "updated": "2026-05-02",
   "entries": [
+    {
+      "id": "091c2419532d",
+      "date": "2026-05-02",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "CVE-2026-31431: Copy Fail vulnerability enables Linux root privilege escalation across cloud environments",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/05/01/cve-2026-31431-copy-fail-vulnerability-enables-linux-root-privilege-escalation/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Monitorar impacto em procedimentos de provisionamento",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "b1d380ac4517",
       "date": "2026-04-30",
