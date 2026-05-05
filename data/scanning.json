@@ -1,6 +1,36 @@
 {
-  "updated": "2026-05-04",
+  "updated": "2026-05-05",
   "entries": [
+    {
+      "id": "353d381ba6d4",
+      "date": "2026-05-04",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "Breaking the code: Multi-stage ‘code of conduct’ phishing campaign leads to AiTM token compromise",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/05/04/breaking-the-code-multi-stage-code-of-conduct-phishing-campaign-leads-to-aitm-token-compromise/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Monitorar impacto em procedimentos de provisionamento",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "f1f858c25658",
+      "date": "2026-05-04",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "Securing open proxies in your AWS environment",
+      "url": "https://aws.amazon.com/blogs/security/securing-open-proxies-in-your-aws-environment/",
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
+      "action": "Avaliar relevância para controles de acesso",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "091c2419532d",
       "date": "2026-05-02",
