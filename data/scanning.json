@@ -1,6 +1,51 @@
 {
-  "updated": "2026-05-05",
+  "updated": "2026-05-06",
   "entries": [
+    {
+      "id": "45ab866f953d",
+      "date": "2026-05-05",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "Introducing AI traffic analysis dashboards for AWS WAF",
+      "url": "https://aws.amazon.com/blogs/security/introducing-ai-traffic-analysis-dashboards-for-aws-waf/",
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
+      "action": "Avaliar relevância para controles de acesso",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "128a88beb85f",
+      "date": "2026-05-05",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "Five ways to use Kiro and Amazon Q to strengthen your security posture",
+      "url": "https://aws.amazon.com/blogs/security/five-ways-to-use-kiro-and-amazon-q-to-strengthen-your-security-posture/",
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
+      "action": "Avaliar relevância para controles de acesso",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "fed3c000d6bd",
+      "date": "2026-05-05",
+      "source": "Google Cloud Security",
+      "category": "Mercado",
+      "title": "Introducing Agent Gateway ISV ecosystem for security and governance",
+      "url": "https://cloud.google.com/blog/products/identity-security/introducing-agent-gateway-isv-ecosystem-for-security-and-governance/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Referência para controles de autenticação",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "353d381ba6d4",
       "date": "2026-05-04",
