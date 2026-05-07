@@ -1,6 +1,51 @@
 {
-  "updated": "2026-05-06",
+  "updated": "2026-05-07",
   "entries": [
+    {
+      "id": "e90ddb8da633",
+      "date": "2026-05-06",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "ClickFix campaign uses fake macOS utilities lures to deliver infostealers",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/05/06/clickfix-campaign-uses-fake-macos-utilities-lures-deliver-infostealers/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Monitorar impacto em procedimentos de provisionamento",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "3048caef4939",
+      "date": "2026-05-06",
+      "source": "Google Cloud Security",
+      "category": "Mercado",
+      "title": "What's new in IAM: Security, governance, and runtime defense",
+      "url": "https://cloud.google.com/blog/products/identity-security/whats-new-in-iam-security-governance-and-runtime-defense/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Referência para controles de autenticação",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "c6d1923005d5",
+      "date": "2026-05-06",
+      "source": "Google Cloud Security",
+      "category": "Mercado",
+      "title": "Google named a Leader in the 2026 Gartner® Magic Quadrant™ for Cyberthreat Intelligence Technologies",
+      "url": "https://cloud.google.com/blog/products/identity-security/google-named-a-leader-in-the-2026-gartner-magic-quadrant-for-cyberthreat-intelligence-technologies/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Referência para controles de autenticação",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "45ab866f953d",
       "date": "2026-05-05",
