@@ -1,6 +1,36 @@
 {
-  "updated": "2026-05-07",
+  "updated": "2026-05-08",
   "entries": [
+    {
+      "id": "fbb14cc77fa8",
+      "date": "2026-05-07",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "World Passkey Day: Advancing passwordless authentication",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/05/07/world-passkey-day-advancing-passwordless-authentication/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Monitorar impacto em procedimentos de provisionamento",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "eb4a4098751f",
+      "date": "2026-05-07",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "ICYMI: April 2026 @AWS Security",
+      "url": "https://aws.amazon.com/blogs/security/icymi-april-2026-aws-security/",
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
+      "action": "Avaliar relevância para controles de acesso",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "e90ddb8da633",
       "date": "2026-05-06",
