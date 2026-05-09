@@ -1,6 +1,21 @@
 {
-  "updated": "2026-05-08",
+  "updated": "2026-05-09",
   "entries": [
+    {
+      "id": "1c03de76877b",
+      "date": "2026-05-08",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "Active attack: Dirty Frag Linux vulnerability expands post-compromise risk",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/05/08/active-attack-dirty-frag-linux-vulnerability-expands-post-compromise-risk/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Monitorar impacto em procedimentos de provisionamento",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "fbb14cc77fa8",
       "date": "2026-05-07",
