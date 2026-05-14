@@ -1,6 +1,21 @@
 {
-  "updated": "2026-05-13",
+  "updated": "2026-05-14",
   "entries": [
+    {
+      "id": "8267db563fe6",
+      "date": "2026-05-13",
+      "source": "Google Cloud Security",
+      "category": "Mercado",
+      "title": "The new era of SaMD: Why cloud infrastructure is the foundation for digital health in 2026",
+      "url": "https://cloud.google.com/blog/products/identity-security/why-cloud-infrastructure-is-the-foundation-for-digital-health-in-2026/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Referência para controles de autenticação",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "e40e70d0d022",
       "date": "2026-05-12",
