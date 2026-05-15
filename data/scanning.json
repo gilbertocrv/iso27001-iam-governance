@@ -1,6 +1,81 @@
 {
-  "updated": "2026-05-14",
+  "updated": "2026-05-15",
   "entries": [
+    {
+      "id": "2352e58bbb23",
+      "date": "2026-05-14",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "Defense in depth for autonomous AI agents",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/05/14/defense-in-depth-autonomous-ai-agents/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Monitorar impacto em procedimentos de provisionamento",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "52a77a990815",
+      "date": "2026-05-14",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "Kazuar: Anatomy of a nation-state botnet",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/05/14/kazuar-anatomy-of-a-nation-state-botnet/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Monitorar impacto em procedimentos de provisionamento",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "a0deb7005182",
+      "date": "2026-05-14",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "When configuration becomes a vulnerability: Exploitable misconfigurations in AI apps",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/05/14/configuration-becomes-vulnerability-exploitable-misconfigurations-ai-apps/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Monitorar impacto em procedimentos de provisionamento",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "08cfb1f57a45",
+      "date": "2026-05-14",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "Regional routing for AWS access portals: Implementing custom vanity domains for IAM Identity Center",
+      "url": "https://aws.amazon.com/blogs/security/regional-routing-for-aws-access-portals-implementing-custom-vanity-domains-for-iam-identity-center/",
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
+      "action": "Avaliar relevância para controles de acesso",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "f980fd37ae45",
+      "date": "2026-05-14",
+      "source": "Google Cloud Security",
+      "category": "Mercado",
+      "title": "Cloud CISO Perspectives: How Google + Wiz changes multicloud strategy for CISOs",
+      "url": "https://cloud.google.com/blog/products/identity-security/cloud-ciso-perspectives-how-google-wiz-changes-multicloud-strategy-for-cisos/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Referência para controles de autenticação",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "8267db563fe6",
       "date": "2026-05-13",
