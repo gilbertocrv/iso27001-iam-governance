@@ -1,6 +1,21 @@
 {
-  "updated": "2026-05-18",
+  "updated": "2026-05-19",
   "entries": [
+    {
+      "id": "52db41e4a443",
+      "date": "2026-05-18",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "How Storm-2949 turned a compromised identity into a cloud-wide breach",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/05/18/storm-2949-turned-compromised-identity-into-cloud-wide-breach/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Monitorar impacto em procedimentos de provisionamento",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "2352e58bbb23",
       "date": "2026-05-14",
