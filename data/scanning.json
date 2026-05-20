@@ -1,6 +1,21 @@
 {
-  "updated": "2026-05-19",
+  "updated": "2026-05-20",
   "entries": [
+    {
+      "id": "9b4051073c03",
+      "date": "2026-05-19",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "Governing infrastructure as code using pattern-based policy as code",
+      "url": "https://aws.amazon.com/blogs/security/governing-infrastructure-as-code-using-pattern-based-policy-as-code/",
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
+      "action": "Avaliar relevância para controles de acesso",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "52db41e4a443",
       "date": "2026-05-18",
