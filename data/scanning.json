@@ -1,6 +1,36 @@
 {
-  "updated": "2026-05-20",
+  "updated": "2026-05-21",
   "entries": [
+    {
+      "id": "786784acf9da",
+      "date": "2026-05-20",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "Mini Shai Hulud: Compromised @antv npm packages enable CI/CD credential theft",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/05/20/mini-shai-hulud-compromised-antv-npm-packages-enable-ci-cd-credential-theft/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Monitorar impacto em procedimentos de provisionamento",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "e81eae34de5d",
+      "date": "2026-05-20",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "Introducing RAMPART and Clarity: Open source tools to bring safety into Agent development workflow",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/05/20/introducing-rampart-and-clarity-open-source-tools-to-bring-safety-into-agent-development-workflow/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Monitorar impacto em procedimentos de provisionamento",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "9b4051073c03",
       "date": "2026-05-19",
