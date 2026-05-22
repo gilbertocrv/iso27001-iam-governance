@@ -1,6 +1,21 @@
 {
-  "updated": "2026-05-21",
+  "updated": "2026-05-22",
   "entries": [
+    {
+      "id": "aab3817afc61",
+      "date": "2026-05-21",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "Automating identity lifecycle and security with AWS Directory Service APIs",
+      "url": "https://aws.amazon.com/blogs/security/automating-identity-lifecycle-and-security-with-aws-directory-service-apis/",
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
+      "action": "Avaliar relevância para controles de acesso",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "786784acf9da",
       "date": "2026-05-20",
