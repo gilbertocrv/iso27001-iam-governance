@@ -1,6 +1,51 @@
 {
-  "updated": "2026-05-22",
+  "updated": "2026-05-23",
   "entries": [
+    {
+      "id": "38fbdcce782d",
+      "date": "2026-05-22",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "Microsoft recognized as a Leader in The Forrester Wave™ for Workforce Identity Security Platforms",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/05/22/microsoft-recognized-as-a-leader-in-the-forrester-wave-for-workforce-identity-security-platforms/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Monitorar impacto em procedimentos de provisionamento",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "e4a683ab5c52",
+      "date": "2026-05-22",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "From edge appliance to enterprise compromise: Multi-stage Linux intrusion via F5 and Confluence",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/05/22/from-edge-appliance-to-enterprise-compromise-multi-stage-linux-intrusion-via-f5-and-confluence/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Monitorar impacto em procedimentos de provisionamento",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "da6102e7f9c5",
+      "date": "2026-05-22",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "Microsoft Security success stories: How St. Luke’s and ManpowerGroup are securing AI foundations",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/05/22/microsoft-security-success-stories-how-st-lukes-and-manpowergroup-are-securing-ai-foundations/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Monitorar impacto em procedimentos de provisionamento",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "aab3817afc61",
       "date": "2026-05-21",
