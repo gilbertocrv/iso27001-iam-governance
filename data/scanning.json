@@ -1,6 +1,36 @@
 {
-  "updated": "2026-05-28",
+  "updated": "2026-05-29",
   "entries": [
+    {
+      "id": "531811996aff",
+      "date": "2026-05-29",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "Typosquatted npm packages used to steal cloud and CI/CD secrets",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/05/28/typosquatted-npm-packages-used-steal-cloud-ci-cd-secrets/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Monitorar impacto em procedimentos de provisionamento",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "78591b7c6965",
+      "date": "2026-05-28",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "Simplifying policy management with URL and Domain Category filtering on AWS Network Firewall",
+      "url": "https://aws.amazon.com/blogs/security/simplifying-policy-management-with-url-and-domain-category-filtering-on-aws-network-firewall/",
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
+      "action": "Avaliar relevância para controles de acesso",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "d0113e61ea01",
       "date": "2026-05-27",
