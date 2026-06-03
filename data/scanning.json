@@ -1,6 +1,36 @@
 {
-  "updated": "2026-06-02",
+  "updated": "2026-06-03",
   "entries": [
+    {
+      "id": "96829c19af81",
+      "date": "2026-06-03",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "Preinstall to persistence: Inside the Red Hat npm Miasma credential-stealing campaign",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/06/02/preinstall-persistence-inside-red-hat-npm-miasma-credential-stealing-campaign/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Monitorar impacto em procedimentos de provisionamento",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "606715896656",
+      "date": "2026-06-02",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "Secure multi-tenant AI agents with Amazon Bedrock AgentCore resource-based policies",
+      "url": "https://aws.amazon.com/blogs/security/secure-multi-tenant-ai-agents-with-amazon-bedrock-agentcore-resource-based-policies/",
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
+      "action": "Avaliar relevância para controles de acesso",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "531811996aff",
       "date": "2026-05-29",
