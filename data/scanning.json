@@ -1,6 +1,21 @@
 {
-  "updated": "2026-06-04",
+  "updated": "2026-06-05",
   "entries": [
+    {
+      "id": "ec0a709c7fae",
+      "date": "2026-06-04",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "Customize federated sign-in with new Amazon Cognito Lambda trigger",
+      "url": "https://aws.amazon.com/blogs/security/customize-federated-sign-in-with-new-amazon-cognito-lambda-trigger/",
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
+      "action": "Avaliar relevância para controles de acesso",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "96829c19af81",
       "date": "2026-06-03",
