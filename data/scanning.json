@@ -1,6 +1,21 @@
 {
-  "updated": "2026-06-08",
+  "updated": "2026-06-09",
   "entries": [
+    {
+      "id": "1c963bdb8fba",
+      "date": "2026-06-08",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "ICYMI: May 2026 @AWS Security",
+      "url": "https://aws.amazon.com/blogs/security/icymi-may-2026-aws-security/",
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
+      "action": "Avaliar relevância para controles de acesso",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "bf8080882130",
       "date": "2026-06-05",
