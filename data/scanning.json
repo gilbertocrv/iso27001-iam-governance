@@ -1,6 +1,21 @@
 {
-  "updated": "2026-06-09",
+  "updated": "2026-06-10",
   "entries": [
+    {
+      "id": "a5287866ed3c",
+      "date": "2026-06-09",
+      "source": "Google Cloud Security",
+      "category": "Mercado",
+      "title": "Detecting and containing AI-powered threats with Google Security Operations agents",
+      "url": "https://cloud.google.com/blog/products/identity-security/detecting-and-containing-powered-threats-with-google-security-operations-agents/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Referência para controles de autenticação",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "1c963bdb8fba",
       "date": "2026-06-08",
