@@ -1,6 +1,36 @@
 {
-  "updated": "2026-06-16",
+  "updated": "2026-06-17",
   "entries": [
+    {
+      "id": "a77653bcc129",
+      "date": "2026-06-17",
+      "source": "Google Cloud Security",
+      "category": "Mercado",
+      "title": "From AI potential to agentic reality: Driving the UK’s next chapter",
+      "url": "https://cloud.google.com/blog/topics/inside-google-cloud/london-summit-2026-uk-leads-agentic-enterprise-ai-infrastructure-data-cloud/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Referência para controles de autenticação",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "c08203f8ee7d",
+      "date": "2026-06-16",
+      "source": "Google Cloud Security",
+      "category": "Mercado",
+      "title": "Google named a Leader in IDC MarketScape SIEM 2026 Vendor Assessment",
+      "url": "https://cloud.google.com/blog/products/identity-security/google-named-a-leader-in-idc-marketscape-siem-2026-vendor-assessment/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Referência para controles de autenticação",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "43c24dd3cc5e",
       "date": "2026-06-15",
