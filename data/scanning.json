@@ -1,6 +1,21 @@
 {
-  "updated": "2026-06-17",
+  "updated": "2026-06-18",
   "entries": [
+    {
+      "id": "6f3c0ab13913",
+      "date": "2026-06-18",
+      "source": "Google Cloud Security",
+      "category": "Mercado",
+      "title": "Choice, compliance, and collaboration: Europe’s path to open digital sovereignty",
+      "url": "https://cloud.google.com/blog/products/identity-security/choice-compliance-and-collaboration-europes-path-to-open-digital-sovereignty/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Referência para controles de autenticação",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "a77653bcc129",
       "date": "2026-06-17",
@@ -13,6 +28,51 @@
         "Acesso"
       ],
       "action": "Referência para controles de autenticação",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "95f61b280a82",
+      "date": "2026-06-17",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "Crypto Clipper uses Tor and worm-like propagation for persistence and control",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/06/17/crypto-clipper-uses-tor-worm-like-propagation-for-persistence-control/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Monitorar impacto em procedimentos de provisionamento",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "4c604b069461",
+      "date": "2026-06-17",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "Beyond the benchmark: Advancing security at AI speed",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/06/17/beyond-the-benchmark-advancing-security-at-ai-speed/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Monitorar impacto em procedimentos de provisionamento",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "99e3f65175b7",
+      "date": "2026-06-17",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "AI is accelerating cyberattacks—here’s how to stay ahead",
+      "url": "https://techcommunity.microsoft.com/blog/microsoft-entra-blog/ai-is-accelerating-cyberattacks%E2%80%94here%E2%80%99s-how-to-stay-ahead/4528592",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Monitorar impacto em procedimentos de provisionamento",
       "status": "novo",
       "notes": "Via RSS"
     },
