@@ -1,6 +1,21 @@
 {
-  "updated": "2026-06-18",
+  "updated": "2026-06-19",
   "entries": [
+    {
+      "id": "c4beab65af9d",
+      "date": "2026-06-19",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "AutoJack: How a single page can RCE the host running your AI agent",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/06/18/autojack-single-page-rce-host-running-ai-agent/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Monitorar impacto em procedimentos de provisionamento",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "6f3c0ab13913",
       "date": "2026-06-18",
