@@ -1,6 +1,21 @@
 {
-  "updated": "2026-06-22",
+  "updated": "2026-06-23",
   "entries": [
+    {
+      "id": "a96bd9358f0d",
+      "date": "2026-06-22",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "Prevent data exfiltration: AWS egress controls for cloud workloads",
+      "url": "https://aws.amazon.com/blogs/security/prevent-data-exfiltration-aws-egress-controls-for-cloud-workloads/",
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
+      "action": "Avaliar relevância para controles de acesso",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "c4beab65af9d",
       "date": "2026-06-19",
