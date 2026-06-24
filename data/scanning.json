@@ -1,6 +1,21 @@
 {
-  "updated": "2026-06-23",
+  "updated": "2026-06-24",
   "entries": [
+    {
+      "id": "e35e185765ab",
+      "date": "2026-06-23",
+      "source": "Google Cloud Security",
+      "category": "Mercado",
+      "title": "Verifiable, private AI: Google Cloud expands Confidential Computing frontiers",
+      "url": "https://cloud.google.com/blog/products/identity-security/verifiable-trust-in-the-ai-era-whats-new-in-confidential-computing/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Referência para controles de autenticação",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "a96bd9358f0d",
       "date": "2026-06-22",
