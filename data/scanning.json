@@ -1,6 +1,21 @@
 {
-  "updated": "2026-06-24",
+  "updated": "2026-06-25",
   "entries": [
+    {
+      "id": "8fb5641e45c7",
+      "date": "2026-06-24",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "Restrict AWS Management Console access to expected networks with sign-in resource-based policies and RCPs",
+      "url": "https://aws.amazon.com/blogs/security/restrict-aws-management-console-access-to-expected-networks-with-sign-in-resource-based-policies-and-rcps/",
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
+      "action": "Avaliar relevância para controles de acesso",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "e35e185765ab",
       "date": "2026-06-23",
