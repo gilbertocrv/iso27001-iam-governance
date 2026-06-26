@@ -1,6 +1,21 @@
 {
-  "updated": "2026-06-25",
+  "updated": "2026-06-26",
   "entries": [
+    {
+      "id": "7297270b7db8",
+      "date": "2026-06-25",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "Photo ZIP campaign targeting hospitality industry delivers Node.js implant for persistent access",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/06/25/photo-zip-campaign-targeting-hospitality-industry-delivers-node-js-implant-persistent-access/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Monitorar impacto em procedimentos de provisionamento",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "8fb5641e45c7",
       "date": "2026-06-24",
