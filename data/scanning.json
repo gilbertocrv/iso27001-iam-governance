@@ -1,6 +1,21 @@
 {
-  "updated": "2026-06-26",
+  "updated": "2026-06-27",
   "entries": [
+    {
+      "id": "91d35b14e113",
+      "date": "2026-06-26",
+      "source": "Google Cloud Security",
+      "category": "Mercado",
+      "title": "Securing agentic AI with perimeter guardrails: What's new in VPC Service Controls",
+      "url": "https://cloud.google.com/blog/products/identity-security/securing-agentic-ai-whats-new-in-vpc-service-controls/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Referência para controles de autenticação",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "7297270b7db8",
       "date": "2026-06-25",
