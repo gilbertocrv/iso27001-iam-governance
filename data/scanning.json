@@ -1,6 +1,36 @@
 {
-  "updated": "2026-06-29",
+  "updated": "2026-06-30",
   "entries": [
+    {
+      "id": "54ee6fe490f2",
+      "date": "2026-06-29",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "What the June 2026 Threat Technique Catalog update means for your AWS environment",
+      "url": "https://aws.amazon.com/blogs/security/what-the-june-2026-threat-technique-catalog-update-means-for-your-aws-environment/",
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
+      "action": "Avaliar relevância para controles de acesso",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "75544a62801b",
+      "date": "2026-06-29",
+      "source": "Google Cloud Security",
+      "category": "Mercado",
+      "title": "Cloud CISO Perspectives: How Google Cloud Security uses AI internally",
+      "url": "https://cloud.google.com/blog/products/identity-security/cloud-ciso-perspectives-how-google-cloud-security-uses-ai-internally/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Referência para controles de autenticação",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "91d35b14e113",
       "date": "2026-06-26",
