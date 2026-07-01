@@ -1,6 +1,21 @@
 {
-  "updated": "2026-06-30",
+  "updated": "2026-07-01",
   "entries": [
+    {
+      "id": "492ae89517ca",
+      "date": "2026-06-30",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "​​What’s new in Microsoft Security: June 2026",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/06/30/whats-new-in-microsoft-security-june-2026/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Monitorar impacto em procedimentos de provisionamento",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "54ee6fe490f2",
       "date": "2026-06-29",
