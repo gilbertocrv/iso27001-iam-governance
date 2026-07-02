@@ -1,6 +1,51 @@
 {
-  "updated": "2026-07-01",
+  "updated": "2026-07-02",
   "entries": [
+    {
+      "id": "de86c3c3d1fb",
+      "date": "2026-07-01",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "How to use the AWS Workload Credentials Provider for cross-account secret retrieval and prefetching secrets",
+      "url": "https://aws.amazon.com/blogs/security/how-to-use-the-aws-workload-credentials-provider-for-cross-account-secret-retrieval-and-prefetching-secrets/",
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
+      "action": "Avaliar relevância para controles de acesso",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "d39360c49703",
+      "date": "2026-07-01",
+      "source": "Google Cloud Security",
+      "category": "Mercado",
+      "title": "New IDC study: The business value of Mandiant Consulting",
+      "url": "https://cloud.google.com/blog/products/identity-security/new-idc-study-how-mandiant-transforms-security-into-a-competitive-advantage/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Referência para controles de autenticação",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "34a095c6de7b",
+      "date": "2026-07-01",
+      "source": "Google Cloud Security",
+      "category": "Mercado",
+      "title": "Google Cloud confirmed to offer a safer choice for EU public sector organizations with Dutch DPIA approval",
+      "url": "https://cloud.google.com/blog/products/identity-security/google-cloud-confirmed-to-offer-a-safer-choice-for-eu-public-sector-organizations-with-dutch-dpia-approval/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Referência para controles de autenticação",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "492ae89517ca",
       "date": "2026-06-30",
