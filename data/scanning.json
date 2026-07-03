@@ -1,6 +1,21 @@
 {
-  "updated": "2026-07-02",
+  "updated": "2026-07-03",
   "entries": [
+    {
+      "id": "69ea16a7f837",
+      "date": "2026-07-02",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "Improving security posture across the Microsoft partner ecosystem",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/07/02/improving-security-posture-across-the-microsoft-partner-ecosystem/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Monitorar impacto em procedimentos de provisionamento",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "de86c3c3d1fb",
       "date": "2026-07-01",
