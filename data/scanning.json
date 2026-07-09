@@ -1,6 +1,21 @@
 {
-  "updated": "2026-07-08",
+  "updated": "2026-07-09",
   "entries": [
+    {
+      "id": "53726efc0141",
+      "date": "2026-07-08",
+      "source": "Google Cloud Security",
+      "category": "Mercado",
+      "title": "Meet the 33 cybersecurity startups joining the Gemini Startup Forum",
+      "url": "https://cloud.google.com/blog/products/identity-security/meet-the-33-cybersecurity-startups-joining-the-gemini-startup-forum/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Referência para controles de autenticação",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "2cd98e065101",
       "date": "2026-07-07",
