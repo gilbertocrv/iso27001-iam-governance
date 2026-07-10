@@ -1,6 +1,21 @@
 {
-  "updated": "2026-07-09",
+  "updated": "2026-07-10",
   "entries": [
+    {
+      "id": "550e9d48a700",
+      "date": "2026-07-09",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "Introducing OAuth Support for AWS MCP Server",
+      "url": "https://aws.amazon.com/blogs/security/introducing-oauth-support-for-aws-mcp-server/",
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
+      "action": "Avaliar relevância para controles de acesso",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "53726efc0141",
       "date": "2026-07-08",
