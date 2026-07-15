@@ -1,6 +1,36 @@
 {
-  "updated": "2026-07-14",
+  "updated": "2026-07-15",
   "entries": [
+    {
+      "id": "a7be49a13af0",
+      "date": "2026-07-15",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "ICYMI: June 2026 @AWS Security",
+      "url": "https://aws.amazon.com/blogs/security/icymi-june-2026-aws-security/",
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
+      "action": "Avaliar relevância para controles de acesso",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "634f4313d59b",
+      "date": "2026-07-14",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "Authenticate legitimate AI agent traffic with AWS WAF Bot Control",
+      "url": "https://aws.amazon.com/blogs/security/authenticate-legitimate-ai-agent-traffic-with-aws-waf-bot-control/",
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
+      "action": "Avaliar relevância para controles de acesso",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "c98f206d2be9",
       "date": "2026-07-13",
