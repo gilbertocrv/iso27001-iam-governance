@@ -1,6 +1,51 @@
 {
-  "updated": "2026-07-16",
+  "updated": "2026-07-17",
   "entries": [
+    {
+      "id": "94d7e7434102",
+      "date": "2026-07-16",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "ACR Stealer: Two observed intrusion chains amid increased threat activity",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/07/16/acr-stealer-two-observed-intrusion-chains-amid-increased-threat-activity/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Monitorar impacto em procedimentos de provisionamento",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "8a270229934e",
+      "date": "2026-07-16",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "Least privilege for AI agents: Identity, access, and tool binding",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/07/16/least-privilege-for-ai-agents-identity-access-and-tool-binding/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Monitorar impacto em procedimentos de provisionamento",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "f73cceb5300a",
+      "date": "2026-07-16",
+      "source": "Google Cloud Security",
+      "category": "Mercado",
+      "title": "Cloud CISO Perspectives: How AI leverages deep context as the defender’s advantage",
+      "url": "https://cloud.google.com/blog/products/identity-security/cloud-ciso-perspectives-how-ai-leverages-deep-context-defenders-advantage/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Referência para controles de autenticação",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "a7be49a13af0",
       "date": "2026-07-15",
