@@ -1,6 +1,51 @@
 {
-  "updated": "2026-07-28",
+  "updated": "2026-07-29",
   "entries": [
+    {
+      "id": "131bb88741da",
+      "date": "2026-07-28",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "2026 Phase 1a IRAP report is now available on AWS Artifact for Australian customers",
+      "url": "https://aws.amazon.com/blogs/security/2026-phase-1a-irap-report-is-now-available-on-aws-artifact-for-australian-customers/",
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
+      "action": "Avaliar relevância para controles de acesso",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "39cc9ce09d6c",
+      "date": "2026-07-28",
+      "source": "Google Cloud Security",
+      "category": "Mercado",
+      "title": "Future-proofing data integrity: Quantum-safe digital signatures in Cloud KMS",
+      "url": "https://cloud.google.com/blog/products/identity-security/future-proofing-data-integrity-quantum-safe-digital-signatures-in-cloud-kms/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Referência para controles de autenticação",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "1cec7c6dbba0",
+      "date": "2026-07-28",
+      "source": "Google Cloud Security",
+      "category": "Mercado",
+      "title": "Best Buy scales AI workloads and secures access with Workforce Identity Federation",
+      "url": "https://cloud.google.com/blog/topics/retail/best-buy-scales-secure-ai-access-with-workforce-identity-federation/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Referência para controles de autenticação",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "79555118cde4",
       "date": "2026-07-27",
