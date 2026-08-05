@@ -1,6 +1,36 @@
 {
-  "updated": "2026-08-04",
+  "updated": "2026-08-05",
   "entries": [
+    {
+      "id": "07ab4f84a4a9",
+      "date": "2026-08-04",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "ChainDrop supply chain compromise: Anatomy of a self-propagating worm",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/08/04/chaindrop-supply-chain-compromise-anatomy-self-propagating-worm/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Monitorar impacto em procedimentos de provisionamento",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "ad16a740fe10",
+      "date": "2026-08-04",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "Advance Zero Trust for AI: New tools and guidance to secure AI agents and DevSecOps",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/08/04/advance-zero-trust-for-ai-new-tools-and-guidance-to-secure-ai-agents-and-devsecops/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Monitorar impacto em procedimentos de provisionamento",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "a8738bb798e5",
       "date": "2026-07-31",
