@@ -1,6 +1,36 @@
 {
-  "updated": "2026-08-05",
+  "updated": "2026-08-06",
   "entries": [
+    {
+      "id": "4c9f24c844c0",
+      "date": "2026-08-05",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "AWS partners with Anthropic and OpenAI to bring AWS Continuum into developer workflows",
+      "url": "https://aws.amazon.com/blogs/security/aws-partners-with-anthropic-and-openai-to-bring-aws-continuum-into-developer-workflows/",
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
+      "action": "Avaliar relevância para controles de acesso",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "6a1ac05a3f90",
+      "date": "2026-08-05",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "From 2 weeks to 2 minutes: Amazon Cognito launches Provisioned limits for self-service rate limit management",
+      "url": "https://aws.amazon.com/blogs/security/from-2-weeks-to-2-minutes-amazon-cognito-launches-provisioned-limits-for-self-service-rate-limit-management/",
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
+      "action": "Avaliar relevância para controles de acesso",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "07ab4f84a4a9",
       "date": "2026-08-04",
