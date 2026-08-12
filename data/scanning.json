@@ -1,6 +1,21 @@
 {
-  "updated": "2026-08-11",
+  "updated": "2026-08-12",
   "entries": [
+    {
+      "id": "0d8db3c89b18",
+      "date": "2026-08-11",
+      "source": "Google Cloud Security",
+      "category": "Mercado",
+      "title": "PQC in Plaintext: Google Cloud’s post-quantum cryptography roadmap",
+      "url": "https://cloud.google.com/blog/products/identity-security/pqc-in-plaintext-google-clouds-post-quantum-cryptography-roadmap/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Referência para controles de autenticação",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "bf17f7530518",
       "date": "2026-08-07",
