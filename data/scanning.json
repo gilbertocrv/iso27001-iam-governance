@@ -1,6 +1,21 @@
 {
-  "updated": "2026-08-12",
+  "updated": "2026-08-13",
   "entries": [
+    {
+      "id": "3a4ae85d0721",
+      "date": "2026-08-12",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "How AWS IAM role manager rethinks the starting point for IAM roles",
+      "url": "https://aws.amazon.com/blogs/security/how-aws-iam-role-manager-rethinks-the-starting-point-for-iam-roles/",
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
+      "action": "Avaliar relevância para controles de acesso",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "0d8db3c89b18",
       "date": "2026-08-11",
