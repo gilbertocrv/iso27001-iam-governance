@@ -1,6 +1,21 @@
 {
-  "updated": "2026-08-17",
+  "updated": "2026-08-18",
   "entries": [
+    {
+      "id": "8b4a01b5f3ef",
+      "date": "2026-08-17",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "Updates to your AWS Sign-In experience",
+      "url": "https://aws.amazon.com/blogs/security/updates-to-your-aws-sign-in-experience/",
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
+      "action": "Avaliar relevância para controles de acesso",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "3a4ae85d0721",
       "date": "2026-08-12",
