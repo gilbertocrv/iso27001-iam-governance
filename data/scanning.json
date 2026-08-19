@@ -1,6 +1,21 @@
 {
-  "updated": "2026-08-18",
+  "updated": "2026-08-19",
   "entries": [
+    {
+      "id": "8a1d773bee4f",
+      "date": "2026-08-18",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "Implement custom authentication for tools integration using request Lambda interceptor in AgentCore Gateway",
+      "url": "https://aws.amazon.com/blogs/security/implement-custom-authentication-for-tools-integration-using-request-lambda-interceptor-in-agentcore-gateway/",
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
+      "action": "Avaliar relevância para controles de acesso",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "8b4a01b5f3ef",
       "date": "2026-08-17",
