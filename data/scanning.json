@@ -1,6 +1,21 @@
 {
-  "updated": "2026-08-19",
+  "updated": "2026-08-20",
   "entries": [
+    {
+      "id": "bfe5a78240ee",
+      "date": "2026-08-19",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "Propagate user authorization context in AI agents with Amazon Bedrock AgentCore",
+      "url": "https://aws.amazon.com/blogs/security/propagate-user-authorization-context-in-ai-agents-with-amazon-bedrock-agentcore/",
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
+      "action": "Avaliar relevância para controles de acesso",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "8a1d773bee4f",
       "date": "2026-08-18",
