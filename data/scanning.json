@@ -1,6 +1,21 @@
 {
-  "updated": "2026-08-21",
+  "updated": "2026-08-22",
   "entries": [
+    {
+      "id": "ec1670587d7f",
+      "date": "2026-08-21",
+      "source": "Google Cloud Security",
+      "category": "Mercado",
+      "title": "Cloud CISO Perspectives: Sticking to security fundamentals in the AI era",
+      "url": "https://cloud.google.com/blog/products/identity-security/cloud-ciso-perspectives-sticking-to-security-fundamentals-in-the-ai-era/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Referência para controles de autenticação",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "ba7689319d4d",
       "date": "2026-08-20",
