@@ -1,6 +1,51 @@
 {
-  "updated": "2026-08-26",
+  "updated": "2026-08-27",
   "entries": [
+    {
+      "id": "3e8ba199bee9",
+      "date": "2026-08-26",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "When AI infrastructure becomes the target: Securing gateways and control points",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/08/26/when-ai-infrastructure-becomes-target-securing-gateways-control-points/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Monitorar impacto em procedimentos de provisionamento",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "9e98107e7778",
+      "date": "2026-08-26",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "Detecting multi-stage attacks on AWS: A guide to cross-service signal correlation",
+      "url": "https://aws.amazon.com/blogs/security/detecting-multi-stage-attacks-on-aws-a-guide-to-cross-service-signal-correlation/",
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
+      "action": "Avaliar relevância para controles de acesso",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "bee38bb01771",
+      "date": "2026-08-26",
+      "source": "Google Cloud Security",
+      "category": "Mercado",
+      "title": "Simplify your resilience testing strategy with Fault Injection Testing",
+      "url": "https://cloud.google.com/blog/products/networking/introducing-google-cloud-fault-injection-testing-in-preview/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Referência para controles de autenticação",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "4505c3edbf31",
       "date": "2026-08-24",
