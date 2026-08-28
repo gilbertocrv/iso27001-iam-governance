@@ -1,6 +1,21 @@
 {
-  "updated": "2026-08-27",
+  "updated": "2026-08-28",
   "entries": [
+    {
+      "id": "a1a2138800e4",
+      "date": "2026-08-28",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "Extend your data perimeter to the AWS Management Console with Private Access",
+      "url": "https://aws.amazon.com/blogs/security/extend-your-data-perimeter-to-the-aws-management-console-with-private-access/",
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
+      "action": "Avaliar relevância para controles de acesso",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "3e8ba199bee9",
       "date": "2026-08-26",
