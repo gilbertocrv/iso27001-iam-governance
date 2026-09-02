@@ -1,6 +1,21 @@
 {
-  "updated": "2026-09-01",
+  "updated": "2026-09-02",
   "entries": [
+    {
+      "id": "8f4846c6becc",
+      "date": "2026-09-01",
+      "source": "Google Cloud Security",
+      "category": "Mercado",
+      "title": "How Blackline simplifies perimeter policy intelligence with VPC Service Controls",
+      "url": "https://cloud.google.com/blog/topics/customers/how-blackline-prevents-data-exfiltration-with-vpc-service-controls/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Referência para controles de autenticação",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "8a2126dc935a",
       "date": "2026-08-31",
