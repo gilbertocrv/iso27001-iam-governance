@@ -1,6 +1,51 @@
 {
-  "updated": "2026-09-02",
+  "updated": "2026-09-03",
   "entries": [
+    {
+      "id": "c352ce92d1e7",
+      "date": "2026-09-02",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "Impersonating IT support: how threat actors turn a remote session into enterprise-wide access",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/09/02/impersonating-it-support-threat-actors-turn-remote-session-into-enterprise-wide-access/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Monitorar impacto em procedimentos de provisionamento",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "b70cc22936b0",
+      "date": "2026-09-02",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "Managing identity source transition for AWS IAM Identity Center",
+      "url": "https://aws.amazon.com/blogs/security/managing-identity-source-transition-for-aws-iam-identity-center/",
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
+      "action": "Avaliar relevância para controles de acesso",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "29ba20501bbb",
+      "date": "2026-09-02",
+      "source": "Google Cloud Security",
+      "category": "Mercado",
+      "title": "Getting started with Mantis, our open-source bug finding-and-fixing harness",
+      "url": "https://cloud.google.com/blog/products/identity-security/getting-started-with-the-mantis-harness-to-find-and-fix-bugs/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Referência para controles de autenticação",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "8f4846c6becc",
       "date": "2026-09-01",
