@@ -1,6 +1,21 @@
 {
-  "updated": "2026-09-03",
+  "updated": "2026-09-04",
   "entries": [
+    {
+      "id": "d0fbb3f63239",
+      "date": "2026-09-03",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "Incident response guide for AWS CloudTrail investigations – Part 2",
+      "url": "https://aws.amazon.com/blogs/security/incident-response-guide-for-aws-cloudtrail-investigations-part-2/",
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
+      "action": "Avaliar relevância para controles de acesso",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "c352ce92d1e7",
       "date": "2026-09-02",
