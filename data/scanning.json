@@ -1,6 +1,36 @@
 {
-  "updated": "2026-09-04",
+  "updated": "2026-09-05",
   "entries": [
+    {
+      "id": "7deae5804c6d",
+      "date": "2026-09-04",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "How to secure edge AI in customer-owned environments",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/09/04/secure-edge-ai-customer-owned-environments/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Monitorar impacto em procedimentos de provisionamento",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "64d62db57c0e",
+      "date": "2026-09-04",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "OSPAR 2026 report now available with 167 services in scope",
+      "url": "https://aws.amazon.com/blogs/security/ospar-2026-report-now-available-with-167-services-in-scope/",
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
+      "action": "Avaliar relevância para controles de acesso",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "d0fbb3f63239",
       "date": "2026-09-03",
