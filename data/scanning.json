@@ -1,6 +1,51 @@
 {
-  "updated": "2026-09-15",
+  "updated": "2026-09-16",
   "entries": [
+    {
+      "id": "0d7bc50c7b7f",
+      "date": "2026-09-15",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "Architecting resilient authentication with Amazon Cognito multi-Region replication",
+      "url": "https://aws.amazon.com/blogs/security/architecting-resilient-authentication-with-amazon-cognito-multi-region-replication/",
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
+      "action": "Avaliar relevância para controles de acesso",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "2ec1edd33e1d",
+      "date": "2026-09-15",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "Operationalizing least privilege: Automate IAM remediation through your CI/CD pipeline",
+      "url": "https://aws.amazon.com/blogs/security/operationalizing-least-privilege-automate-iam-remediation-through-your-ci-cd-pipeline/",
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
+      "action": "Avaliar relevância para controles de acesso",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "431f128c16b5",
+      "date": "2026-09-15",
+      "source": "Google Cloud Security",
+      "category": "Mercado",
+      "title": "Introducing new session management tools with native, granular controls",
+      "url": "https://cloud.google.com/blog/products/identity-security/introducing-new-session-management-tools-with-native-granular-controls/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Referência para controles de autenticação",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "8f9cb474756f",
       "date": "2026-09-09",
