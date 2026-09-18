@@ -1,6 +1,21 @@
 {
-  "updated": "2026-09-17",
+  "updated": "2026-09-18",
   "entries": [
+    {
+      "id": "6b28f00eaf35",
+      "date": "2026-09-17",
+      "source": "Google Cloud Security",
+      "category": "Mercado",
+      "title": "Google named a Leader in the External Threat Intelligence Service Forrester Wave™",
+      "url": "https://cloud.google.com/blog/products/identity-security/google-named-a-leader-in-the-external-threat-intelligence-service-forrester-wave/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Referência para controles de autenticação",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "f9d9195b04e2",
       "date": "2026-09-16",
