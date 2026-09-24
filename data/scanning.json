@@ -1,6 +1,36 @@
 {
-  "updated": "2026-09-23",
+  "updated": "2026-09-24",
   "entries": [
+    {
+      "id": "6ef70fe2e6b7",
+      "date": "2026-09-23",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "ICYMI: August 2026 @AWS Security",
+      "url": "https://aws.amazon.com/blogs/security/icymi-august-2026-aws-security/",
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
+      "action": "Avaliar relevância para controles de acesso",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "c1ed65470af9",
+      "date": "2026-09-23",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "Supporting ASD’s multi-factor authentication campaign: Why MFA matters more than ever",
+      "url": "https://aws.amazon.com/blogs/security/supporting-asds-multi-factor-authentication-campaign-why-mfa-matters-more-than-ever/",
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
+      "action": "Avaliar relevância para controles de acesso",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "152f4596a613",
       "date": "2026-09-21",
