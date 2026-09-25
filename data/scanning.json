@@ -1,6 +1,21 @@
 {
-  "updated": "2026-09-24",
+  "updated": "2026-09-25",
   "entries": [
+    {
+      "id": "d10cc584650a",
+      "date": "2026-09-24",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "​​​​​​​​What’s new in Microsoft Security: September 2026​​",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/09/24/whats-new-in-microsoft-security-september-2026/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Monitorar impacto em procedimentos de provisionamento",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "6ef70fe2e6b7",
       "date": "2026-09-23",
