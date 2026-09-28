@@ -1,6 +1,21 @@
 {
-  "updated": "2026-09-27",
+  "updated": "2026-09-28",
   "entries": [
+    {
+      "id": "c826421dab7a",
+      "date": "2026-09-28",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "NeedyMantis: Unpacking a post-compromise malware family used in targeted operations",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/09/28/needymantis-unpacking-a-post-compromise-malware-family-used-in-targeted-operations/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Monitorar impacto em procedimentos de provisionamento",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "a311a9b4dacc",
       "date": "2026-09-25",
