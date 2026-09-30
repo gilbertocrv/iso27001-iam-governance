@@ -1,6 +1,51 @@
 {
-  "updated": "2026-09-29",
+  "updated": "2026-09-30",
   "entries": [
+    {
+      "id": "ca10042003e4",
+      "date": "2026-09-29",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "Phishing Abuses RMM Tools for Persistent Access",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/09/29/phishing-abuses-rmm-tools-persistent-access/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Monitorar impacto em procedimentos de provisionamento",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "ea0512957282",
+      "date": "2026-09-29",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "​​Beyond source code: A path to the keys to the kingdom",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/09/29/beyond-source-code-a-path-to-the-keys-to-the-kingdom/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Monitorar impacto em procedimentos de provisionamento",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "927a35334c31",
+      "date": "2026-09-29",
+      "source": "Google Cloud Security",
+      "category": "Mercado",
+      "title": "Google Cloud partners deliver new security agents and AI defenses with Gemini Enterprise",
+      "url": "https://cloud.google.com/blog/products/identity-security/google-cloud-partners-deliver-new-security-agents-and-ai-defenses-with-gemini-enterprise/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Referência para controles de autenticação",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "c826421dab7a",
       "date": "2026-09-28",
