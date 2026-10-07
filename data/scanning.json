@@ -1,6 +1,36 @@
 {
-  "updated": "2026-10-06",
+  "updated": "2026-10-07",
   "entries": [
+    {
+      "id": "8fab9583f663",
+      "date": "2026-10-06",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "Improving SPIRE security and resiliency with AWS managed services",
+      "url": "https://aws.amazon.com/blogs/security/improving-spire-security-and-resiliency-with-aws-managed-services/",
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
+      "action": "Avaliar relevância para controles de acesso",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "2177058b4db0",
+      "date": "2026-10-06",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "Identity-aware AI data agents with AWS Lake Formation and Trusted Identity Propagation",
+      "url": "https://aws.amazon.com/blogs/security/identity-aware-ai-data-agents-with-aws-lake-formation-and-trusted-identity-propagation/",
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
+      "action": "Avaliar relevância para controles de acesso",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "a9ff44778103",
       "date": "2026-09-30",
