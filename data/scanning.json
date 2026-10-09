@@ -1,6 +1,21 @@
 {
-  "updated": "2026-10-08",
+  "updated": "2026-10-09",
   "entries": [
+    {
+      "id": "28db724e547b",
+      "date": "2026-10-08",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "Post-quantum authentication: Why organizations should start testing certificate ecosystems now",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/10/08/post-quantum-authentication-why-organizations-should-start-testing-certificate-ecosystems-now/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Monitorar impacto em procedimentos de provisionamento",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "ca380cf2fb40",
       "date": "2026-10-07",
