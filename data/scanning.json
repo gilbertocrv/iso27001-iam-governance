@@ -1,6 +1,21 @@
 {
-  "updated": "2026-10-12",
+  "updated": "2026-10-13",
   "entries": [
+    {
+      "id": "23a1e80b7c24",
+      "date": "2026-10-12",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "Quantum-resistant signing on AWS, Part 2: Enforce your ML-DSA algorithm policy with SCPs and IAM",
+      "url": "https://aws.amazon.com/blogs/security/quantum-resistant-signing-on-aws-part-2-enforce-your-ml-dsa-algorithm-policy-with-scps-and-iam/",
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
+      "action": "Avaliar relevância para controles de acesso",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "28db724e547b",
       "date": "2026-10-08",
