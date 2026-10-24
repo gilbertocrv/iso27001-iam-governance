@@ -1,6 +1,21 @@
 {
-  "updated": "2026-10-23",
+  "updated": "2026-10-24",
   "entries": [
+    {
+      "id": "09c1fbf15ff3",
+      "date": "2026-10-23",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "Inside the LiteLLM 1.107.0 supply chain compromise: Credential theft through Python startup hooks",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/10/23/inside-the-litellm-1-107-0-supply-chain-compromise-credential-theft-through-python-startup-hooks/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Monitorar impacto em procedimentos de provisionamento",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "7bbb1848dcf8",
       "date": "2026-10-21",
