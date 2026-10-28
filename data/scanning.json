@@ -1,6 +1,21 @@
 {
-  "updated": "2026-10-27",
+  "updated": "2026-10-28",
   "entries": [
+    {
+      "id": "134c714101db",
+      "date": "2026-10-27",
+      "source": "Google Cloud Security",
+      "category": "Mercado",
+      "title": "Scale agents securely with IAM Helper Agent Skills and MCP Tools",
+      "url": "https://cloud.google.com/blog/products/identity-security/scale-agents-securely-with-iam-helper-agent-skills-and-mcp-tools/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Referência para controles de autenticação",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "09c1fbf15ff3",
       "date": "2026-10-23",
