@@ -1,6 +1,21 @@
 {
-  "updated": "2026-10-28",
+  "updated": "2026-10-29",
   "entries": [
+    {
+      "id": "a5fa8f9f62f2",
+      "date": "2026-10-28",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "The CISO’s evolving role: Protecting and defending in the agentic era",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/10/28/the-cisos-evolving-role-protecting-and-defending-in-the-agentic-era/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Monitorar impacto em procedimentos de provisionamento",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "134c714101db",
       "date": "2026-10-27",
