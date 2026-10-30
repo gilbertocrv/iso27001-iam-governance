@@ -1,6 +1,21 @@
 {
-  "updated": "2026-10-29",
+  "updated": "2026-10-30",
   "entries": [
+    {
+      "id": "a6c6784f1e93",
+      "date": "2026-10-29",
+      "source": "Google Cloud Security",
+      "category": "Mercado",
+      "title": "Cloud CISO Perspectives: Introducing new $250,000 tier for Google Cloud VRP (Q&A)",
+      "url": "https://cloud.google.com/blog/products/identity-security/cloud-ciso-perspectives-introducing-new-tier-for-google-cloud-vrp/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Referência para controles de autenticação",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "a5fa8f9f62f2",
       "date": "2026-10-28",
