@@ -1,6 +1,21 @@
 {
-  "updated": "2026-10-30",
+  "updated": "2026-10-31",
   "entries": [
+    {
+      "id": "c841e2e5cbe3",
+      "date": "2026-10-30",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "From help desk impersonation to AD CS abuse: Investigating ESC1 and ESC8 intrusion paths",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/10/30/help-desk-impersonation-ad-cs-abuse-investigating-esc1-esc8-intrusion-paths/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Monitorar impacto em procedimentos de provisionamento",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "a6c6784f1e93",
       "date": "2026-10-29",
