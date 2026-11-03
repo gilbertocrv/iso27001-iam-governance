@@ -1,6 +1,21 @@
 {
-  "updated": "2026-11-02",
+  "updated": "2026-11-03",
   "entries": [
+    {
+      "id": "b5c10f8b5161",
+      "date": "2026-11-02",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "Beyond DKIM key rotation: understanding email replay attacks",
+      "url": "https://aws.amazon.com/blogs/security/beyond-dkim-key-rotation-understanding-email-replay-attacks/",
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
+      "action": "Avaliar relevância para controles de acesso",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "c841e2e5cbe3",
       "date": "2026-10-30",
