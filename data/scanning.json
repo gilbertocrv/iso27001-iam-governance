@@ -1,6 +1,66 @@
 {
-  "updated": "2026-11-05",
+  "updated": "2026-11-06",
   "entries": [
+    {
+      "id": "451e90b09042",
+      "date": "2026-11-05",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "Threat actors use agentic AI tooling to find and abuse exposed secrets",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/11/05/threat-actors-use-agentic-ai-tooling-to-find-and-abuse-exposed-secrets/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Monitorar impacto em procedimentos de provisionamento",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "c6489fa711fe",
+      "date": "2026-11-05",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "​​​​What’s new in Microsoft Security: November 2026",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/11/05/whats-new-in-microsoft-security-november-2026/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Monitorar impacto em procedimentos de provisionamento",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "100978f497f7",
+      "date": "2026-11-05",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "Email threat landscape: Q3 2026 trends and insights",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/11/05/email-threat-landscape-q3-2026-trends-and-insights/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Monitorar impacto em procedimentos de provisionamento",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "435b1ec2e19f",
+      "date": "2026-11-05",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "Introducing AWS account access manager: IAM role flexibility with centralized workforce access",
+      "url": "https://aws.amazon.com/blogs/security/introducing-aws-account-access-manager-iam-role-flexibility-with-centralized-workforce-access/",
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
+      "action": "Avaliar relevância para controles de acesso",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "02e016384ef0",
       "date": "2026-11-04",
