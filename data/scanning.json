@@ -1,6 +1,21 @@
 {
-  "updated": "2026-11-06",
+  "updated": "2026-11-07",
   "entries": [
+    {
+      "id": "f365daa5d219",
+      "date": "2026-11-06",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "Addressing protocol security gaps in multi-tenant Kubernetes",
+      "url": "https://aws.amazon.com/blogs/security/addressing-protocol-security-gaps-in-multi-tenant-kubernetes/",
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
+      "action": "Avaliar relevância para controles de acesso",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "451e90b09042",
       "date": "2026-11-05",
