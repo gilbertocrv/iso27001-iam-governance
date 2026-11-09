@@ -1,6 +1,36 @@
 {
-  "updated": "2026-11-08",
+  "updated": "2026-11-09",
   "entries": [
+    {
+      "id": "8849177c5bcb",
+      "date": "2026-11-09",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "Simplify cross-partition access with AWS IAM outbound identity federation",
+      "url": "https://aws.amazon.com/blogs/security/simplify-cross-partition-access-with-aws-iam-outbound-identity-federation/",
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
+      "action": "Avaliar relevância para controles de acesso",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "0b0b19d229c5",
+      "date": "2026-11-09",
+      "source": "Google Cloud Security",
+      "category": "Mercado",
+      "title": "Cloud CISO Perspectives: Our security forecast for 2027",
+      "url": "https://cloud.google.com/blog/products/identity-security/cloud-ciso-perspectives-our-security-forecast-2027/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Referência para controles de autenticação",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "f365daa5d219",
       "date": "2026-11-06",
