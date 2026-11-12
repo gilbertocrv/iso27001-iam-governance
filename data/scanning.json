@@ -1,6 +1,36 @@
 {
-  "updated": "2026-11-11",
+  "updated": "2026-11-12",
   "entries": [
+    {
+      "id": "c87a26f89357",
+      "date": "2026-11-11",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "The global socket: how threat actors are weaponizing GSocket for stealthy C2",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/11/11/global-socket-how-threat-actors-weaponizing-gsocket-stealthy-c2/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Monitorar impacto em procedimentos de provisionamento",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "e76a31ac9200",
+      "date": "2026-11-11",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "Lessons from 59 Linux Kernel Bug Reports",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/11/11/lessons-from-59-linux-kernel-bug-reports/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Monitorar impacto em procedimentos de provisionamento",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "fbcdd86b4c51",
       "date": "2026-11-10",
