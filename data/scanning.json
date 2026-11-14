@@ -1,6 +1,21 @@
 {
-  "updated": "2026-11-13",
+  "updated": "2026-11-14",
   "entries": [
+    {
+      "id": "da7126de27ed",
+      "date": "2026-11-13",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "SCKit abuses ScreenConnect to deploy remote access and target technician sessions",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/11/13/sckit-abuses-screenconnect-deploy-remote-access-target-technician-sessions/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Monitorar impacto em procedimentos de provisionamento",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "4c6c77a7acb0",
       "date": "2026-11-12",
