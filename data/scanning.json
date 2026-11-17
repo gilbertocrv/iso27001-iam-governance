@@ -1,6 +1,51 @@
 {
-  "updated": "2026-11-16",
+  "updated": "2026-11-17",
   "entries": [
+    {
+      "id": "15d0fa4ddefa",
+      "date": "2026-11-17",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "The risks of device code authentication for AI coding agents",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/11/17/the-risks-of-device-code-authentication-for-ai-coding-agents/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Monitorar impacto em procedimentos de provisionamento",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "28cb3ebb8169",
+      "date": "2026-11-17",
+      "source": "Google Cloud Security",
+      "category": "Mercado",
+      "title": "Building Sovereign AI in Europe, With Europe: Our New Startup Accelerator",
+      "url": "https://cloud.google.com/blog/topics/startups/sovereign-ai-on-your-terms-our-new-startup-accelerator-is-open/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Referência para controles de autenticação",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "88ec60ba7633",
+      "date": "2026-11-17",
+      "source": "Google Cloud Security",
+      "category": "Mercado",
+      "title": "Sovereign AI in Europe: New ways to control your AI stack",
+      "url": "https://cloud.google.com/blog/products/identity-security/sovereign-ai-on-your-terms-made-with-europe/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Referência para controles de autenticação",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "25da5573023f",
       "date": "2026-11-16",
