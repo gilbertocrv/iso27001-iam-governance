@@ -1,6 +1,36 @@
 {
-  "updated": "2026-11-18",
+  "updated": "2026-11-19",
   "entries": [
+    {
+      "id": "dacfbf5be311",
+      "date": "2026-11-18",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "Step-up authentication: how to right-size authentication to risk",
+      "url": "https://aws.amazon.com/blogs/security/step-up-authentication-how-to-right-size-authentication-to-risk/",
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
+      "action": "Avaliar relevância para controles de acesso",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "c29bb4727085",
+      "date": "2026-11-18",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "Detecting cross-cloud lateral movement with AWS Security Hub",
+      "url": "https://aws.amazon.com/blogs/security/detecting-cross-cloud-lateral-movement-with-aws-security-hub/",
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
+      "action": "Avaliar relevância para controles de acesso",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "15d0fa4ddefa",
       "date": "2026-11-17",
