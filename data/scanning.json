@@ -1,6 +1,21 @@
 {
-  "updated": "2026-11-19",
+  "updated": "2026-11-20",
   "entries": [
+    {
+      "id": "5c60e61a9958",
+      "date": "2026-11-19",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "Your AWS Security, Identity, and Governance guide to re:Invent 2026",
+      "url": "https://aws.amazon.com/blogs/security/your-aws-security-identity-and-governance-guide-to-reinvent-2026/",
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
+      "action": "Avaliar relevância para controles de acesso",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "dacfbf5be311",
       "date": "2026-11-18",
