@@ -1,6 +1,66 @@
 {
-  "updated": "2026-11-20",
+  "updated": "2026-11-21",
   "entries": [
+    {
+      "id": "8ae2b6aa3272",
+      "date": "2026-11-20",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "Scope down permissions of existing sessions using AWS STS GetScopedCredentials",
+      "url": "https://aws.amazon.com/blogs/security/scope-down-permissions-of-existing-sessions-using-aws-sts-getscopedcredentials/",
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
+      "action": "Avaliar relevância para controles de acesso",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "24ea6e4ed9a1",
+      "date": "2026-11-20",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "Chinese-nexus actor’s Cairn AI agents found a zero-day on their own",
+      "url": "https://aws.amazon.com/blogs/security/chinese-nexus-actors-cairn-ai-agents-found-a-zero-day-on-their-own/",
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
+      "action": "Avaliar relevância para controles de acesso",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "f172088be861",
+      "date": "2026-11-20",
+      "source": "Google Cloud Security",
+      "category": "Mercado",
+      "title": "How Spanner Graph detects ads fraud and abuse at Google at multi-billion node scale",
+      "url": "https://cloud.google.com/blog/products/databases/how-spanner-graph-detects-google-ads-fraud-and-abuse/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Referência para controles de autenticação",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "17579e317a2a",
+      "date": "2026-11-20",
+      "source": "Google Cloud Security",
+      "category": "Mercado",
+      "title": "How to simplify cloud access with Unified Access Policies, now in preview",
+      "url": "https://cloud.google.com/blog/products/identity-security/how-to-simplify-cloud-access-with-unified-access-policies/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Referência para controles de autenticação",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "5c60e61a9958",
       "date": "2026-11-19",
