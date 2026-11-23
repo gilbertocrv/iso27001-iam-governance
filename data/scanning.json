@@ -1,6 +1,21 @@
 {
-  "updated": "2026-11-22",
+  "updated": "2026-11-23",
   "entries": [
+    {
+      "id": "c3fffaa529e9",
+      "date": "2026-11-23",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "Protect identity data with point-in-time recovery in Amazon Cognito",
+      "url": "https://aws.amazon.com/blogs/security/protect-identity-data-with-point-in-time-recovery-in-amazon-cognito/",
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
+      "action": "Avaliar relevância para controles de acesso",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "8ae2b6aa3272",
       "date": "2026-11-20",
