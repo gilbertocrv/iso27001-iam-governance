@@ -1,6 +1,21 @@
 {
-  "updated": "2026-11-24",
+  "updated": "2026-11-25",
   "entries": [
+    {
+      "id": "eae6088c2aa7",
+      "date": "2026-11-25",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "Planning for 99.99 percent availability with the Amazon Cognito Plus feature plan",
+      "url": "https://aws.amazon.com/blogs/security/planning-for-99-99-percent-availability-with-the-amazon-cognito-plus-feature-plan/",
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
+      "action": "Avaliar relevância para controles de acesso",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
     {
       "id": "da438a64f5b4",
       "date": "2026-11-24",
@@ -28,6 +43,21 @@
         "Acesso"
       ],
       "action": "Referência para controles de autenticação",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "6e893cff5a38",
+      "date": "2026-11-24",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "Delegate user access to AI agents with Amazon Cognito token exchange",
+      "url": "https://aws.amazon.com/blogs/security/delegate-user-access-to-ai-agents-with-amazon-cognito-token-exchange/",
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
+      "action": "Avaliar relevância para controles de acesso",
       "status": "novo",
       "notes": "Via RSS"
     },
