@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-25",
+  "updated": "2026-11-26",
   "entries": [
     {
       "id": "eae6088c2aa7",
@@ -8,6 +8,51 @@
       "category": "Mercado",
       "title": "Planning for 99.99 percent availability with the Amazon Cognito Plus feature plan",
       "url": "https://aws.amazon.com/blogs/security/planning-for-99-99-percent-availability-with-the-amazon-cognito-plus-feature-plan/",
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
+      "action": "Avaliar relevância para controles de acesso",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "b4c58dacd3d9",
+      "date": "2026-11-25",
+      "source": "Microsoft Security",
+      "category": "Mercado",
+      "title": "What defenders need to know about ARTEX, the agentic AI framework threat actors abuse",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/11/25/what-defenders-need-to-know-artex-agentic-ai-framework-threat-actors-abuse/",
+      "impact": [
+        "IAM",
+        "Acesso"
+      ],
+      "action": "Monitorar impacto em procedimentos de provisionamento",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "e2922a217732",
+      "date": "2026-11-25",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "Secure agentic access to AWS with Enterprise-Managed Authorization",
+      "url": "https://aws.amazon.com/blogs/security/secure-agentic-access-to-aws-with-enterprise-managed-authorization/",
+      "impact": [
+        "IAM",
+        "GRC"
+      ],
+      "action": "Avaliar relevância para controles de acesso",
+      "status": "novo",
+      "notes": "Via RSS"
+    },
+    {
+      "id": "dcb6386c4cfe",
+      "date": "2026-11-25",
+      "source": "AWS Security",
+      "category": "Mercado",
+      "title": "Reduce operational overhead by migrating from AWS CloudHSM to AWS KMS",
+      "url": "https://aws.amazon.com/blogs/security/reduce-operational-overhead-by-migrating-from-aws-cloudhsm-to-aws-kms/",
       "impact": [
         "IAM",
         "GRC"
